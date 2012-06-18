@@ -13,8 +13,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; 1) put the following in your .emacs (or .emacs.d/init.el for windows)
 ;
-;		 (add-to-list 'load-path "/path/to//dotemacs24") ;; the cloned dotemacs 24
-;		 (require 'dotemacs24)
+;		 (load "~/path/to/dotemacs24.el")
 ;
 ; 2) if desired, override any of the settings defined below at the TOP of your .emacs
 ;
@@ -28,6 +27,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defconst *start-time* (current-time)) ;; record start time to time .emacs load time
+
+(defvar emacsdir (file-name-directory load-file-name))
+(add-to-list 'load-path emacsdir)
+
+;; user-emacs-directory
+(message "%s is the value of emacsdir" emacsdir)
+
 (require 'cl) ;; gotta have it
 (require 'jack-util)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -100,6 +106,9 @@
 
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (package-initialize) ;; turn on
 
