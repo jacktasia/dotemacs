@@ -36,6 +36,7 @@
 
 (require 'cl) ;; gotta have it
 (require 'jack-util)
+(require 'cmdj)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SETTINGS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -92,6 +93,11 @@
 (global-set-key [f8] 'jack-magic-lint)
 (global-set-key [f11] 'jack-toggle-fullscreen)
 (global-set-key [f12] 'jack-toggle-alpha)
+
+(global-set-key  "\C-cg" 'cmdj-func-at-point)	;; [G]oto func
+(global-set-key  "\C-cs" 'cmdj-search-at-point) ;; [S]earch at point
+(global-set-key  "\C-cd" 'cmdj-search-prompt)
+(global-set-key  "\C-ca" 'cmdj-php-func-args-tooltip)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 2) External Packages -- will attempt to auto-install if it can't load
