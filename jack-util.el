@@ -50,7 +50,7 @@
   "removes all tabs/spaces on the front of the line regardless of where your cursor is"
   (interactive "p")
   (back-to-indentation)
-  (delete-trailing-whitespace)
+  ;;(delete-trailing-whitespace)
   (kill-line 0))
 
 ;;
