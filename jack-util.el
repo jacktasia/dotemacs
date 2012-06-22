@@ -1,3 +1,6 @@
+
+;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
+
 (defun jack-url-get-contents (url)
   (jack-remove-headers (with-current-buffer (url-retrieve-synchronously url)
 	(buffer-string))))
@@ -108,5 +111,15 @@
 			(replace-string "[" ", ")
 			(replace-string "]" ")"))))
 
-;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
+;;
+;; lang mood hook setups...
+;;
+
+(defun jack-php-setup ()
+  (local-set-key (kbd "TAB") 'self-insert-command)
+  (local-set-key (kbd "{") 'self-insert-command) ; support for "{" needed
+  (local-set-key (kbd "}") 'self-insert-command)
+  (local-set-key (kbd ":") 'self-insert-command)
+  (local-set-key (kbd ";") 'self-insert-command))
+
 (provide 'jack-util)

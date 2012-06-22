@@ -53,6 +53,7 @@
 (menu-bar-mode 0) 				  ;; no menu bar
 (setq resize-mini-windows t) 	  ;; let mini buffer resize
 (setq make-backup-files nil) 	  ;; no backup files
+(setq-default c-electric-flag nil) ;; do not get fancy with () {} ?
 
 (global-set-key (kbd "\C-c r") 'replace-string) 		;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches) 			;; count instaces of prompted string
@@ -85,6 +86,9 @@
 ;;
 ;; custom functions
 ;;
+
+(add-hook 'php-mode-hook 'jack-php-setup)
+
 (global-set-key (kbd "<backtab>") 'jack-unindent-block)
 (global-set-key (kbd "\C-c <tab>") 'jack-indent-block)           ;; indent selected region
 (global-set-key "\C-u" 'jack-backward-kill-line)
