@@ -111,6 +111,10 @@
 			(replace-string "[" ", ")
 			(replace-string "]" ")"))))
 
+(defun jack-emacs-maximize ()
+	(when (string-equal system-type "gnu/linux")
+		(shell-command "wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz")))
+
 ;;
 ;; lang mood hook setups...
 ;;
