@@ -127,15 +127,6 @@
 
 (when *refresh-package-list*
 	(package-refresh-contents)) ;; slow, hit server for fresh package list. i think it's worth it
-
-;;
-;; Maximize emacs window - auto-install
-;;
-(when (not (require 'maxframe nil t))
-         (package-install 'maxframe))
-
-(add-hook 'window-setup-hook 'maximize-frame t)
-
 ;;
 ;; THEME - auto-install
 ;;

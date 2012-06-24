@@ -112,8 +112,13 @@
 			(replace-string "]" ")"))))
 
 (defun jack-emacs-maximize ()
-	(when (string-equal system-type "gnu/linux")
-		(shell-command "wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz")))
+	(cond
+		((string-equal system-type "darwin")
+			(set-frame-size (selected-frame)  235 70))
+		((string-equal system-type "gnu/linux")
+			(shell-command "wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz"))
+		(t
+			(message "%s" "Did not try to maximize screen. System type not supported."))))
 
 ;;
 ;; lang mood hook setups...
