@@ -31,12 +31,15 @@
 (defvar emacsdir (file-name-directory load-file-name))
 (add-to-list 'load-path emacsdir)
 
+
 ;; user-emacs-directory
 (message "%s is the value of emacsdir" emacsdir)
 
 (require 'cl) ;; gotta have it
 (require 'jack-util)
 (require 'cmdj)
+
+(jack-emacs-maximize) ;; only works for linux right now (requires wmctrl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SETTINGS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -182,7 +185,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(jack-emacs-maximize) ;; only works for linux right now (requires wmctrl)
+
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 
 (provide 'dotemacs24)
