@@ -13,7 +13,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; 1) put the following in your .emacs (or .emacs.d/init.el for windows)
 ;
-;		 (load "~/path/to/dotemacs24.el")
+;        (load "~/path/to/dotemacs24.el")
 ;
 ; 2) if desired, override any of the settings defined below at the TOP of your .emacs
 ;
@@ -51,11 +51,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defalias 'yes-or-no-p 'y-or-n-p) ;; don't require full "yes" for confirms
-(tool-bar-mode -1) 				  ;; get rid of tool bar
+(tool-bar-mode -1)                    ;; get rid of tool bar
 (setq inhibit-startup-message t)  ;; git rid of startup page
-(menu-bar-mode 0) 				  ;; no menu bar
-(setq resize-mini-windows t) 	  ;; let mini buffer resize
-(setq make-backup-files nil) 	  ;; no backup files
+(menu-bar-mode 0)                 ;; no menu bar
+(setq resize-mini-windows t)      ;; let mini buffer resize
+(setq make-backup-files nil)      ;; no backup files
 (setq-default c-electric-flag nil) ;; do not get fancy with () {} ?
 
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
@@ -68,8 +68,8 @@
 ;;
 ;; make good use of arrow keys
 ;;
-(global-set-key (kbd "\C-c <up>") 'text-scale-increase) 	;; text size up
-(global-set-key (kbd "\C-c <down>") 'text-scale-decrease)	;; text size down
+(global-set-key (kbd "\C-c <up>") 'text-scale-increase)     ;; text size up
+(global-set-key (kbd "\C-c <down>") 'text-scale-decrease)   ;; text size down
 
 (global-set-key  [C-up] 'enlarge-window)                    ;; make window taller
 (global-set-key  [C-down] 'shrink-window)                   ;; make window shorter
@@ -82,9 +82,9 @@
 (setq indent-tabs-mode t)                           ;; Turn on tabs
 (setq-default indent-tabs-mode t)
 (global-set-key (kbd "TAB") 'self-insert-command)   ;; Bind the TAB key
-(setq default-tab-width 4)                              ;; Set the tab width
+(setq default-tab-width 4)                          ;; Set the tab width
 (setq tab-width 4)                                  ;; display tabs as 4 chars
-(setq c-basic-indent 4)                                 ;; c tabs length
+(setq c-basic-indent 4)                             ;; c tabs length
 
 ;;
 ;; custom functions
