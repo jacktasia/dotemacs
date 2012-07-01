@@ -58,11 +58,11 @@
 (setq make-backup-files nil) 	  ;; no backup files
 (setq-default c-electric-flag nil) ;; do not get fancy with () {} ?
 
-(global-set-key (kbd "\C-c r") 'replace-string) 		;; search & replace (file or region)
-(global-set-key (kbd "\C-c m") 'count-matches) 			;; count instaces of prompted string
-(global-set-key (kbd "\C-c l") 'goto-line) 				;; goes to prompted line number
-(global-set-key (kbd "\C-c i") 'ispell-region) 			;; spell check region
-(global-set-key "\C-cp" 'beginning-of-buffer)  			;; top of file
+(global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
+(global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
+(global-set-key (kbd "\C-c l") 'goto-line)      ;; goes to prompted line number
+(global-set-key (kbd "\C-c i") 'ispell-region)  ;; spell check region
+(global-set-key "\C-cp" 'beginning-of-buffer)   ;; top of file
 (global-set-key "\C-cn" 'end-of-buffer)
 
 ;;
@@ -71,20 +71,20 @@
 (global-set-key (kbd "\C-c <up>") 'text-scale-increase) 	;; text size up
 (global-set-key (kbd "\C-c <down>") 'text-scale-decrease)	;; text size down
 
-(global-set-key  [C-up] 'enlarge-window) 					;; make window taller
-(global-set-key  [C-down] 'shrink-window) 					;; make window shorter
-(global-set-key  [C-right] 'enlarge-window-horizontally) 	;; make window wider
+(global-set-key  [C-up] 'enlarge-window)                    ;; make window taller
+(global-set-key  [C-down] 'shrink-window)                   ;; make window shorter
+(global-set-key  [C-right] 'enlarge-window-horizontally)    ;; make window wider
 (global-set-key  [C-left] 'shrink-window-horizontally)      ;; make window less wide
 
 ;;
 ;; tab stuff
 ;;
-(setq indent-tabs-mode t) 							;; Turn on tabs
+(setq indent-tabs-mode t)                           ;; Turn on tabs
 (setq-default indent-tabs-mode t)
-(global-set-key (kbd "TAB") 'self-insert-command) 	;; Bind the TAB key
-(setq default-tab-width 4) 							;; Set the tab width
-(setq tab-width 4)									;; display tabs as 4 chars
-(setq c-basic-indent 4)								;; c tabs length
+(global-set-key (kbd "TAB") 'self-insert-command)   ;; Bind the TAB key
+(setq default-tab-width 4)                              ;; Set the tab width
+(setq tab-width 4)                                  ;; display tabs as 4 chars
+(setq c-basic-indent 4)                                 ;; c tabs length
 
 ;;
 ;; custom functions
