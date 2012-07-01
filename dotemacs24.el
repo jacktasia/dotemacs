@@ -151,6 +151,14 @@
          (package-install 'fuzzy-match))
 
 ;;
+;; rainbow-delimiters - colorize () in lisp - auto-install (MAYBE remove)
+;;
+(when (not (require 'rainbow-delimiters nil t))
+         (package-install 'rainbow-delimiters))
+
+(add-to-list 'auto-mode-alist '("\\.el$" . rainbow-delimiters-mode))
+
+;;
 ;; php-mode - auto-install
 ;;
 (when (not (require 'php-mode nil t))
