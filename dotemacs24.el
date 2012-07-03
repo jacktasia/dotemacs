@@ -50,13 +50,14 @@
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defalias 'yes-or-no-p 'y-or-n-p) ;; don't require full "yes" for confirms
+(defalias 'yes-or-no-p 'y-or-n-p)  ;; don't require full "yes" for confirms
 (tool-bar-mode -1)                    ;; get rid of tool bar
-(setq inhibit-startup-message t)  ;; git rid of startup page
-(menu-bar-mode 0)                 ;; no menu bar
-(setq resize-mini-windows t)      ;; let mini buffer resize
-(setq make-backup-files nil)      ;; no backup files
+(setq inhibit-startup-message t)   ;; git rid of startup page
+(menu-bar-mode 0)                  ;; no menu bar
+(setq resize-mini-windows t)       ;; let mini buffer resize
+(setq make-backup-files nil)       ;; no backup files
 (setq-default c-electric-flag nil) ;; do not get fancy with () {} ?
+(setq whitespace-line-column 600)  ;; do not turn line purple if "too long"
 
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
