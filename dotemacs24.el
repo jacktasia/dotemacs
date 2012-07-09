@@ -131,6 +131,10 @@
 ;;
 ;; THEME - auto-install
 ;;
+
+(when (not (require 'rainbow-mode nil t))
+         (package-install 'rainbow-mode))
+
 (unless (member 'zenburn (custom-available-themes))
   (package-install 'zenburn-theme))
 
