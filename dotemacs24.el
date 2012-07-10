@@ -94,6 +94,7 @@
 (add-hook 'php-mode-hook 'jack-php-setup)
 
 (global-set-key (kbd "<backtab>") 'jack-unindent-block)
+(global-set-key [C-tab] 'jack-unindent-block)
 (global-set-key (kbd "\C-c <tab>") 'jack-indent-block)           ;; indent selected region
 (global-set-key "\C-u" 'jack-backward-kill-line)
 (global-set-key  "\C-c4" 'jack-php-key-to-fetch)
