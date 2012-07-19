@@ -67,7 +67,7 @@
 					  major-mode)))
 		 (lang_cmds '(("php-mode" . "php -l %s")
 					  ("python-mode" . "pep8 --ignore=W191 %s") ;; W191 = tab chars
-					  ("js2-mode" .
+					  ("js-mode" .
 					   "/home/jack/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s")))
 		 (the_cmd (cdr (assoc the_mode lang_cmds))))
 	(shell-command (format the_cmd (buffer-file-name)))))
