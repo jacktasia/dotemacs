@@ -120,6 +120,14 @@
 		(t
 			(message "%s" "Did not try to maximize screen. System type not supported."))))
 
+
+;; map command-3 (super-3) on macs so i can have fallback of ubuntu terminal keybinding
+(when (string= system-type "darwin")
+	(global-set-key (kbd "s-3") 
+		(lambda () 
+			(interactive)
+			(shell-command "osascript -e 'tell application \"Terminal\" to activate'"))))
+
 ;;
 ;; lang mood hook setups...
 ;;
