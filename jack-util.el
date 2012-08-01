@@ -1,5 +1,6 @@
 
 ;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
+(defvar php-lint-cmd "php -l %s")
 
 (defun jack-url-get-contents (url)
   (jack-remove-headers (with-current-buffer (url-retrieve-synchronously url)
@@ -62,15 +63,17 @@
 (defun jack-magic-lint ()
   (interactive)
   (save-buffer)
-  (let* ((the_mode (symbol-name
+  (message "%s" php-lint-cmd)
+  (let ((the_mode (symbol-name
 					(with-current-buffer (current-buffer)
 					  major-mode)))
-		 (lang_cmds '(("php-mode" . "php -l %s")
-					  ("python-mode" . "pep8 --ignore=W191 %s") ;; W191 = tab chars
-					  ("js-mode" .
-					   "/home/jack/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s")))
-		 (the_cmd (cdr (assoc the_mode lang_cmds))))
-	(shell-command (format the_cmd (buffer-file-name)))))
+		 (lang_cmds '()))
+
+	(add-to-list 'lang_cmds (cons "php-mode"  php-lint-cmd))
+	(add-to-list 'lang_cmds (cons "python-mode" "pep8 --ignore=W191 %s")) ;; W191 = tab chars
+	(add-to-list 'lang_cmds (cons "js-mode" "/home/jack/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s"))
+
+	(shell-command (format (cdr (assoc the_mode lang_cmds)) (buffer-file-name)))))
 
 (defun jack-git-blame-line () 
   (interactive) 
