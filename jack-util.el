@@ -93,13 +93,15 @@
 						   (progn
 							 (setq old-fullscreen current-value)
 							 'fullboth)))))
-
-(defun jack-toggle-alpha ()
-	(interactive)
-	(let ((current_alpha (cadr (assoc 'alpha (frame-parameters)))))
-		(if (= current_alpha 70)
-			(modify-frame-parameters nil '((alpha 100)))
-			(modify-frame-parameters nil '((alpha 70))))))
+;; FROM: http://emacs-fu.blogspot.com/2009/02/transparent-emacs.html
+(defun jack-alpha-change (&optional dec)
+  "modify the transparency of the emacs frame; if DEC is t,
+    decrease the transparency, otherwise increase it in 10%-steps"
+  (let* ((alpha-or-nil (frame-parameter nil 'alpha)) ; nil before setting
+          (oldalpha (if alpha-or-nil alpha-or-nil 100))
+          (newalpha (if dec (- oldalpha 10) (+ oldalpha 10))))
+    (when (and (>= newalpha frame-alpha-lower-limit) (<= newalpha 100))
+      (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
 
 (defun jack-php-key-to-fetch (start end)
 	(interactive "r")
