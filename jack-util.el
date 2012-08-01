@@ -63,7 +63,6 @@
 (defun jack-magic-lint ()
   (interactive)
   (save-buffer)
-  (message "%s" php-lint-cmd)
   (let ((the_mode (symbol-name
 					(with-current-buffer (current-buffer)
 					  major-mode)))
