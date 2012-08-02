@@ -66,6 +66,8 @@
 (global-set-key "\C-cp" 'beginning-of-buffer)   ;; top of file
 (global-set-key "\C-cn" 'end-of-buffer)
 
+
+
 ;;
 ;; make good use of arrow keys
 ;;
@@ -104,7 +106,7 @@
 (global-set-key [f12] 'jack-toggle-alpha)
 
 (global-set-key  "\C-cg" 'cmdj-func-at-point)	;; [G]oto func
-(global-set-key  "\C-cs" 'cmdj-search-at-point) ;; [S]earch at point
+;;(global-set-key  "\C-cs" 'cmdj-search-at-point) ;; [S]earch at point
 (global-set-key  "\C-cd" 'cmdj-search-prompt)
 (global-set-key  "\C-ca" 'cmdj-php-func-args-tooltip)
 
@@ -149,6 +151,14 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+
+;;
+;; ace jump - like easymotion in vim
+;;
+(when (not (require 'ace-jump-mode nil t))
+         (package-install 'ace-jump-mode))
+
+(define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
 ;;
 ;; fuzzy-match for switching buffers - auto-install (MAYBE remove)
