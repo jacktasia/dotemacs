@@ -103,12 +103,16 @@
 (global-set-key (kbd "\C-c b") 'jack-git-blame-line)
 (global-set-key [f8] 'jack-magic-lint)
 (global-set-key [f11] 'jack-toggle-fullscreen)
-(global-set-key [f12] 'jack-toggle-alpha)
+(global-set-key (kbd "C-8") '(lambda()(interactive)(jack-alpha-change)))
+(global-set-key (kbd "C-9") '(lambda()(interactive)(jack-alpha-change t)))
+(global-set-key (kbd "C-0") '(lambda()(interactive)
+                               (modify-frame-parameters nil `((alpha . 100)))))
 
 (global-set-key  "\C-cg" 'cmdj-func-at-point)	;; [G]oto func
 ;;(global-set-key  "\C-cs" 'cmdj-search-at-point) ;; [S]earch at point
 (global-set-key  "\C-cd" 'cmdj-search-prompt)
 (global-set-key  "\C-ca" 'cmdj-php-func-args-tooltip)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 2) External Packages -- will attempt to auto-install if it can't load

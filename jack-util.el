@@ -1,5 +1,6 @@
 
 ;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
+(defvar php-lint-cmd "php -l %s")
 
 (defun jack-url-get-contents (url)
   (jack-remove-headers (with-current-buffer (url-retrieve-synchronously url)
@@ -62,15 +63,16 @@
 (defun jack-magic-lint ()
   (interactive)
   (save-buffer)
-  (let* ((the_mode (symbol-name
+  (let ((the_mode (symbol-name
 					(with-current-buffer (current-buffer)
 					  major-mode)))
-		 (lang_cmds '(("php-mode" . "php -l %s")
-					  ("python-mode" . "pep8 --ignore=W191 %s") ;; W191 = tab chars
-					  ("js-mode" .
-					   "/home/jack/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s")))
-		 (the_cmd (cdr (assoc the_mode lang_cmds))))
-	(shell-command (format the_cmd (buffer-file-name)))))
+		 (lang_cmds '()))
+
+	(add-to-list 'lang_cmds (cons "php-mode"  php-lint-cmd))
+	(add-to-list 'lang_cmds (cons "python-mode" "pep8 --ignore=W191 %s")) ;; W191 = tab chars
+	(add-to-list 'lang_cmds (cons "js-mode" "/home/jack/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s"))
+
+	(shell-command (format (cdr (assoc the_mode lang_cmds)) (buffer-file-name)))))
 
 (defun jack-git-blame-line () 
   (interactive) 
@@ -93,13 +95,15 @@
 						   (progn
 							 (setq old-fullscreen current-value)
 							 'fullboth)))))
-
-(defun jack-toggle-alpha ()
-	(interactive)
-	(let ((current_alpha (cadr (assoc 'alpha (frame-parameters)))))
-		(if (= current_alpha 70)
-			(modify-frame-parameters nil '((alpha 100)))
-			(modify-frame-parameters nil '((alpha 70))))))
+;; FROM: http://emacs-fu.blogspot.com/2009/02/transparent-emacs.html
+(defun jack-alpha-change (&optional dec)
+  "modify the transparency of the emacs frame; if DEC is t,
+    decrease the transparency, otherwise increase it in 10%-steps"
+  (let* ((alpha-or-nil (frame-parameter nil 'alpha)) ; nil before setting
+          (oldalpha (if alpha-or-nil alpha-or-nil 100))
+          (newalpha (if dec (- oldalpha 10) (+ oldalpha 10))))
+    (when (and (>= newalpha frame-alpha-lower-limit) (<= newalpha 100))
+      (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
 
 (defun jack-php-key-to-fetch (start end)
 	(interactive "r")
