@@ -110,7 +110,7 @@
 
 (global-set-key  "\C-cg" 'cmdj-func-at-point)	;; [G]oto func
 ;;(global-set-key  "\C-cs" 'cmdj-search-at-point) ;; [S]earch at point
-(global-set-key  "\C-cd" 'cmdj-search-prompt)
+(global-set-key  "\C-cd" 'jack-git-diff)
 (global-set-key  "\C-ca" 'cmdj-php-func-args-tooltip)
 
 

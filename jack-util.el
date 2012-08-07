@@ -80,6 +80,13 @@
 		(current_line (cadr (split-string (what-line) " "))))
 	(shell-command (format cmd_tmpl current_line (buffer-file-name)))))
 
+(defun jack-git-diff () 
+  (interactive) 
+  (let ((cmd_tmpl "git diff %s"))
+	(shell-command (format cmd_tmpl (buffer-file-name)))
+	(with-current-buffer (get-buffer "*Shell Command Output*")
+		(diff-mode))))
+
 ;;
 ;; window
 ;;
