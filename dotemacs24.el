@@ -149,6 +149,7 @@
   (package-install 'zenburn-theme))
 
 (load-theme 'zenburn t)
+(set-face-background 'region "blue") ;; make region stick out more
 
 ;;
 ;; auto-complete (within code buffers) -- auto-install
