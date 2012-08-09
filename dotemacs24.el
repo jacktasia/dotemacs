@@ -59,6 +59,9 @@
 (setq-default c-electric-flag nil) ;; do not get fancy with () {} ?
 (setq whitespace-line-column 600)  ;; do not turn line purple if "too long"
 
+(setq cua-enable-cua-keys nil)
+(cua-mode)
+
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "\C-c l") 'goto-line)      ;; goes to prompted line number
