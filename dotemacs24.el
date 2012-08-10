@@ -102,6 +102,7 @@
 (global-set-key [C-tab] 'jack-unindent-block)
 (global-set-key (kbd "\C-c <tab>") 'jack-indent-block)           ;; indent selected region
 (global-set-key "\C-u" 'jack-backward-kill-line)
+(global-set-key (kbd "\C-c j") 'jack-newline-and-indent-no-spaces)
 (global-set-key  "\C-c4" 'jack-php-key-to-fetch)
 (global-set-key (kbd "\C-c b") 'jack-git-blame-line)
 (global-set-key [f8] 'jack-magic-lint)

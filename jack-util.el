@@ -2,6 +2,17 @@
 ;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
 (defvar php-lint-cmd "php -l %s")
 
+(defun jack-newline-and-indent-no-spaces ()
+  (interactive "*")
+  (delete-horizontal-space t)
+  (newline)
+  (indent-according-to-mode)
+  (let ((cur-point (point)))
+	  (beginning-of-line)
+		(while (re-search-forward "[ ]+" cur-point t)
+		   (replace-match "\t"))
+    (end-of-line)))
+
 (defun jack-url-get-contents (url)
   (jack-remove-headers (with-current-buffer (url-retrieve-synchronously url)
 	(buffer-string))))
