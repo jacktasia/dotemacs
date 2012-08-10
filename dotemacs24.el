@@ -117,6 +117,11 @@
 (global-set-key  "\C-ca" 'cmdj-php-func-args-tooltip)
 (global-set-key  "\C-cw" 'whitespace-mode)
 
+;; In case you want to change the whitespace-space color
+;; (custom-set-variables)
+;; (custom-set-faces
+;;  '(whitespace-space ((t (:background "#3f3f3f" :foreground "#005500")))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 2) External Packages -- will attempt to auto-install if it can't load
