@@ -21,7 +21,6 @@
 ;;
 
 (setq cmdj-debug-mode t)
-(setq cmdj-default-project "/home/jack/public_html")
 
 (defcustom cmdj-ack-path "/usr/bin/ack-grep"
   "The path to ack-grep, for installing see http://betterthangrep.com"
@@ -38,8 +37,8 @@
   :type 'string
   :group 'cmdj)
 
-(defcustom cmdj-project-denoter ".project"
-  "The file to recongize a folder as a 'project' folder (stops "
+(defcustom cmdj-project-denoter ".git"
+  "The file to recongize a folder as a 'project' folder"
   :type 'string
   :group 'cmdj)
 
@@ -147,7 +146,29 @@
 		 (cmd (format cmd_struct cmdj-ack-path thesymbol (cmdj-get-nearest-project))))
 	(cmdj-search-results cmd)))
 
+(defun cmdj-java-find-insert-import ()
+	"Looks in project for an import line matches class at point"
+	(interactive "*")
+	(let* ((jclass (thing-at-point 'symbol))
+		   (cmd (format "%s -a 'import.+\\.%s;' %s" cmdj-ack-path jclass (cmdj-get-nearest-project)))
+		   (results (shell-command-to-string cmd))
+           (matches (cmdj-ack-extract-unique-matches results)))
+		  (when (> 3 (length matches))
+			(save-excursion
+				(beginning-of-buffer)
+				(next-line 4)
+				(insert (concat (car matches) "\n")))
+			(message "Inserted: %s (on line 4)" (car matches)))))
+
 ;; NON-INTERACTIVE
+
+(defun cmdj-ack-extract-unique-matches (results)
+  "Extracts ack-grep's match from each line - could probably just take a special ack-grep argument"
+  (let ((result-lines (split-string results "\\\n")))
+	(delete-dups (mapcar
+	 (lambda (item)
+	   (car (last (split-string item ":"))))
+	 result-lines))))
 
 (defun cmdj-func-in-project (thesymbol)
   (if (buffer-file-name)

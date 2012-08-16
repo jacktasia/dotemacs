@@ -50,6 +50,7 @@
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
 (defalias 'yes-or-no-p 'y-or-n-p)  ;; don't require full "yes" for confirms
 (tool-bar-mode -1)                    ;; get rid of tool bar
 (setq inhibit-startup-message t)   ;; git rid of startup page
@@ -62,6 +63,7 @@
 (setq cua-enable-cua-keys nil)
 (cua-mode)
 
+(global-set-key (kbd "\C-c 3") 'cmdj-java-find-insert-import) ;; 
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "\C-c l") 'goto-line)      ;; goes to prompted line number
@@ -187,7 +189,7 @@
 (when (not (require 'rainbow-delimiters nil t))
          (package-install 'rainbow-delimiters))
 
-(add-to-list 'auto-mode-alist '("\\.el$" . rainbow-delimiters-mode))
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 
 ;;
 ;; php-mode - auto-install
