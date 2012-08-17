@@ -151,32 +151,39 @@
 	(interactive "*")
 	(let* ((jclass (thing-at-point 'symbol))
 		   (cmd (format "%s -a 'import.+\\.%s;' %s" cmdj-ack-path jclass (cmdj-get-nearest-project)))
-		   (results (shell-command-to-string cmd))
-           (matches (cmdj-ack-extract-unique-matches results)))
-		  (when (> 3 (length matches))
-			(save-excursion
-				(beginning-of-buffer)
-				(next-line 4)
-				(insert (concat (car matches) "\n")))
-			(message "Inserted: %s (on line 4)" (car matches)))))
+		   ;; getting just the match data from ack result
+		   (import-line (car (last (car (cmdj-ack-cmd-matches cmd))))))
+			(message "%s" import-line)
+		  (if (< (length jclass) (length import-line))
+			(progn
+				(save-excursion
+					(beginning-of-buffer)
+					(next-line 4)
+					(beginning-of-line)
+					(insert (concat import-line "\n")))
+				(message "Inserted: %s (on line 4)" import-line))
+			(message "NOT FOUND: %s" jclass))))
+			
 
 ;; NON-INTERACTIVE
 
-(defun cmdj-ack-extract-unique-matches (results)
-  "Extracts ack-grep's match from each line - could probably just take a special ack-grep argument"
-  (let ((result-lines (split-string results "\\\n")))
-	(delete-dups (mapcar
+;; delete-dups
+
+(defun cmdj-ack-cmd-matches (cmd)
+  "get list of list of ack matches"
+  (let ((result-lines (butlast (split-string (shell-command-to-string cmd) "\\\n"))))
+	(mapcar
 	 (lambda (item)
-	   (car (last (split-string item ":"))))
-	 result-lines))))
+		(split-string item ":"))
+	 result-lines)))
 
 (defun cmdj-func-in-project (thesymbol)
   (if (buffer-file-name)
-	  (cmdj-search-results (cmdj-func-in-project-cmd thesymbol))
+	  (cmdj-search-results (cmdj-build-cmd-find-func thesymbol))
 	(if (y-or-n-p "Cannot search func (not in file), normal search? ")
 		(cmdj-search-in-project thesymbol))))
 
-(defun cmdj-func-in-project-cmd (thesymbol)
+(defun cmdj-build-cmd-find-func (thesymbol)
   (let* ((file_type '(("php" . "function ")
 					  ("el" . "defun ")
 					  (nil . "")))
@@ -185,37 +192,11 @@
 		 (cmd_struct "%s --%s '%s%s\\s?\\(' %s"))
 	(format cmd_struct cmdj-ack-path file_ext lang_func thesymbol (cmdj-get-nearest-project))))
 
-(defun cmdj-search-data (search_str)
-  (let* ((ack_response (shell-command-to-string search_str))
-		 (result_lines (split-string ack_response "\\\n"))
-		 (result_lines (remove (car (last result_lines)) result_lines)))
-	(mapcar
-	 (lambda (item)
-	   (let ((item_parts (split-string item ":")))
-		 (list (car item_parts)
-			   (cadr item_parts))))
-	 result_lines)))
-
 (defun cmdj-search-results (search_str) 
-  (let ((found_stuff (cmdj-search-data search_str)))
+  (let ((found_stuff (cmdj-ack-cmd-matches search_str)))
 	(if (= 1 (length found_stuff)) 
 		(cmdj-goto-file-location (caar found_stuff) 
 							(cadar found_stuff)) 
-	  (cmdj-file-pick found_stuff))))
-
-(defun cmdj-search-results-old (search_str)
-  (let* ((ack_response (shell-command-to-string search_str))
-		 (result_lines (split-string ack_response "\\\n"))
-		 (result_lines (remove (car (last result_lines)) result_lines))
-		 (found_stuff (mapcar
-					   (lambda (item)
-						 (let ((item_parts (split-string item ":")))
-						   (list (car item_parts)
-								 (cadr item_parts))))
-					   result_lines)))
-	(if (= 1 (length found_stuff))
-		(cmdj-goto-file-location (caar found_stuff)
-							(cadar found_stuff))
 	  (cmdj-file-pick found_stuff))))
 
 (defun cmdj-goto-file-location (thefile theline)
