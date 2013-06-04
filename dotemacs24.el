@@ -226,4 +226,6 @@
     (setq python-indent 8)
     (setq tab-width 4)))
 
+(set-cursor-color "green")
+
 (provide 'dotemacs24)
