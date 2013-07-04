@@ -157,8 +157,13 @@
 (unless (member 'zenburn (custom-available-themes))
   (package-install 'zenburn-theme))
 
-(load-theme 'zenburn t)
+;; (package-install 'color-theme-solarized)
+;; (load-theme 'solarized-light t)
+
+;;(load-theme 'zenburn t)
+(load-theme 'misterioso t)
 (set-face-background 'region "blue") ;; make region stick out more
+(set-cursor-color "green")
 
 ;;
 ;; auto-complete (within code buffers) -- auto-install
@@ -214,6 +219,14 @@
 (ido-better-flex/enable)
 (ido-ubiquitous-mode)
 
+;; http://stackoverflow.com/questions/2903426/display-path-of-file-in-status-bar
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse) ;; or "forward"
+
+(setq frame-title-format		;show directory and filename on frame top
+      (list (format "%s %%S: %%j " (system-name))
+        '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -226,6 +239,5 @@
     (setq python-indent 8)
     (setq tab-width 4)))
 
-(set-cursor-color "green")
 
 (provide 'dotemacs24)

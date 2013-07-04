@@ -2,6 +2,11 @@
 ;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
 (defvar php-lint-cmd "php -l %s")
 
+(defun jack-stick-out ()
+  (interactive "*")
+	(set-face-background 'region "yellow") ;; make region stick out more
+	(set-cursor-color "green"))
+
 (defun jack-newline-and-indent-no-spaces ()
   (interactive "*")
   (delete-horizontal-space t)
@@ -98,7 +103,7 @@
 		 (lang_cmds '()))
 
 	(add-to-list 'lang_cmds (cons "php-mode"  php-lint-cmd))
-	(add-to-list 'lang_cmds (cons "python-mode" "pep8 --ignore=W191 %s")) ;; W191 = tab chars
+	(add-to-list 'lang_cmds (cons "python-mode" "pep8 --ignore=W191,E501 --show-source %s")) ;; W191 = tab chars
 	(add-to-list 'lang_cmds (cons "js-mode" "/home/jack/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s"))
 
 	(shell-command (format (cdr (assoc the_mode lang_cmds)) (buffer-file-name)))))
