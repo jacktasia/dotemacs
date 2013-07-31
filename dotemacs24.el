@@ -161,9 +161,11 @@
 ;; (load-theme 'solarized-light t)
 
 ;;(load-theme 'zenburn t)
-(load-theme 'misterioso t)
-(set-face-background 'region "blue") ;; make region stick out more
+;;(load-theme 'misterioso t)
+(load-theme 'manoj-dark t)
+(set-face-background 'region "green") ;; make region stick out more
 (set-cursor-color "green")
+(scroll-bar-mode -1)
 
 ;;
 ;; auto-complete (within code buffers) -- auto-install
