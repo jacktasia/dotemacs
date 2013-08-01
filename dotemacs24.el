@@ -167,6 +167,10 @@
 (set-cursor-color "green")
 (scroll-bar-mode -1)
 
+;; sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
+;; http://www.fontsquirrel.com/fonts/Droid-Sans-Mono
+(set-face-attribute 'default nil :font "Droid Sans Mono-12")
+
 ;;
 ;; auto-complete (within code buffers) -- auto-install
 ;;
