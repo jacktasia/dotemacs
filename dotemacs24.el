@@ -109,8 +109,8 @@
 (global-set-key (kbd "\C-c b") 'jack-git-blame-line)
 (global-set-key [f8] 'jack-magic-lint)
 (global-set-key [f11] 'jack-toggle-fullscreen)
-(global-set-key (kbd "C-8") '(lambda()(interactive)(jack-alpha-change)))
-(global-set-key (kbd "C-9") '(lambda()(interactive)(jack-alpha-change t)))
+(global-set-key (kbd "C-=") '(lambda()(interactive)(jack-alpha-change)))
+(global-set-key (kbd "C--") '(lambda()(interactive)(jack-alpha-change t)))
 (global-set-key (kbd "C-0") '(lambda()(interactive)
                                (modify-frame-parameters nil `((alpha . 100)))))
 
