@@ -165,6 +165,12 @@
 		(t
 			(message "%s" "Did not try to maximize screen. System type not supported."))))
 
+;; allows you to highligh a word regardless of position within
+(defun jack-mark-word ()
+	(interactive)
+	(forward-word)
+	(backward-word)
+	(mark-word))
 
 ;; map command-3 (super-3) on macs so i can have fallback of ubuntu terminal keybinding
 (when (string= system-type "darwin")

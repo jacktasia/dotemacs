@@ -119,6 +119,7 @@
 (global-set-key  "\C-cd" 'jack-git-diff)
 (global-set-key  "\C-ca" 'cmdj-php-func-args-tooltip)
 (global-set-key  "\C-cw" 'whitespace-mode)
+(global-set-key  "\C-ce" 'jack-mark-word)
 
 ;; In case you want to change the whitespace-space color
 ;; (custom-set-variables)
@@ -179,6 +180,12 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+
+;;
+;; multiple cursors
+;;
+;; (when (not (require 'multiple-cursors nil t))
+;;          (package-install 'multiple-cursors))
 
 ;;
 ;; ace jump - like easymotion in vim
