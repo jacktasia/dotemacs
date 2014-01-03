@@ -216,6 +216,18 @@
          (package-install 'php-mode))
 
 ;;
+;; go-mode - auto-install
+;;
+(when (not (require 'go-mode nil t))
+         (package-install 'go-mode))
+
+;;
+;; web-mode - auto-install
+;;
+(when (not (require 'web-mode nil t))
+         (package-install 'web-mode))
+
+;;
 ;; ido stuff - auto-install
 ;;
 (require 'ido)
@@ -251,6 +263,8 @@
     (setq indent-tabs-mode t)
     (setq python-indent 8)
     (setq tab-width 4)))
+
+(add-hook 'before-save-hook #'gofmt-before-save)
 
 
 (provide 'dotemacs24)
