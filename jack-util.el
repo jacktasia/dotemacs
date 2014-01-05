@@ -2,6 +2,25 @@
 ;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
 (defvar php-lint-cmd "php -l %s")
 
+(defun jack-java-format ()
+	(interactive "*")
+		(let* ((fileName (car (last (split-string (buffer-file-name) "/"))))
+			   (tmpPath (format "/tmp/%s" fileName)))
+
+			(delete-file tmpPath)
+			(copy-file (buffer-file-name) tmpPath)
+
+			(message "%s" "Formatting...")
+			(shell-command (format "%s %s %s %s %s %s %s %s"
+				"/home/jack/bin/eclipse/eclipse" "-nosplash" "-application"
+				"org.eclipse.jdt.core.JavaCodeFormatter" "-verbose" "-config"
+				"/home/jack/code/dotemacs24/org.eclipse.jdt.core.prefs" tmpPath))
+
+			(erase-buffer)
+			(insert-file-contents tmpPath)
+
+			(message "%s" "Done Formatting")))
+
 (defun jack-stick-out ()
   (interactive "*")
 	(set-face-background 'region "yellow") ;; make region stick out more
