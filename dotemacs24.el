@@ -266,5 +266,6 @@
 
 (add-hook 'before-save-hook #'gofmt-before-save)
 
+(require 'jack-scratch)
 
 (provide 'dotemacs24)
