@@ -7,8 +7,13 @@
 		(let* ((fileName (car (last (split-string (buffer-file-name) "/"))))
 			   (tmpPath (format "/tmp/%s" fileName)))
 
-			(delete-file tmpPath)
+			(when (file-exists-p tmpPath)
+				(delete-file tmpPath))
 			(copy-file (buffer-file-name) tmpPath)
+
+			;; TODO: have user settable vars for customizing paths, or a special json file .java-fix-imports with them defined
+			(shell-command (format "%s %s %s %s"
+				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/java-import-fixer/test_assets/jars"))
 
 			(message "%s" "Formatting...")
 			(shell-command (format "%s %s %s %s %s %s %s %s"
@@ -20,6 +25,25 @@
 			(insert-file-contents tmpPath)
 
 			(message "%s" "Done Formatting")))
+
+(defun jack-java-fix-imports ()
+	(interactive "*")
+		(let* ((fileName (car (last (split-string (buffer-file-name) "/"))))
+			   (tmpPath (format "/tmp/%s" fileName)))
+
+			(when (file-exists-p tmpPath)
+				(delete-file tmpPath))
+			(copy-file (buffer-file-name) tmpPath)
+
+			(message "%s" "Fixing Imports...")
+			;; TODO: have user settable vars for customizing paths, or a special json file .java-fix-imports with them defined
+			(shell-command (format "%s %s %s %s"
+				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/java-import-fixer/test_assets/jars"))
+
+			(erase-buffer)
+			(insert-file-contents tmpPath)
+
+			(message "%s" "Done Fixing Imports")))
 
 (defun jack-stick-out ()
   (interactive "*")
