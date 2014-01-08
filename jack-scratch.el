@@ -6,7 +6,9 @@
 
 ;;; experimental changes
 
-(define-key global-map (kbd "C-s") 'ace-jump-char-mode)
-(define-key global-map (kbd "C-c s") 'isearch-forward)
+;; (define-key global-map (kbd "C-s") 'ace-jump-char-mode)
+;; (define-key global-map (kbd "C-c s") 'isearch-forward)
+(define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
+(define-key global-map (kbd "C-s") 'isearch-forward)
 
 (provide 'jack-scratch)

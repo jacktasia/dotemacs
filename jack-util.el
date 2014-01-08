@@ -9,6 +9,7 @@
 
 			(when (file-exists-p tmpPath)
 				(delete-file tmpPath))
+
 			(copy-file (buffer-file-name) tmpPath)
 
 			;; TODO: have user settable vars for customizing paths, or a special json file .java-fix-imports with them defined
@@ -26,19 +27,25 @@
 
 			(message "%s" "Done Formatting")))
 
+;; TODO: break up above and below into reusable sections...
 (defun jack-java-fix-imports ()
 	(interactive "*")
 		(let* ((fileName (car (last (split-string (buffer-file-name) "/"))))
+			   (startContent (buffer-string))
 			   (tmpPath (format "/tmp/%s" fileName)))
 
 			(when (file-exists-p tmpPath)
 				(delete-file tmpPath))
-			(copy-file (buffer-file-name) tmpPath)
+
+			(with-temp-file tmpPath (insert startContent))
 
 			(message "%s" "Fixing Imports...")
 			;; TODO: have user settable vars for customizing paths, or a special json file .java-fix-imports with them defined
-			(shell-command (format "%s %s %s %s"
-				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/java-import-fixer/test_assets/jars"))
+			;; ensure we run locally via tramp
+			(let ((default-directory  "/home/jack"))
+				(shell-command (format "%s %s %s %s"
+;				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/java-import-fixer/test_assets/jars"))
+				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/imgix-storm/lib")))
 
 			(erase-buffer)
 			(insert-file-contents tmpPath)
