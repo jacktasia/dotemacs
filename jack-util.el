@@ -14,13 +14,13 @@
 
 			;; TODO: have user settable vars for customizing paths, or a special json file .java-fix-imports with them defined
 			(shell-command (format "%s %s %s %s"
-				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/java-import-fixer/test_assets/jars"))
+				"python" "~/code/java-import-fixer/java_import_fixer.py" tmpPath "~/code/java-import-fixer/test_assets/jars"))
 
 			(message "%s" "Formatting...")
 			(shell-command (format "%s %s %s %s %s %s %s %s"
-				"/home/jack/bin/eclipse/eclipse" "-nosplash" "-application"
+				"~/bin/eclipse/eclipse" "-nosplash" "-application"
 				"org.eclipse.jdt.core.JavaCodeFormatter" "-verbose" "-config"
-				"/home/jack/code/dotemacs24/org.eclipse.jdt.core.prefs" tmpPath))
+				"~/code/dotemacs24/org.eclipse.jdt.core.prefs" tmpPath))
 
 			(erase-buffer)
 			(insert-file-contents tmpPath)
@@ -42,10 +42,10 @@
 			(message "%s" "Fixing Imports...")
 			;; TODO: have user settable vars for customizing paths, or a special json file .java-fix-imports with them defined
 			;; ensure we run locally via tramp
-			(let ((default-directory  "/home/jack"))
+			(let ((default-directory  "~"))
 				(shell-command (format "%s %s %s %s"
-;				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/java-import-fixer/test_assets/jars"))
-				"python" "/home/jack/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/imgix-storm/lib")))
+;				"python" "~/code/java-import-fixer/java_import_fixer.py" tmpPath "~/code/java-import-fixer/test_assets/jars"))
+				"python" "~/code/java-import-fixer/java_import_fixer.py" tmpPath "~/code/imgix-storm/lib")))
 
 			(erase-buffer)
 			(insert-file-contents tmpPath)
@@ -154,7 +154,7 @@
 
 	(add-to-list 'lang_cmds (cons "php-mode"  php-lint-cmd))
 	(add-to-list 'lang_cmds (cons "python-mode" "pep8 --ignore=W191,E501 --show-source %s")) ;; W191 = tab chars
-	(add-to-list 'lang_cmds (cons "js-mode" "/home/jack/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s"))
+	(add-to-list 'lang_cmds (cons "js-mode" "~/bin/jsl-0.3.0/src/Linux_All_DBG.OBJ/jsl -process  %s"))
 
 	(shell-command (format (cdr (assoc the_mode lang_cmds)) (buffer-file-name)))))
 
