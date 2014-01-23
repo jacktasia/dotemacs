@@ -45,7 +45,7 @@
 			(let ((default-directory  "~"))
 				(shell-command (format "%s %s %s %s"
 ;				"python" "~/code/java-import-fixer/java_import_fixer.py" tmpPath "~/code/java-import-fixer/test_assets/jars"))
-				"python" "~/code/java-import-fixer/java_import_fixer.py" tmpPath "~/code/imgix-storm/lib")))
+				"python" "~/code/java-import-fixer/java_import_fixer.py" tmpPath "/home/jack/code/imgix-storm/build/classes:/home/jack/code/imgix-storm/lib")))
 
 			(erase-buffer)
 			(insert-file-contents tmpPath)

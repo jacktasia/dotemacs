@@ -51,14 +51,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
-(defalias 'yes-or-no-p 'y-or-n-p)  ;; don't require full "yes" for confirms
-(tool-bar-mode -1)                    ;; get rid of tool bar
+(defalias 'yes-or-no-p 'y-or-n-p) ;; don't require full "yes" for confirms
+(tool-bar-mode -1)                 ;; get rid of tool bar
 (setq inhibit-startup-message t)   ;; git rid of startup page
 (menu-bar-mode 0)                  ;; no menu bar
 (setq resize-mini-windows t)       ;; let mini buffer resize
 (setq make-backup-files nil)       ;; no backup files
 (setq-default c-electric-flag nil) ;; do not get fancy with () {} ?
 (setq whitespace-line-column 600)  ;; do not turn line purple if "too long"
+(blink-cursor-mode 0)              ;; no blinking cursor
+(setq initial-scratch-message "")  ;; no scratch message
+
+(custom-set-faces '(fringe ((t (:background "black"))))) ;; change border color to match
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
