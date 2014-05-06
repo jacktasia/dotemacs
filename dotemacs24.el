@@ -226,6 +226,12 @@
          (package-install 'go-mode))
 
 ;;
+;; git-gutter - auto-install
+;;
+(when (not (require 'git-gutter nil t))
+         (package-install 'git-gutter))
+
+;;
 ;; web-mode - auto-install
 ;;
 (when (not (require 'web-mode nil t))
@@ -247,6 +253,9 @@
 (ido-mode t)
 (ido-better-flex/enable)
 (ido-ubiquitous-mode)
+
+(global-git-gutter-mode t)
+(global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
 
 ;; http://stackoverflow.com/questions/2903426/display-path-of-file-in-status-bar
 (require 'uniquify)
