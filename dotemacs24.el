@@ -62,7 +62,7 @@
 (blink-cursor-mode 0)              ;; no blinking cursor
 (setq initial-scratch-message "")  ;; no scratch message
 
-(custom-set-faces '(fringe ((t (:background "black"))))) ;; change border color to match
+;;(custom-set-faces '(fringe ((t (:background "black"))))) ;; change border color to match
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
@@ -162,12 +162,18 @@
 (unless (member 'zenburn (custom-available-themes))
   (package-install 'zenburn-theme))
 
+(unless (member 'monokai (custom-available-themes))
+  (package-install 'monokai-theme))
+
+
+
 ;; (package-install 'color-theme-solarized)
 ;; (load-theme 'solarized-light t)
 
 ;;(load-theme 'zenburn t)
 ;;(load-theme 'misterioso t)
-(load-theme 'manoj-dark t)
+;;(load-theme 'manoj-dark t)
+(load-theme 'monokai t)
 (set-face-background 'region "green") ;; make region stick out more
 (set-cursor-color "green")
 (scroll-bar-mode -1)
