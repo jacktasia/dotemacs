@@ -267,6 +267,10 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse) ;; or "forward"
 
+(setq tramp-default-method "scpx")
+(setq git-gutter:update-threshold 2)
+(setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
+
 (setq frame-title-format		;show directory and filename on frame top
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
