@@ -222,6 +222,14 @@
 	(backward-word)
 	(mark-word))
 
+;; search accross open bufers - http://stackoverflow.com/a/3434098/24998
+(defun jack-multi-occur-in-matching-buffers (regexp &optional allbufs)
+  "Show all lines matching REGEXP in all buffers."
+  (interactive (occur-read-primary-args))
+  (multi-occur-in-matching-buffers ".*" regexp))
+
+(global-set-key (kbd "M-s /") 'jack-multi-occur-in-matching-buffers)
+
 ;; map command-3 (super-3) on macs so i can have fallback of ubuntu terminal keybinding
 (when (string= system-type "darwin")
 	(global-set-key (kbd "s-3") 
