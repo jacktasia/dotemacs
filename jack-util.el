@@ -1,4 +1,19 @@
 
+(defun jack-require-or-install (pkg)
+	(when (not (require pkg nil t))
+         (package-install pkg)))
+
+(defun jack-require-or-install-all (pkgs)
+	(mapcar (lambda (pkg) (funcall 'jack-require-or-install pkg))
+			pkgs))
+
+(defun jack-load-theme (the-theme) 
+	(let ((just-name (intern (car (split-string (symbol-name the-theme) "-"))))) 
+		(unless (member just-name (custom-available-themes))
+		  (package-install the-theme))
+		(load-theme just-name t)))
+
+
 ;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
 (defvar php-lint-cmd "php -l %s")
 

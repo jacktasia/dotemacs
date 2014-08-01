@@ -156,24 +156,18 @@
 ;; THEME - auto-install
 ;;
 
-(when (not (require 'rainbow-mode nil t))
-         (package-install 'rainbow-mode))
-
-(unless (member 'zenburn (custom-available-themes))
-  (package-install 'zenburn-theme))
-
-(unless (member 'monokai (custom-available-themes))
-  (package-install 'monokai-theme))
-
-
+(jack-require-or-install 'rainbow-mode)
 
 ;; (package-install 'color-theme-solarized)
 ;; (load-theme 'solarized-light t)
 
-;;(load-theme 'zenburn t)
-;;(load-theme 'misterioso t)
-;;(load-theme 'manoj-dark t)
-(load-theme 'monokai t)
+;;(jack-load-theme 'zenburn t)
+;;(jack-load-theme 'misterioso t)
+;;(jack-load-theme 'manoj-dark t)
+(jack-load-theme 'monokai-theme)
+
+
+
 (set-face-background 'region "green") ;; make region stick out more
 (set-cursor-color "green")
 (scroll-bar-mode -1)
@@ -185,81 +179,34 @@
 ;;
 ;; auto-complete (within code buffers) -- auto-install
 ;;
-(when (not (require 'auto-complete-config nil t))
-         (package-install 'auto-complete))
+(jack-require-or-install 'auto-complete)
 
 (require 'auto-complete-config)
 (ac-config-default)
 
-;;
-;; multiple cursors
-;;
-;; (when (not (require 'multiple-cursors nil t))
-;;          (package-install 'multiple-cursors))
+;; packages to install
+(setq pkgs-to-install '(ace-jump-mode fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative helm)) ;; multiple-cursors
 
-;;
-;; ace jump - like easymotion in vim
-;;
-(when (not (require 'ace-jump-mode nil t))
-         (package-install 'ace-jump-mode))
+;; install the packages
+(jack-require-or-install-all pkgs-to-install)
 
-(define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
-;;
-;; fuzzy-match for switching buffers - auto-install (MAYBE remove)
-;;
-(when (not (require 'fuzzy-match nil t))
-         (package-install 'fuzzy-match))
-
-;;
-;; rainbow-delimiters - colorize () in lisp - auto-install (MAYBE remove)
-;;
-(when (not (require 'rainbow-delimiters nil t))
-         (package-install 'rainbow-delimiters))
-
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-
-;;
-;; php-mode - auto-install
-;;
-(when (not (require 'php-mode nil t))
-         (package-install 'php-mode))
-
-;;
-;; go-mode - auto-install
-;;
-(when (not (require 'go-mode nil t))
-         (package-install 'go-mode))
-
-;;
-;; git-gutter - auto-install
-;;
-(when (not (require 'git-gutter nil t))
-         (package-install 'git-gutter))
-
-;;
-;; web-mode - auto-install
-;;
-(when (not (require 'web-mode nil t))
-         (package-install 'web-mode))
-
-;;
-;; ido stuff - auto-install
-;;
 (require 'ido)
-(when (not (require 'ido-better-flex nil t))
-         (package-install 'ido-better-flex))
+(jack-require-or-install 'ido-better-flex)
 ;;(setq ido-enable-flex-matching t)
 (setq ido-confirm-unique-completion t)
 ;;(setq ido-work-directory-list '("~/" "~/public_html"))
 ;; (ido-case-fold nil) ;; be case sensative
-(when (not (require 'ido-ubiquitous nil t))
-         (package-install 'ido-ubiquitous))
+
+(jack-require-or-install 'ido-ubiquitous)
 
 (ido-mode t)
 (ido-better-flex/enable)
 (ido-ubiquitous-mode)
 
+
+(define-key global-map (kbd "C-x b") 'helm-mini)
+(define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 ;; scroll by one line --
 (global-set-key (quote [M-down]) (quote scroll-up-line))
 (global-set-key (quote [M-up]) (quote scroll-down-line))
@@ -274,6 +221,7 @@
 (setq uniquify-buffer-name-style 'reverse) ;; or "forward"
 
 (setq tramp-default-method "scpx")
+
 
 
 (setq frame-title-format		;show directory and filename on frame top
