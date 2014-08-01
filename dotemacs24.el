@@ -185,7 +185,7 @@
 (ac-config-default)
 
 ;; packages to install
-(setq pkgs-to-install '(ace-jump-mode fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative helm)) ;; multiple-cursors
+(setq pkgs-to-install '(ace-jump-mode fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative)) ;; multiple-cursors
 
 ;; install the packages
 (jack-require-or-install-all pkgs-to-install)
@@ -204,8 +204,7 @@
 (ido-better-flex/enable)
 (ido-ubiquitous-mode)
 
-
-(define-key global-map (kbd "C-x b") 'helm-mini)
+;(define-key global-map (kbd "C-x b") 'helm-mini)
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 ;; scroll by one line --
 (global-set-key (quote [M-down]) (quote scroll-up-line))
@@ -213,6 +212,7 @@
 
 (global-git-gutter-mode t)
 (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+
 (setq git-gutter:update-threshold 2)
 (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
 
@@ -240,6 +240,7 @@
     (setq python-indent 8)
     (setq tab-width 4)))
 
+(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
 
 (require 'jack-scratch)
