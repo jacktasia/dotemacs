@@ -1,13 +1,12 @@
+;;; package --- Summary
+;;; Commentary:
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ABOUT dotemacs24
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; A simple commented emacs24 config. Meant as a starting off point
-; for those I can convince to try emacs.
+; My emacs config. Tries to use package manager as much as possible.
 ;
-; In an effort to keep this small and portable packages
-; will be auto-installed if they're missing.
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; INSTALLATION
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,6 +25,8 @@
 ;; START UP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Code:
+
 (defconst *start-time* (current-time)) ;; record start time to time .emacs load time
 
 (defvar emacsdir (file-name-directory load-file-name))
@@ -37,7 +38,7 @@
 
 (require 'cl) ;; gotta have it
 (require 'jack-util)
-(require 'cmdj)
+(require 'ido)
 
 (jack-emacs-maximize) ;; only works for linux right now (requires wmctrl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,6 +50,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse) ;; or "forward"
+(setq tramp-default-method "scpx")
 
 (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
 (defalias 'yes-or-no-p 'y-or-n-p) ;; don't require full "yes" for confirms
@@ -67,15 +71,12 @@
 (setq cua-enable-cua-keys nil)
 (cua-mode)
 
-(global-set-key (kbd "\C-c 3") 'cmdj-java-find-insert-import) ;; 
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "\C-c l") 'goto-line)      ;; goes to prompted line number
 (global-set-key (kbd "\C-c i") 'ispell-region)  ;; spell check region
 (global-set-key "\C-cp" 'beginning-of-buffer)   ;; top of file
 (global-set-key "\C-cn" 'end-of-buffer)
-
-
 
 ;;
 ;; make good use of arrow keys
@@ -118,10 +119,7 @@
 (global-set-key (kbd "C-0") '(lambda()(interactive)
                                (modify-frame-parameters nil `((alpha . 100)))))
 
-(global-set-key  "\C-cg" 'cmdj-func-at-point)	;; [G]oto func
-;;(global-set-key  "\C-cs" 'cmdj-search-at-point) ;; [S]earch at point
 (global-set-key  "\C-cd" 'jack-git-diff)
-(global-set-key  "\C-ca" 'cmdj-php-func-args-tooltip)
 (global-set-key  "\C-cw" 'whitespace-mode)
 (global-set-key  "\C-ce" 'jack-mark-word)
 
@@ -158,15 +156,7 @@
 
 (jack-require-or-install 'rainbow-mode)
 
-;; (package-install 'color-theme-solarized)
-;; (load-theme 'solarized-light t)
-
-;;(jack-load-theme 'zenburn t)
-;;(jack-load-theme 'misterioso t)
-;;(jack-load-theme 'manoj-dark t)
-(jack-load-theme 'monokai-theme)
-
-
+(jack-load-theme 'monokai-theme) ;; zenburn-theme misterioso-theme
 
 (set-face-background 'region "green") ;; make region stick out more
 (set-cursor-color "green")
@@ -177,22 +167,22 @@
 (set-face-attribute 'default nil :font "Droid Sans Mono-12")
 
 ;;
-;; auto-complete (within code buffers) -- auto-install
-;;
-(jack-require-or-install 'auto-complete)
-
-(require 'auto-complete-config)
-(ac-config-default)
-
 ;; packages to install
-(setq pkgs-to-install '(ace-jump-mode fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative)) ;; multiple-cursors
+;;
+
+(setq pkgs-to-install '(auto-complete ace-jump-mode fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative multiple-cursors dash s projectile flycheck)) ;; multiple-cursors
 
 ;; install the packages
 (jack-require-or-install-all pkgs-to-install)
 
 
-(require 'ido)
-(jack-require-or-install 'ido-better-flex)
+;;
+;; POST PACKAGE INSTALL
+;;
+(require 'auto-complete-config)
+(ac-config-default)
+
+
 ;;(setq ido-enable-flex-matching t)
 (setq ido-confirm-unique-completion t)
 ;;(setq ido-work-directory-list '("~/" "~/public_html"))
@@ -204,10 +194,34 @@
 (ido-better-flex/enable)
 (ido-ubiquitous-mode)
 
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; flycheck stuff
+;; sudo npm install -g eslint
+;; sudo pip install pylint
+;; https://github.com/mozilla/123done/issues/94
+
+
+;; projectile
+;(setq projectile-keymap-prefix '(kbd "C-c o"))
+;(setq projectile-keymap-prefix (kbd "C-c C-p"))
+;(projectile-global-mode)
+
+;;
+;;keybindings for packages
+;;
+
+;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c ,") 'mc/edit-lines)
+
 ;(define-key global-map (kbd "C-x b") 'helm-mini)
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
-;; scroll by one line --
-(global-set-key (quote [M-down]) (quote scroll-up-line))
+
+(global-set-key (quote [M-down]) (quote scroll-up-line)) ;; scroll by one line --
 (global-set-key (quote [M-up]) (quote scroll-down-line))
 
 (global-git-gutter-mode t)
@@ -217,23 +231,13 @@
 (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
 
 ;; http://stackoverflow.com/questions/2903426/display-path-of-file-in-status-bar
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse) ;; or "forward"
-
-(setq tramp-default-method "scpx")
-
-
-
 (setq frame-title-format		;show directory and filename on frame top
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; DONE - report time
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
-
+;;
+;; HOOKS
+;;
 (add-hook 'python-mode-hook
   (lambda ()
     (setq indent-tabs-mode t)
@@ -243,6 +247,13 @@
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DONE - report time
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
+
 (require 'jack-scratch)
 
 (provide 'dotemacs24)
+;;; dotemacs24.el ends here
