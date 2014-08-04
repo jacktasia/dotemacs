@@ -170,7 +170,7 @@
 ;; packages to install
 ;;
 
-(setq pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative multiple-cursors dash s projectile flycheck)) ;; multiple-cursors
+(setq pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative multiple-cursors dash s projectile flycheck window-numbering)) ;; multiple-cursors
 
 ;; install the packages
 (jack-require-or-install-all pkgs-to-install)
@@ -179,6 +179,7 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+(window-numbering-mode)
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -199,7 +200,12 @@
 ;; flycheck stuff
 ;; sudo npm install -g eslint
 ;; sudo pip install pylint
+
+;; eslint config example
 ;; https://github.com/mozilla/123done/issues/94
+
+;; pylint config example
+;; pylint --generate-rcfile > ~/.pylintrc
 
 ;; projectile
 ;(setq projectile-keymap-prefix '(kbd "C-c o"))
