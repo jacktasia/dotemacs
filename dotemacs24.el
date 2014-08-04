@@ -170,7 +170,7 @@
 ;; packages to install
 ;;
 
-(setq pkgs-to-install '(auto-complete ace-jump-mode fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative multiple-cursors dash s projectile flycheck)) ;; multiple-cursors
+(setq pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative multiple-cursors dash s projectile flycheck)) ;; multiple-cursors
 
 ;; install the packages
 (jack-require-or-install-all pkgs-to-install)
@@ -201,7 +201,6 @@
 ;; sudo pip install pylint
 ;; https://github.com/mozilla/123done/issues/94
 
-
 ;; projectile
 ;(setq projectile-keymap-prefix '(kbd "C-c o"))
 ;(setq projectile-keymap-prefix (kbd "C-c C-p"))
@@ -219,6 +218,7 @@
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
 ;(define-key global-map (kbd "C-x b") 'helm-mini)
+(define-key global-map (kbd "C-x b") 'ace-jump-buffer)
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
 (global-set-key (quote [M-down]) (quote scroll-up-line)) ;; scroll by one line --
