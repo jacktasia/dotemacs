@@ -40,6 +40,7 @@
 (require 'jack-util)
 (require 'ido)
 
+
 (jack-emacs-maximize) ;; only works for linux right now (requires wmctrl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SETTINGS
@@ -177,7 +178,8 @@
 ;; packages to install
 ;;
 
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode linum-relative multiple-cursors dash s projectile flycheck f ido-sort-mtime flx-ido switch-window)))
+; git-gutter
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+)))
 	;; install the packages
 	(jack-require-or-install-all pkgs-to-install))
 
@@ -185,6 +187,23 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+(global-anzu-mode +1)
+
+(set-face-attribute 'anzu-mode-line nil
+                    :foreground "yellow" :weight 'bold)
+
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000)
+ '(anzu-replace-to-string-separator " => "))
+
+(setq anzu-cons-mode-line-p nil)
+(setcar (cdr (assq 'isearch-mode minor-mode-alist))
+        '(:eval (anzu--update-mode-line)))
+
+;;;;;
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -242,17 +261,29 @@
 (global-set-key (quote [M-down]) (quote scroll-up-line)) ;; scroll by one line --
 (global-set-key (quote [M-up]) (quote scroll-down-line))
 
-(global-git-gutter-mode t)
-(global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
 
-(setq git-gutter:update-threshold 2)
-(setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
+(global-git-gutter+-mode t)
+(global-set-key (kbd "C-x g") 'git-gutter+-mode)
+(global-set-key (kbd "C-x C-g") 'git-gutter+-mode) ; because i accidentally do this half the time anyway
+
+;; sadly this won't work on first install!!
+(when (fboundp 'git-gutter-fr+-minimal)
+	(git-gutter-fr+-minimal))
+;(setq git-gutter-fr+-side 'right-fringe)
+;(git-gutter+-toggle-fringe)
+
+
+;; (global-git-gutter-mode t)
+;; (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
+;; (setq git-gutter:update-threshold 2)
+;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
 
 ;; http://stackoverflow.com/questions/2903426/display-path-of-file-in-status-bar
 (setq frame-title-format		;show directory and filename on frame top
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
+(linum-mode)
 ;;
 ;; HOOKS
 ;;
