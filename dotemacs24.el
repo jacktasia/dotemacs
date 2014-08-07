@@ -5,7 +5,7 @@
 ;; ABOUT dotemacs24
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; My emacs config. Tries to use package manager as much as possible.
+; My Emacs config.  Tries to use package manager as much as possible.
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; INSTALLATION
@@ -123,6 +123,13 @@
 (global-set-key  "\C-cw" 'whitespace-mode)
 (global-set-key  "\C-ce" 'jack-mark-word)
 
+
+;;; trying out desktop mode
+(desktop-save-mode 1)
+(setq history-length 250)
+(add-to-list 'desktop-globals-to-save 'file-name-history)
+;;; end tmp try
+
 ;; In case you want to change the whitespace-space color
 ;; (custom-set-variables)
 ;; (custom-set-faces
@@ -170,19 +177,23 @@
 ;; packages to install
 ;;
 
-(setq pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode ido-better-flex linum-relative multiple-cursors dash s projectile flycheck window-numbering)) ;; multiple-cursors
-
-;; install the packages
-(jack-require-or-install-all pkgs-to-install)
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode git-gutter web-mode linum-relative multiple-cursors dash s projectile flycheck f ido-sort-mtime flx-ido switch-window)))
+	;; install the packages
+	(jack-require-or-install-all pkgs-to-install))
 
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
-(window-numbering-mode)
 (require 'auto-complete-config)
 (ac-config-default)
 
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
 
 ;;(setq ido-enable-flex-matching t)
 (setq ido-confirm-unique-completion t)
@@ -190,9 +201,8 @@
 ;; (ido-case-fold nil) ;; be case sensative
 
 (jack-require-or-install 'ido-ubiquitous)
-
-(ido-mode t)
-(ido-better-flex/enable)
+(ido-sort-mtime-mode 1)
+;(ido-better-flex/enable)
 (ido-ubiquitous-mode)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -220,11 +230,13 @@
 ;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 ;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+(global-set-key (kbd "C-x o") 'switch-window)
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
 ;(define-key global-map (kbd "C-x b") 'helm-mini)
-(define-key global-map (kbd "C-x b") 'ace-jump-buffer)
+;(define-key global-map (kbd "C-x b") 'ace-jump-buffer)
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
 (global-set-key (quote [M-down]) (quote scroll-up-line)) ;; scroll by one line --
