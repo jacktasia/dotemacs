@@ -2,4 +2,8 @@ dotemacs24
 ==========
 
 an emacs 24 config
--![alt text](https://jackangers.imgix.net/chester.png "github class")
+
+
+
+
+[![Build Status](https://jackangers.imgix.net/chester.png)](http://img.tips)
