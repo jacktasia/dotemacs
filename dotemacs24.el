@@ -168,8 +168,10 @@
 
 (jack-load-theme 'monokai-theme) ;; zenburn-theme misterioso-theme
 
-(set-face-background 'region "green") ;; make region stick out more
-(set-cursor-color "green")
+(let ((my-select-color "#FF8300")) ;; this is orange -- but plain "green" is also nice
+	(set-face-background 'region my-select-color) ;; make region stick out more
+	(set-cursor-color my-select-color))
+
 (scroll-bar-mode -1)
 
 ;; sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
