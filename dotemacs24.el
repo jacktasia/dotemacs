@@ -72,6 +72,8 @@
 (setq cua-enable-cua-keys nil)
 (cua-mode)
 
+(global-linum-mode)
+(global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "\C-c l") 'goto-line)      ;; goes to prompted line number
@@ -283,7 +285,7 @@
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-(linum-mode)
+
 ;;
 ;; HOOKS
 ;;
