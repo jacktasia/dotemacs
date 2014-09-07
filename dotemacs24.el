@@ -183,7 +183,7 @@
 ;;
 
 ; git-gutter
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex)))
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell)))
 	;; install the packages
 	(jack-require-or-install-all pkgs-to-install))
 
@@ -207,6 +207,9 @@
 (setq anzu-cons-mode-line-p nil)
 (setcar (cdr (assq 'isearch-mode minor-mode-alist))
         '(:eval (anzu--update-mode-line)))
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;;;;;
 (require 'auto-complete-config)
