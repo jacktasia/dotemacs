@@ -72,7 +72,10 @@
 (setq cua-enable-cua-keys nil)
 (cua-mode)
 
+
 (global-linum-mode)
+(set-face-attribute 'linum nil :height 120) ; static height
+(custom-set-variables '(linum-format 'dynamic))
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
