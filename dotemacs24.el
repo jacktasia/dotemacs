@@ -66,6 +66,7 @@
 (setq whitespace-line-column 600)  ;; do not turn line purple if "too long"
 (blink-cursor-mode 0)              ;; no blinking cursor
 (setq initial-scratch-message "")  ;; no scratch message
+(electric-indent-mode 0)           ;; no thanks
 
 ;;(custom-set-faces '(fringe ((t (:background "black"))))) ;; change border color to match
 
@@ -128,6 +129,8 @@
 (global-set-key  "\C-cd" 'jack-git-diff)
 (global-set-key  "\C-cw" 'whitespace-mode)
 (global-set-key  "\C-ce" 'jack-mark-word)
+
+(global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 
 ;;; trying out desktop mode

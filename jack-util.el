@@ -7,8 +7,8 @@
 	(mapcar (lambda (pkg) (funcall 'jack-require-or-install pkg))
 			pkgs))
 
-(defun jack-load-theme (the-theme) 
-	(let ((just-name (intern (car (split-string (symbol-name the-theme) "-"))))) 
+(defun jack-load-theme (the-theme)
+	(let ((just-name (intern (car (split-string (symbol-name the-theme) "-")))))
 		(unless (member just-name (custom-available-themes))
 		  (package-install the-theme))
 		(load-theme just-name t)))
@@ -138,6 +138,13 @@
   ;;(delete-trailing-whitespace)
   (kill-line 0))
 
+(defun jack-delete-line-no-kill ()
+  (interactive)
+  (delete-region
+   (point)
+   (save-excursion (move-end-of-line 1) (point)))
+  (delete-char 1))
+
 ;; put (jack-train-human) at the end of your .emacs file if you want to force yourself
 ;; to not use the arrow keys or mouse...
 (defun jack-train-human ()
@@ -147,7 +154,7 @@
 	(global-set-key	 [right] '(lambda()(interactive)(message "%s" "bad human!")))
 	(global-set-key	 [left] '(lambda()(interactive)(message "%s" "bad human!")))
 
-	(dolist (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]	
+	(dolist (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]
 				 [mouse-2] [down-mouse-2] [drag-mouse-2] [double-mouse-2] [triple-mouse-2]
 				 [mouse-3] [down-mouse-3] [drag-mouse-3] [double-mouse-3] [triple-mouse-3]
 				 [mouse-4] [down-mouse-4] [drag-mouse-4] [double-mouse-4] [triple-mouse-4]
@@ -173,14 +180,14 @@
 
 	(shell-command (format (cdr (assoc the_mode lang_cmds)) (buffer-file-name)))))
 
-(defun jack-git-blame-line () 
-  (interactive) 
-  (let ((cmd_tmpl "git blame -L %s,+3 %s") 
+(defun jack-git-blame-line ()
+  (interactive)
+  (let ((cmd_tmpl "git blame -L %s,+3 %s")
 		(current_line (cadr (split-string (what-line) " "))))
 	(shell-command (format cmd_tmpl current_line (buffer-file-name)))))
 
-(defun jack-git-diff () 
-  (interactive) 
+(defun jack-git-diff ()
+  (interactive)
   (let ((cmd_tmpl "git diff %s"))
 	(shell-command (format cmd_tmpl (buffer-file-name)))
 	(with-current-buffer (get-buffer "*Shell Command Output*")
@@ -247,8 +254,8 @@
 
 ;; map command-3 (super-3) on macs so i can have fallback of ubuntu terminal keybinding
 (when (string= system-type "darwin")
-	(global-set-key (kbd "s-3") 
-		(lambda () 
+	(global-set-key (kbd "s-3")
+		(lambda ()
 			(interactive)
 			(shell-command "osascript -e 'tell application \"Terminal\" to activate'"))))
 
