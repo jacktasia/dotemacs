@@ -236,6 +236,7 @@
 (ido-ubiquitous-mode)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; flycheck stuff
 ;; sudo npm install -g eslint
