@@ -70,6 +70,10 @@
 
 ;;(custom-set-faces '(fringe ((t (:background "black"))))) ;; change border color to match
 
+;; force the fringe to match the current theme's bg color
+(let ((cur-bg-color (face-attribute 'default :background)))
+	(set-face-attribute 'fringe nil :background cur-bg-color))
+
 (setq cua-enable-cua-keys nil)
 (cua-mode)
 
@@ -179,7 +183,11 @@
 
 ;; sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
 ;; http://www.fontsquirrel.com/fonts/Droid-Sans-Mono
-(set-face-attribute 'default nil :font "Droid Sans Mono-12")
+;;(set-face-attribute 'default nil :font "Droid Sans Mono-12")
+
+;; sudo apt-get install xfonts-terminus
+(set-default-font "Terminus-12")
+(setq-default line-spacing 0)
 
 ;;
 ;; packages to install
