@@ -153,14 +153,10 @@
 ;; setup page manager
 ;;
 (require 'package)
-(add-to-list 'package-archives
-             '("elpa" . "http://tromey.com/elpa/"))
 
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("melpa" . "http://melpa.org/packages/") t)
 
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (package-initialize) ;; turn on
 
@@ -172,7 +168,8 @@
 
 (jack-require-or-install 'rainbow-mode)
 
-(jack-load-theme 'monokai-theme) ;; zenburn-theme misterioso-theme
+(jack-load-theme 'zenburn-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
+
 
 (let ((my-select-color "#FF8300")) ;; this is orange -- but plain "green" is also nice
 	(set-face-background 'region my-select-color) ;; make region stick out more
@@ -189,7 +186,7 @@
 ;;
 
 ; git-gutter
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell)))
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ack-and-a-half)))
 	;; install the packages
 	(jack-require-or-install-all pkgs-to-install))
 
@@ -239,6 +236,7 @@
 (ido-ubiquitous-mode)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; flycheck stuff
@@ -285,8 +283,10 @@
 (global-set-key (kbd "C-x C-g") 'git-gutter+-mode) ; because i accidentally do this half the time anyway
 
 ;; sadly this won't work on first install!!
-(when (fboundp 'git-gutter-fr+-minimal)
-	(git-gutter-fr+-minimal))
+;; (when (fboundp 'git-gutter-fr+-minimal)
+;;   (git-gutter-fr+-minimal))
+
+
 ;(setq git-gutter-fr+-side 'right-fringe)
 ;(git-gutter+-toggle-fringe)
 
