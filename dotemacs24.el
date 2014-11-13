@@ -68,11 +68,6 @@
 (setq initial-scratch-message "")  ;; no scratch message
 (electric-indent-mode 0)           ;; no thanks
 
-;;(custom-set-faces '(fringe ((t (:background "black"))))) ;; change border color to match
-
-;; force the fringe to match the current theme's bg color
-(let ((cur-bg-color (face-attribute 'default :background)))
-	(set-face-attribute 'fringe nil :background cur-bg-color))
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
@@ -159,8 +154,7 @@
 (require 'package)
 
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-
+             '("melpa" . "https://melpa.org/packages/") t)
 
 (package-initialize) ;; turn on
 
@@ -174,6 +168,9 @@
 
 (jack-load-theme 'zenburn-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
 
+;; force the fringe to match the current theme's bg color
+(let ((cur-bg-color (face-attribute 'default :background)))
+	(set-face-attribute 'fringe nil :background cur-bg-color))
 
 (let ((my-select-color "#FF8300")) ;; this is orange -- but plain "green" is also nice
 	(set-face-background 'region my-select-color) ;; make region stick out more
@@ -243,7 +240,7 @@
 ;(ido-better-flex/enable)
 (ido-ubiquitous-mode)
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
