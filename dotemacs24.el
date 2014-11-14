@@ -192,7 +192,11 @@
 ;;(set-face-attribute 'default nil :font "Droid Sans Mono-12")
 
 ;; sudo apt-get install xfonts-terminus
-(set-default-font "Terminus-12")
+
+(if (eq system-type 'darwin)
+  (set-default-font "Terminus (TTF)-18")
+  (set-default-font "Terminus-12"))
+
 (setq-default line-spacing 0)
 
 ;;
@@ -341,6 +345,6 @@
 
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 
-;; don't provide anymore if this is 
+;; don't provide anymore if this is
 ;;(provide 'dotemacs24)
 ;;; dotemacs24.el ends here
