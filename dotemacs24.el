@@ -67,7 +67,7 @@
 (blink-cursor-mode 0)              ;; no blinking cursor
 (setq initial-scratch-message "")  ;; no scratch message
 (electric-indent-mode 0)           ;; no thanks
-
+(global-hl-line-mode 1)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
@@ -175,6 +175,9 @@
 (let ((my-select-color "#FF8300")) ;; this is orange -- but plain "green" is also nice
 	(set-face-background 'region my-select-color) ;; make region stick out more
 	(set-cursor-color my-select-color))
+
+;; https://github.com/bbatsov/zenburn-emacs/blob/master/zenburn-theme.el#L132
+(custom-set-faces `(isearch ((t (:background "yellow" :foreground "black" :weight bold)))))
 
 (scroll-bar-mode -1)
 
