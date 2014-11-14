@@ -10,11 +10,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; INSTALLATION
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; 1) put the following in your .emacs (or .emacs.d/init.el for windows)
 ;
-;        (load "~/path/to/dotemacs24.el")
-;
-; 2) if desired, override any of the settings defined below at the TOP of your .emacs
+; ln -s /path/to/dotemacs24.el ~/.emacs
 ;
 ; NOTE: on your first boot it will be slow due to installing all packages
 ;   you will see a *Compiled Log* on your first boot
@@ -29,15 +26,23 @@
 
 (defconst *start-time* (current-time)) ;; record start time to time .emacs load time
 
-(defvar emacsdir (file-name-directory load-file-name))
-(add-to-list 'load-path emacsdir)
+
+(defvar emacsdir
+	(file-name-directory (replace-regexp-in-string (regexp-quote "\n") ""
+       (shell-command-to-string "ls -al ~/.emacs | awk '{print $NF}'"))))
+
+(load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
+
+;; OLD WAY
+;;(defvar emacsdir (file-name-directory load-file-name))
+;;(add-to-list 'load-path emacsdir)
 
 
 ;; user-emacs-directory
 (message "%s is the value of emacsdir" emacsdir)
 
 (require 'cl) ;; gotta have it
-(require 'jack-util)
+;(require 'jack-util)
 (require 'ido)
 
 
@@ -76,6 +81,7 @@
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
 (custom-set-variables '(linum-format 'dynamic))
+
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
@@ -154,7 +160,7 @@
 (require 'package)
 
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize) ;; turn on
 
@@ -194,7 +200,7 @@
 ;;
 
 ; git-gutter
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag)))
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol)))
 	;; install the packages
 	(jack-require-or-install-all pkgs-to-install))
 
@@ -202,6 +208,10 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+(highlight-symbol-nav-mode 1)
+(global-set-key (kbd "M-n") 'highlight-symbol-next)
+(global-set-key (kbd "M-p") 'highlight-symbol-prev)
 
 (smex-initialize)
 (global-anzu-mode +1)
@@ -290,6 +300,9 @@
 (global-set-key (kbd "C-x g") 'git-gutter+-mode)
 (global-set-key (kbd "C-x C-g") 'git-gutter+-mode) ; because i accidentally do this half the time anyway
 
+(define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
+(define-key global-map (kbd "C-s") 'isearch-forward)
+
 ;; sadly this won't work on first install!!
 ;; (when (fboundp 'git-gutter-fr+-minimal)
 ;;   (git-gutter-fr+-minimal))
@@ -328,7 +341,6 @@
 
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 
-(require 'jack-scratch)
-
-(provide 'dotemacs24)
+;; don't provide anymore if this is 
+;;(provide 'dotemacs24)
 ;;; dotemacs24.el ends here

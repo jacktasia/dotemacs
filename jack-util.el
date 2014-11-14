@@ -270,8 +270,8 @@
   (local-set-key (kbd ":") 'self-insert-command)
   (local-set-key (kbd ";") 'self-insert-command))
 
-(when (file-exists-p "~/code/javaflunky/editors/emacs/javaflunky-fix-imports.el")
-  (load-file "~/code/javaflunky/editors/emacs/javaflunky-fix-imports.el"))
+;; (when (file-exists-p "~/code/javaflunky/editors/emacs/javaflunky-fix-imports.el")
+;;   (load-file "~/code/javaflunky/editors/emacs/javaflunky-fix-imports.el"))
 
 
-(provide 'jack-util)
+;(provide 'jack-util)
