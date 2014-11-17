@@ -1,4 +1,11 @@
 
+;; forked from: https://github.com/bbatsov/prelude/blob/3017a151501d12695541706c717558dfb614f0c4/core/prelude-core.el#L294
+
+(defun jack-sudo-edit (&optional arg)
+  "Edit currently visited file as root."
+  (interactive "P")
+  (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name)))
+
 (defun jack-require-or-install (pkg)
 	(when (not (require pkg nil t))
          (package-install pkg)))
