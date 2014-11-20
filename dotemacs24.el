@@ -135,8 +135,9 @@
 (global-set-key  "\C-cw" 'whitespace-mode)
 (global-set-key  "\C-ce" 'jack-mark-word)
 
-(global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
+(global-set-key  "\C-ct" 'jack-insert-backtick)
 
+(global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 ;;; trying out desktop mode
 (desktop-save-mode 1)
