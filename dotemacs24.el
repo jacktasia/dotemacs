@@ -73,6 +73,8 @@
 (setq initial-scratch-message "")  ;; no scratch message
 (electric-indent-mode 0)           ;; no thanks
 (global-hl-line-mode 1)
+(global-auto-revert-mode 1)        ;; so git branch changes and checkouts update the mode line
+(setq auto-revert-check-vc-info t)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
