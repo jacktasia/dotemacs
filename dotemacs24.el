@@ -207,7 +207,7 @@
 ;;
 
 ; git-gutter
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol)))
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler)))
 	;; install the packages
 	(jack-require-or-install-all pkgs-to-install))
 
@@ -216,6 +216,7 @@
 ;; POST PACKAGE INSTALL
 ;;
 
+(ws-butler-global-mode t)
 (highlight-symbol-nav-mode 1)
 (global-set-key (kbd "M-n") 'highlight-symbol-next)
 (global-set-key (kbd "M-p") 'highlight-symbol-prev)
@@ -262,7 +263,8 @@
 
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+; ws-butler is taking care of this now...
+;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; flycheck stuff
 ;; sudo npm install -g eslint
