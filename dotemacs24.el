@@ -196,11 +196,8 @@
 
 ;; sudo apt-get install xfonts-terminus
 
-(if (eq system-type 'darwin)
-  (set-default-font "Terminus (TTF)-18")
-  (set-default-font "Terminus-12"))
-
-(setq-default line-spacing 0)
+(set-default-font "Terminus-12")
+;(setq-default line-spacing 0)
 
 ;;
 ;; packages to install
