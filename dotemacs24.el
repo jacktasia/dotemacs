@@ -72,7 +72,7 @@
 (blink-cursor-mode 0)              ;; no blinking cursor
 (setq initial-scratch-message "")  ;; no scratch message
 (electric-indent-mode 0)           ;; no thanks
-(global-hl-line-mode 1)
+(global-hl-line-mode 0)
 (global-auto-revert-mode 1)        ;; so git branch changes and checkouts update the mode line
 (setq auto-revert-check-vc-info t)
 
@@ -204,7 +204,7 @@
 ;;
 
 ; git-gutter
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler)))
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht)))
 	;; install the packages
 	(jack-require-or-install-all pkgs-to-install))
 
@@ -344,6 +344,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; override
+(defun display-startup-echo-area-message ()
+  (message (jack-get-random-quote)))
 
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 

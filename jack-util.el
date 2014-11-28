@@ -28,6 +28,11 @@
 ;;(jack-url-to-file "http://unarm.org" "/home/jack/unarm.txt")
 (defvar php-lint-cmd "php -l %s")
 
+(defun jack-get-random-quote ()
+  (let* ((quote-url "http://www.iheartquotes.com/api/v1/random?max_lines=1")
+         (content (jack-url-get-contents quote-url)))
+    (s-trim (second (split-string content "\n")))))
+
 (defun jack-java-format ()
 	(interactive "*")
 		(let* ((fileName (car (last (split-string (buffer-file-name) "/"))))
