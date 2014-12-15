@@ -28,9 +28,13 @@
 
 
 (defvar emacsdir
-	(file-name-directory (replace-regexp-in-string (regexp-quote "\n") ""
-       (shell-command-to-string "ls -al ~/.emacs | awk '{print $NF}'"))))
+  (file-name-directory
+    (replace-regexp-in-string
+       (regexp-quote "\n") ""
+       (shell-command-to-string
+       "ls -al ~/.emacs | awk '{print $NF}'"))))
 
+;(kill-buffer "*Shell Command Output*")
 (load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
 
 ;; OLD WAY
@@ -44,6 +48,8 @@
 (require 'cl) ;; gotta have it
 ;(require 'jack-util)
 (require 'ido)
+(require 'midnight)
+(require 'uniquify)
 
 
 (jack-emacs-maximize) ;; only works for linux right now (requires wmctrl)
@@ -56,9 +62,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'uniquify)
+
 (setq uniquify-buffer-name-style 'reverse) ;; or "forward"
 (setq tramp-default-method "scpx")
+(setq clean-buffer-list-delay-general 7)
 
 (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
 (defalias 'yes-or-no-p 'y-or-n-p) ;; don't require full "yes" for confirms
@@ -82,7 +89,16 @@
 
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
-(custom-set-variables '(linum-format 'dynamic))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(anzu-deactivate-region t)
+ '(anzu-mode-lighter "")
+ '(anzu-replace-to-string-separator " => ")
+ '(anzu-search-threshold 1000)
+ '(linum-format (quote dynamic)))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
@@ -119,6 +135,15 @@
 
 (add-hook 'php-mode-hook 'jack-php-setup)
 
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (setq tab-width 2)
+            (setq indent-tabs-mode nil)))
+
+(eval-after-load 'emacs-lisp-mode
+                 '(define-key LaTeX-mode-map [(tab)] 'forward-button))
+
+
 (global-set-key (kbd "<backtab>") 'jack-unindent-block)
 (global-set-key [C-tab] 'jack-unindent-block)
 (global-set-key (kbd "\C-c <tab>") 'jack-indent-block)           ;; indent selected region
@@ -147,7 +172,7 @@
 (add-to-list 'desktop-globals-to-save 'file-name-history)
 ;;; end tmp try
 
-;; In case you want to change the whitespace-space color
+
 ;; (custom-set-variables)
 ;; (custom-set-faces
 ;;  '(whitespace-space ((t (:background "#3f3f3f" :foreground "#005500")))))
@@ -168,7 +193,8 @@
 (package-initialize) ;; turn on
 
 (when *refresh-package-list*
-	(package-refresh-contents)) ;; slow, hit server for fresh package list. i think it's worth it
+  (package-refresh-contents))
+
 ;;
 ;; THEME - auto-install
 ;;
@@ -179,14 +205,31 @@
 
 ;; force the fringe to match the current theme's bg color
 (let ((cur-bg-color (face-attribute 'default :background)))
-	(set-face-attribute 'fringe nil :background cur-bg-color))
+  (set-face-attribute 'fringe nil :background cur-bg-color))
 
 (let ((my-select-color "#FF8300")) ;; this is orange -- but plain "green" is also nice
-	(set-face-background 'region my-select-color) ;; make region stick out more
-	(set-cursor-color my-select-color))
+  (set-face-background 'region my-select-color) ;; make region stick out more
+  (set-cursor-color my-select-color))
 
 ;; https://github.com/bbatsov/zenburn-emacs/blob/master/zenburn-theme.el#L132
-(custom-set-faces `(isearch ((t (:background "yellow" :foreground "black" :weight bold)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+
+;; In case you want to change the whitespace-space color
+;; '(whitespace-space ((t (:background "#3f3f3f" :foreground "#005500")))))
+ '(isearch ((t (:background "yellow" :foreground "black" :weight bold))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "dark orange"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "yellow"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "green"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "cyan"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "blue"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "dark violet"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown")))))
 
 (scroll-bar-mode -1)
 
@@ -205,8 +248,8 @@
 
 ; git-gutter
 (let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht)))
-	;; install the packages
-	(jack-require-or-install-all pkgs-to-install))
+  ;; install the packages
+  (jack-require-or-install-all pkgs-to-install))
 
 
 ;;
@@ -224,11 +267,7 @@
 (set-face-attribute 'anzu-mode-line nil
                     :foreground "yellow" :weight 'bold)
 
-(custom-set-variables
- '(anzu-mode-lighter "")
- '(anzu-deactivate-region t)
- '(anzu-search-threshold 1000)
- '(anzu-replace-to-string-separator " => "))
+
 
 (setq anzu-cons-mode-line-p nil)
 (setcar (cdr (assq 'isearch-mode minor-mode-alist))
@@ -324,7 +363,7 @@
 ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
 
 ;; http://stackoverflow.com/questions/2903426/display-path-of-file-in-status-bar
-(setq frame-title-format		;show directory and filename on frame top
+(setq frame-title-format  ;show directory and filename on frame top
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
@@ -346,7 +385,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; override
 (defun display-startup-echo-area-message ()
-  (message (jack-get-random-quote)))
+  (message "Emacs!"))
 
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 
