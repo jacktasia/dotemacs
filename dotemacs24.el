@@ -81,7 +81,7 @@
 (electric-indent-mode 0)           ;; no thanks
 (global-hl-line-mode 0)
 (global-auto-revert-mode 1)        ;; so git branch changes and checkouts update the mode line
-(setq auto-revert-check-vc-info t)
+(setq auto-revert-check-vc-info nil)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
@@ -98,6 +98,9 @@
  '(anzu-mode-lighter "")
  '(anzu-replace-to-string-separator " => ")
  '(anzu-search-threshold 1000)
+ '(custom-safe-themes
+   (quote
+    ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(linum-format (quote dynamic)))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
@@ -217,9 +220,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
-;; In case you want to change the whitespace-space color
-;; '(whitespace-space ((t (:background "#3f3f3f" :foreground "#005500")))))
  '(isearch ((t (:background "yellow" :foreground "black" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "dark orange"))))
@@ -247,7 +247,7 @@
 ;;
 
 ; git-gutter
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht)))
+(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -256,6 +256,8 @@
 ;; POST PACKAGE INSTALL
 ;;
 
+(sml/setup)
+(sml/apply-theme 'dark)
 (ws-butler-global-mode t)
 (highlight-symbol-nav-mode 1)
 (global-set-key (kbd "M-n") 'highlight-symbol-next)
