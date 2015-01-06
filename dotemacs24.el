@@ -373,6 +373,9 @@
 ;;
 ;; HOOKS
 ;;
+
+(add-hook 'mouse-leave-buffer-hook 'jack-stop-using-minibuffer)
+
 (add-hook 'python-mode-hook
   (lambda ()
     (setq indent-tabs-mode t)

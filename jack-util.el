@@ -277,7 +277,13 @@
 	(global-set-key (kbd "s-3")
 		(lambda ()
 			(interactive)
-			(shell-command "osascript -e 'tell application \"Terminal\" to activate'"))))
+      (shell-command "osascript -e 'tell application \"Terminal\" to activate'"))))
+
+;; http://trey-jackson.blogspot.com/2010/04/emacs-tip-36-abort-minibuffer-when.html
+(defun jack-stop-using-minibuffer ()
+  "kill the minibuffer"
+  (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
+    (abort-recursive-edit)))
 
 ;;
 ;; lang mood hook setups...
