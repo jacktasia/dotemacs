@@ -384,6 +384,7 @@
 
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
+(setq gofmt-command "~/go/bin/gofmt")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
