@@ -247,7 +247,7 @@
 ;;
 
 ; git-gutter
-(let ((pkgs-to-install '(auto-complete ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -279,9 +279,17 @@
   (exec-path-from-shell-initialize))
 
 ;;;;;
-(require 'auto-complete-config)
-(ac-config-default)
 
+;; company config
+(add-hook 'after-init-hook 'global-company-mode)
+(add-to-list 'company-backends 'company-anaconda)
+(add-hook 'python-mode-hook 'anaconda-mode)
+
+(add-to-list 'company-backends 'company-tern)
+(setq company-tern-property-marker "")
+(setq company-tern-meta-as-single-line t)
+
+;; ido config
 (ido-mode 1)
 (ido-everywhere 1)
 (flx-ido-mode 1)
