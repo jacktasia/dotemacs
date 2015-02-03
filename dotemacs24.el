@@ -289,6 +289,8 @@
 (setq company-tern-property-marker "")
 (setq company-tern-meta-as-single-line t)
 
+(setq company-idle-delay 0.1)
+
 ;; ido config
 (ido-mode 1)
 (ido-everywhere 1)
