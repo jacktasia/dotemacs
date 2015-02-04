@@ -409,6 +409,7 @@
 (defun display-startup-echo-area-message ()
   (message "Emacs!"))
 
+(server-start)
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 
 ;; don't provide anymore if this is
