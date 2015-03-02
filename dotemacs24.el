@@ -169,10 +169,16 @@
 
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
-;;; trying out desktop mode
+;;; desktop-mode config
 (desktop-save-mode 1)
 (setq history-length 250)
 (add-to-list 'desktop-globals-to-save 'file-name-history)
+(setq desktop-dirname "~/.emacs.d/data/desktop/")
+(setq desktop-path '("~/.emacs.d/data/desktop/"))
+(setq desktop-base-file-name "desktop")
+(setq desktop-base-lock-name "desktop.lock")
+(setq desktop-save t) ;; always
+(make-directory "~/.emacs.d/data/desktop/" t) ;; ensure exists
 ;;; end tmp try
 
 
