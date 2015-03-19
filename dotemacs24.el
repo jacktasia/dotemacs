@@ -63,7 +63,8 @@
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq uniquify-buffer-name-style 'reverse) ;; or "forward"
+;(setq uniquify-buffer-name-style 'reverse) ;; or "forward"
+(setq uniquify-buffer-name-style 'post-forward) ;; or "forward"
 (setq tramp-default-method "scpx")
 (setq clean-buffer-list-delay-general 7)
 
@@ -210,7 +211,7 @@
 
 (jack-require-or-install 'rainbow-mode)
 
-(jack-load-theme 'zenburn-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
+(jack-load-theme 'darktooth-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
 
 ;; force the fringe to match the current theme's bg color
 (let ((cur-bg-color (face-attribute 'default :background)))
