@@ -63,8 +63,9 @@
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(setq uniquify-buffer-name-style 'reverse) ;; or "forward"
-(setq uniquify-buffer-name-style 'post-forward) ;; or "forward"
+(setq uniquify-min-dir-content 3)
+;; https://github.com/emacs-mirror/emacs/blob/0537943561a37b54467bec19d1b8afbeba8e1e58/lisp/uniquify.el#L107
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets) ;; or "forward"
 (setq tramp-default-method "scpx")
 (setq clean-buffer-list-delay-general 7)
 
