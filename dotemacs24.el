@@ -1,10 +1,6 @@
 ;;; package --- Summary
 ;;; Commentary:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ABOUT dotemacs24
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ; My Emacs config.  Tries to use package manager as much as possible.
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -17,6 +13,20 @@
 ;   you will see a *Compiled Log* on your first boot
 ;   once everything is installed add (defvar *refresh-package-list* nil)
 ;   to the top of your .emacs to speed things up.
+
+;; flycheck stuff
+;; sudo npm install -g eslint
+;; sudo pip install pylint
+
+;; eslint config example
+;; https://github.com/mozilla/123done/issues/94
+
+;; pylint config example
+;; pylint --generate-rcfile > ~/.pylintrc
+
+;; sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
+;; sudo apt-get install xfonts-terminus
+;; mac: http://files.ax86.net/terminus-ttf/
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; START UP
@@ -46,13 +56,12 @@
 (message "%s is the value of emacsdir" emacsdir)
 
 (require 'cl) ;; gotta have it
-;(require 'jack-util)
 (require 'ido)
 (require 'midnight)
 (require 'uniquify)
 
-
-(jack-emacs-maximize) ;; only works for linux right now (requires wmctrl)
+(unless (string-equal system-type "darwin")
+  (jack-emacs-maximize)) ;; only works for linux right now (requires wmctrl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SETTINGS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -102,7 +111,7 @@
  '(anzu-search-threshold 1000)
  '(custom-safe-themes
    (quote
-    ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(linum-format (quote dynamic)))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
@@ -166,9 +175,7 @@
 (global-set-key  "\C-cd" 'jack-git-diff)
 (global-set-key  "\C-cw" 'whitespace-mode)
 (global-set-key  "\C-ce" 'jack-mark-word)
-
 (global-set-key  "\C-ct" 'jack-insert-backtick)
-
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 ;;; desktop-mode config
@@ -181,7 +188,6 @@
 (setq desktop-base-lock-name "desktop.lock")
 (setq desktop-save t) ;; always
 (make-directory "~/.emacs.d/data/desktop/" t) ;; ensure exists
-;;; end tmp try
 
 
 ;; (custom-set-variables)
@@ -241,20 +247,13 @@
 
 (scroll-bar-mode -1)
 
-;; sudo apt-get install ubuntu-restricted-extras ttf-mscorefonts-installer
-;; http://www.fontsquirrel.com/fonts/Droid-Sans-Mono
-;;(set-face-attribute 'default nil :font "Droid Sans Mono-12")
-
-;; sudo apt-get install xfonts-terminus
 
 (set-default-font "Terminus-12")
-;(setq-default line-spacing 0)
 
 ;;
 ;; packages to install
 ;;
 
-                                        ; git-gutter
 (let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
@@ -277,8 +276,6 @@
 (set-face-attribute 'anzu-mode-line nil
                     :foreground "yellow" :weight 'bold)
 
-
-
 (setq anzu-cons-mode-line-p nil)
 (setcar (cdr (assq 'isearch-mode minor-mode-alist))
         '(:eval (anzu--update-mode-line)))
@@ -292,11 +289,9 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'company-backends 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
-
 (add-to-list 'company-backends 'company-tern)
 (setq company-tern-property-marker "")
 (setq company-tern-meta-as-single-line t)
-
 (setq company-idle-delay 0.1)
 
 ;; ido config
@@ -309,9 +304,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
 
-;;(setq ido-enable-flex-matching t)
 (setq ido-confirm-unique-completion t)
-;;(setq ido-work-directory-list '("~/" "~/public_html"))
 ;; (ido-case-fold nil) ;; be case sensative
 
 (jack-require-or-install 'ido-ubiquitous)
@@ -320,24 +313,6 @@
 (ido-ubiquitous-mode)
 
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
-
-; ws-butler is taking care of this now...
-;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; flycheck stuff
-;; sudo npm install -g eslint
-;; sudo pip install pylint
-
-;; eslint config example
-;; https://github.com/mozilla/123done/issues/94
-
-;; pylint config example
-;; pylint --generate-rcfile > ~/.pylintrc
-
-;; projectile
-;(setq projectile-keymap-prefix '(kbd "C-c o"))
-;(setq projectile-keymap-prefix (kbd "C-c C-p"))
-;(projectile-global-mode)
 
 ;;
 ;;keybindings for packages
@@ -421,7 +396,3 @@
 
 (server-start)
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
-
-;; don't provide anymore if this is
-;;(provide 'dotemacs24)
-;;; dotemacs24.el ends here
