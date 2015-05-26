@@ -93,6 +93,7 @@
 (global-hl-line-mode 0)
 (global-auto-revert-mode 1)        ;; so git branch changes and checkouts update the mode line
 (setq auto-revert-check-vc-info nil)
+(setq confirm-kill-emacs 'y-or-n-p)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
