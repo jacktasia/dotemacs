@@ -134,6 +134,12 @@
 (global-set-key  [C-right] 'enlarge-window-horizontally)    ;; make window wider
 (global-set-key  [C-left] 'shrink-window-horizontally)      ;; make window less wide
 
+
+;; handle s-m as if it is m-m on macs
+;; since depending on the keyboard the key is the same place
+(when (string-equal system-type "darwin")
+  (global-set-key (kbd "s-m") 'back-to-indentation))
+
 ;;
 ;; tab stuff
 ;;
@@ -386,7 +392,10 @@
 
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
-(setq gofmt-command "~/go/bin/gofmt")
+
+(if (string-equal system-type "darwin")
+  (setq gofmt-command "gofmt")
+  (setq gofmt-command "~/go/bin/gofmt"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
