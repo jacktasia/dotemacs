@@ -1,6 +1,0 @@
-* (describe-mode) handler
-* (describe-bindings) grep search
-* auto format lisp code...
-* emacs recently used modes 
-* emacs "ls" status of emacs buffers, last errors, etc.
-* highlight doc strings in emacs lisp code
