@@ -138,7 +138,9 @@
 ;; handle s-m as if it is m-m on macs
 ;; since depending on the keyboard the key is the same place
 (when (string-equal system-type "darwin")
-  (global-set-key (kbd "s-m") 'back-to-indentation))
+  (global-set-key (kbd "s-m") 'back-to-indentation)
+  ;;(global-set-key (kbd "s-v") 'cua-scroll-down)
+  (global-set-key (kbd "s-w") 'kill-ring-save))
 
 ;;
 ;; tab stuff
