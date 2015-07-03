@@ -285,6 +285,13 @@
   (when (and (>= (recursion-depth) 1) (active-minibuffer-window))
     (abort-recursive-edit)))
 
+(defun jack-visible-bell ()
+  (setq visible-bell nil)
+  (setq ring-bell-function `(lambda ()
+  (let ((cur (face-attribute 'default :background)))
+    (set-face-background 'default "orange1")
+    (set-face-background 'default cur)))))
+
 ;;
 ;; lang mood hook setups...
 ;;

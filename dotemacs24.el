@@ -72,6 +72,9 @@
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+
+(jack-visible-bell) ;; is effectively (setq visible-bell 1) but less annoying
 (setq uniquify-min-dir-content 3)
 ;; https://github.com/emacs-mirror/emacs/blob/0537943561a37b54467bec19d1b8afbeba8e1e58/lisp/uniquify.el#L107
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets) ;; or "forward"
@@ -258,12 +261,14 @@
 
 
 (set-default-font "Terminus-12")
+;; (when (member "Terminus (TTF)" (font-family-list))
+;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
+
 
 ;;
 ;; packages to install
 ;;
-
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter git-gutter-fringe smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent jsx-mode scss-mode helm helm-projectile)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -272,6 +277,7 @@
 ;; POST PACKAGE INSTALL
 ;;
 
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (sml/setup)
 (sml/apply-theme 'dark)
 (ws-butler-global-mode t)
@@ -331,7 +337,7 @@
 ;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 ;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
+(global-set-key (kbd "s-t") 'projectile-find-file)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;;old M-x.
@@ -347,9 +353,9 @@
 (global-set-key (quote [M-up]) (quote scroll-down-line))
 
 
-(global-git-gutter+-mode t)
-(global-set-key (kbd "C-x g") 'git-gutter+-mode)
-(global-set-key (kbd "C-x C-g") 'git-gutter+-mode) ; because i accidentally do this half the time anyway
+(global-git-gutter-mode t)
+(global-set-key (kbd "C-x g") 'git-gutter-mode)
+(global-set-key (kbd "C-x C-g") 'git-gutter-mode) ; because i accidentally do this half the time anyway
 
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 (define-key global-map (kbd "C-s") 'isearch-forward)
