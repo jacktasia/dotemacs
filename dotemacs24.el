@@ -302,6 +302,7 @@
 ;;;;;
 
 ;; company config
+(setq company-dabbrev-downcase nil) ;; (setq company-dabbrev-downcase nil)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-to-list 'company-backends 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
