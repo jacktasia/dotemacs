@@ -289,7 +289,8 @@
   (setq visible-bell nil)
   (setq ring-bell-function `(lambda ()
   (let ((cur (face-attribute 'default :background)))
-    (set-face-background 'default "orange1")
+    ;;(set-face-background 'default "orange1")
+    (set-face-background 'default "#c678dd")
     (set-face-background 'default cur)))))
 
 ;;

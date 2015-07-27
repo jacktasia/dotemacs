@@ -230,7 +230,8 @@
 
 (jack-require-or-install 'rainbow-mode)
 
-(jack-load-theme 'darktooth-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
+;(jack-load-theme 'darktooth-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
+(jack-load-theme 'zerodark-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
 
 ;; force the fringe to match the current theme's bg color
 (let ((cur-bg-color (face-attribute 'default :background)))
