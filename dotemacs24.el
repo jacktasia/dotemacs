@@ -363,8 +363,12 @@
 (define-key global-map (kbd "C-s") 'isearch-forward)
 
 ;; jump to start end of tags in sgml modes (html, etc)
-(define-key sgml-mode-map (kbd "C-M-n") 'sgml-skip-tag-forward)
-(define-key sgml-mode-map (kbd "C-M-p") 'sgml-skip-tag-backward)
+
+(add-hook 'sgml-mode-hook
+  (lambda ()
+   (define-key sgml-mode-map (kbd "C-M-n") 'sgml-skip-tag-forward)
+   (define-key sgml-mode-map (kbd "C-M-p") 'sgml-skip-tag-backward)))
+
 
 ;; sadly this won't work on first install!!
 ;; (when (fboundp 'git-gutter-fr+-minimal)
