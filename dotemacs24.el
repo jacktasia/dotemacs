@@ -283,8 +283,6 @@
 (sml/apply-theme 'dark)
 (ws-butler-global-mode t)
 (highlight-symbol-nav-mode 1)
-(global-set-key (kbd "M-n") 'highlight-symbol-next)
-(global-set-key (kbd "M-p") 'highlight-symbol-prev)
 
 (smex-initialize)
 (global-anzu-mode +1)
@@ -353,6 +351,10 @@
 
 (global-set-key (quote [M-down]) (quote scroll-up-line)) ;; scroll by one line --
 (global-set-key (quote [M-up]) (quote scroll-down-line))
+(global-set-key (kbd "M-n") '(lambda()(interactive)(scroll-up-line)(next-line)))
+(global-set-key (kbd "M-p") '(lambda()(interactive)(scroll-down-line)(previous-line)))
+;; (global-set-key (kbd "M-n") 'highlight-symbol-next)
+;; (global-set-key (kbd "M-p") 'highlight-symbol-prev)
 
 
 (global-git-gutter+-mode t)
