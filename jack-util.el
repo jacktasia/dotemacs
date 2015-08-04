@@ -293,6 +293,16 @@
     (set-face-background 'default "#c678dd")
     (set-face-background 'default cur)))))
 
+
+;; modified from: http://stackoverflow.com/questions/22107182/in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
+(defun jack-save-word ()
+  (interactive)
+  (let ((current-location (point))
+        (word (flyspell-get-word)))
+    (when (consp word)
+      (when (y-or-n-p (concat "Add the word " (car word) " to the dictionary"))
+        (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location)))))
+
 ;;
 ;; lang mood hook setups...
 ;;
