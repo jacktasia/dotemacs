@@ -15,7 +15,7 @@
 ;   to the top of your .emacs to speed things up.
 
 ;; flycheck stuff
-;; sudo npm install -g eslint
+;; sudo npm install -g eslint jsxhint
 ;; sudo pip install pylint
 
 ;; eslint config example
@@ -115,7 +115,7 @@
  '(anzu-search-threshold 1000)
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+    ("d1dbb3c37e11ae8f986ca2d4b6a9d78bb1915fe66f3a6ffab1397cc746c18cba" "419637b7a8c9cb43f273980f0c9879c0cbadace6b38efac0281e031772c84eb2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(linum-format (quote dynamic)))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
@@ -397,6 +397,19 @@
 ;;
 ;; HOOKS
 ;;
+
+;; from: https://truongtx.me/2014/03/10/emacs-setup-jsx-mode-and-jsx-syntax-checking/
+(flycheck-define-checker jsxhint-checker
+  "A JSX syntax and style checker based on JSXHint."
+
+  :command ("jsxhint" source)
+  :error-patterns
+  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
+  :modes (jsx-mode))
+(add-hook 'jsx-mode-hook (lambda ()
+                          (flycheck-select-checker 'jsxhint-checker)
+                          (flycheck-mode)))
+
 (add-hook 'go-mode-hook 'turn-on-fic-mode)
 (add-hook 'python-mode-hook 'turn-on-fic-mode)
 (add-hook 'javascript-mode-hook 'turn-on-fic-mode)
