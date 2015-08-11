@@ -95,7 +95,7 @@
 (electric-indent-mode 0)           ;; no thanks
 (global-hl-line-mode 0)
 (global-auto-revert-mode 1)        ;; so git branch changes and checkouts update the mode line
-(setq auto-revert-check-vc-info nil)
+(setq auto-revert-check-vc-info t)
 (setq confirm-kill-emacs 'y-or-n-p)
 
 (setq cua-enable-cua-keys nil)
@@ -115,7 +115,7 @@
  '(anzu-search-threshold 1000)
  '(custom-safe-themes
    (quote
-    ("d1dbb3c37e11ae8f986ca2d4b6a9d78bb1915fe66f3a6ffab1397cc746c18cba" "419637b7a8c9cb43f273980f0c9879c0cbadace6b38efac0281e031772c84eb2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+    ("21c149e080d562fe9169c8abda51c2f1f9b0a12c89cc2c7a4d9998a758e1cfbd" "d1dbb3c37e11ae8f986ca2d4b6a9d78bb1915fe66f3a6ffab1397cc746c18cba" "419637b7a8c9cb43f273980f0c9879c0cbadace6b38efac0281e031772c84eb2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(linum-format (quote dynamic)))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
@@ -231,7 +231,7 @@
 (jack-require-or-install 'rainbow-mode)
 
 ;(jack-load-theme 'darktooth-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
-(jack-load-theme 'zerodark-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
+(jack-load-theme 'material-theme) ;; monokai-theme ample-theme zenburn-theme misterioso-theme
 
 ;; force the fringe to match the current theme's bg color
 (let ((cur-bg-color (face-attribute 'default :background)))
@@ -415,6 +415,7 @@
 (add-hook 'javascript-mode-hook 'turn-on-fic-mode)
 (add-hook 'java-mode-hook 'turn-on-fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
+(add-hook 'jsx-mode-hook 'turn-on-fic-mode)
 
 (add-hook 'mouse-leave-buffer-hook 'jack-stop-using-minibuffer)
 
