@@ -303,6 +303,19 @@
       (when (y-or-n-p (concat "Add the word " (car word) " to the dictionary"))
         (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location)))))
 
+;;from `http://ergoemacs.org/emacs/emacs_CSS_colors.html'
+(defun xah-syntax-color-hex ()
+  "Syntax color text of the form 「#ff1100」 in current buffer. Version 2015-06-11"
+  (interactive)
+  (font-lock-add-keywords
+   nil
+   '(("#[abcdef[:digit:]]\\{6\\}"
+      (0 (put-text-property
+          (match-beginning 0)
+          (match-end 0)
+          'face (list :background (match-string-no-properties 0)))))))
+  (font-lock-fontify-buffer))
+
 ;;
 ;; lang mood hook setups...
 ;;

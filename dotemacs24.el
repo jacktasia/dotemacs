@@ -89,7 +89,7 @@
 (setq resize-mini-windows t)       ;; let mini buffer resize
 (setq make-backup-files nil)       ;; no backup files
 (setq-default c-electric-flag nil) ;; do not get fancy with () {} ?
-(setq whitespace-line-column 600)  ;; do not turn line purple if "too long"
+(setq whitespace-line-column 60000)  ;; do not turn line purple if "too long"
 (blink-cursor-mode 0)              ;; no blinking cursor
 (setq initial-scratch-message "")  ;; no scratch message
 (electric-indent-mode 0)           ;; no thanks
@@ -262,6 +262,7 @@
 
 
 (set-default-font "Terminus-12")
+;;(set-default-font "Hack-12")
 ;; (when (member "Terminus (TTF)" (font-family-list))
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
 
@@ -348,6 +349,10 @@
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
+
+(setq ace-jump-mode-scope 'window)
+(setq ace-jump-mode-move-keys
+      (loop for i from ?a to ?z collect i))
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 (define-key flyspell-mode-map (kbd "C-c \$") 'jack-save-word)
 
@@ -397,6 +402,9 @@
 ;;
 ;; HOOKS
 ;;
+
+(add-hook 'css-mode-hook 'xah-syntax-color-hex)
+(add-hook 'scss-mode-hook 'xah-syntax-color-hex)
 
 ;; from: https://truongtx.me/2014/03/10/emacs-setup-jsx-mode-and-jsx-syntax-checking/
 (flycheck-define-checker jsxhint-checker
