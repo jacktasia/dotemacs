@@ -279,6 +279,7 @@
 ;; POST PACKAGE INSTALL
 ;;
 
+(setq projectile-indexing-method 'alien)
 (vimish-fold-global-mode 1)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
