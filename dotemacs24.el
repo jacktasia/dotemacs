@@ -270,7 +270,7 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent jsx-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -284,7 +284,7 @@
 (vimish-fold-global-mode 1)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (sml/setup)
 (sml/apply-theme 'dark)
 (ws-butler-global-mode t)
@@ -419,8 +419,8 @@
   :command ("jsxhint" source)
   :error-patterns
   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (jsx-mode))
-(add-hook 'jsx-mode-hook (lambda ()
+  :modes (web-mode))
+(add-hook 'web-mode-hook (lambda ()
                           (flycheck-select-checker 'jsxhint-checker)
                           (flycheck-mode)))
 
@@ -429,7 +429,7 @@
 (add-hook 'javascript-mode-hook 'turn-on-fic-mode)
 (add-hook 'java-mode-hook 'turn-on-fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
-(add-hook 'jsx-mode-hook 'turn-on-fic-mode)
+(add-hook 'web-mode-hook 'turn-on-fic-mode)
 
 (add-hook 'mouse-leave-buffer-hook 'jack-stop-using-minibuffer)
 
