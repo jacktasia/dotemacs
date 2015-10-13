@@ -73,7 +73,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
+(setq gc-cons-threshold 20000000)
 (jack-visible-bell) ;; is effectively (setq visible-bell 1) but less annoying
 (setq uniquify-min-dir-content 3)
 ;; https://github.com/emacs-mirror/emacs/blob/0537943561a37b54467bec19d1b8afbeba8e1e58/lisp/uniquify.el#L107
@@ -123,7 +123,7 @@
 (global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "\C-c l") 'goto-line)      ;; goes to prompted line number
 (global-set-key (kbd "\C-c i") 'ispell-region)  ;; spell check region
-(global-set-key "\C-cp" 'beginning-of-buffer)   ;; top of file
+(global-set-key (kbd "C-c p") 'beginning-of-buffer)   ;; top of file
 (global-set-key "\C-cn" 'end-of-buffer)
 
 ;;
@@ -280,7 +280,10 @@
 ;;
 
 (nyan-mode)
-(setq projectile-indexing-method 'alien)
+;(projectile-global-mode)
+(projectile-mode)
+;(setq projectile-indexing-method 'alien)
+;(setq projectile-enable-caching t)
 (vimish-fold-global-mode 1)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
@@ -345,6 +348,9 @@
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c \$") 'jack-save-word)
 (global-set-key (kbd "s-t") 'projectile-find-file)
+(global-set-key (kbd "C-x b") 'projectile-switch-to-buffer)
+(global-set-key (kbd "C-x v") 'ido-switch-buffer)
+(global-set-key (kbd "C-x p") 'projectile-switch-project)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;;old M-x.
