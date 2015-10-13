@@ -125,6 +125,7 @@
 (global-set-key (kbd "\C-c i") 'ispell-region)  ;; spell check region
 (global-set-key (kbd "C-c p") 'beginning-of-buffer)   ;; top of file
 (global-set-key "\C-cn" 'end-of-buffer)
+(global-set-key (kbd "C-x i") 'infer-indentation-style)   ;; infer spaces/tabs
 
 ;;
 ;; make good use of arrow keys
@@ -148,9 +149,12 @@
 ;;
 ;; tab stuff
 ;;
-(setq indent-tabs-mode t)                           ;; Turn on tabs
-(setq-default indent-tabs-mode t)
-(global-set-key (kbd "TAB") 'self-insert-command)   ;; Bind the TAB key
+
+;; (setq indent-tabs-mode t)                           ;; Turn on tabs
+;; (setq-default indent-tabs-mode t)
+;; (global-set-key (kbd "TAB") 'self-insert-command)   ;; Bind the TAB key
+
+(setq-default indent-tabs-mode nil)
 (setq default-tab-width 4)                          ;; Set the tab width
 (setq tab-width 4)                                  ;; display tabs as 4 chars
 (setq c-basic-indent 4)                             ;; c tabs length
@@ -348,8 +352,8 @@
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c \$") 'jack-save-word)
 (global-set-key (kbd "s-t") 'projectile-find-file)
-(global-set-key (kbd "C-x b") 'projectile-switch-to-buffer)
-(global-set-key (kbd "C-x v") 'ido-switch-buffer)
+(global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
+(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x p") 'projectile-switch-project)
 (global-set-key (kbd "C-x f") 'projectile-grep)
 (global-set-key (kbd "M-x") 'smex)

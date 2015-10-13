@@ -331,4 +331,32 @@
 ;;   (load-file "~/code/javaflunky/editors/emacs/javaflunky-fix-imports.el"))
 
 
+;; http://www.emacswiki.org/emacs/NoTabs
+(defun how-many-region (begin end regexp &optional interactive)
+  "Print number of non-trivial matches for REGEXP in region.
+Non-interactive arguments are Begin End Regexp"
+  (interactive "r\nsHow many matches for (regexp): \np")
+  (let ((count 0) opoint)
+    (save-excursion
+      (setq end (or end (point-max)))
+      (goto-char (or begin (point)))
+      (while (and (< (setq opoint (point)) end)
+                  (re-search-forward regexp end t))
+        (if (= opoint (point))
+            (forward-char 1)
+          (setq count (1+ count))))
+      (if interactive (message "%d occurrences" count))
+      count)))
+
+;; http://www.emacswiki.org/emacs/NoTabs
+(defun infer-indentation-style ()
+  (interactive)
+  ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
+  ;; neither, we use the current indent-tabs-mode
+  (let ((space-count (how-many-region (point-min) (point-max) "^  "))
+        (tab-count (how-many-region (point-min) (point-max) "^\t")))
+    (if (> space-count tab-count) (message "%s" "Indention type: spaces") (setq indent-tabs-mode nil))
+    (if (> tab-count space-count) (message "%s" "Indention type: tabs") (setq indent-tabs-mode t))))
+
+
 ;(provide 'jack-util)
