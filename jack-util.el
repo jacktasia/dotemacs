@@ -355,8 +355,8 @@ Non-interactive arguments are Begin End Regexp"
   ;; neither, we use the current indent-tabs-mode
   (let ((space-count (how-many-region (point-min) (point-max) "^  "))
         (tab-count (how-many-region (point-min) (point-max) "^\t")))
-    (if (> space-count tab-count) (message "%s" "Indention type: spaces") (setq indent-tabs-mode nil))
-    (if (> tab-count space-count) (message "%s" "Indention type: tabs") (setq indent-tabs-mode t))))
+    (when (> space-count tab-count) (message "%s" "Indention type: spaces") (setq indent-tabs-mode nil))
+    (when (> tab-count space-count) (message "%s" "Indention type: tabs") (setq indent-tabs-mode t))))
 
 
 ;(provide 'jack-util)
