@@ -198,6 +198,7 @@
 (desktop-save-mode 1)
 (setq history-length 250)
 (add-to-list 'desktop-globals-to-save 'file-name-history)
+(setq desktop-restore-frames nil)
 (setq desktop-dirname "~/.emacs.d/data/desktop/")
 (setq desktop-path '("~/.emacs.d/data/desktop/"))
 (setq desktop-base-file-name "desktop")
