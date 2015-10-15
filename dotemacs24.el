@@ -275,7 +275,7 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -283,6 +283,9 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+(setq avy-all-windows nil)
+(setq avy-keys (number-sequence ?a ?z))
 
 (nyan-mode)
 ;(projectile-global-mode)
@@ -368,10 +371,16 @@
 (global-set-key (kbd "C-c v") 'vimish-fold-delete)
 
 
-(setq ace-jump-mode-scope 'window)
-(setq ace-jump-mode-move-keys
-      (loop for i from ?a to ?z collect i))
-(define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
+;; (setq ace-jump-mode-scope 'window)
+;; (setq ace-jump-mode-move-keys
+;;       (loop for i from ?a to ?z collect i))
+;; (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
+
+
+(define-key global-map (kbd "C-c s") 'avy-goto-subword-1)
+(define-key global-map (kbd "C-z") 'avy-goto-subword-1)
+
+
 (define-key flyspell-mode-map (kbd "C-c \$") 'jack-save-word)
 
 (global-set-key (quote [M-down]) (quote scroll-up-line)) ;; scroll by one line --
