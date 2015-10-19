@@ -155,9 +155,11 @@
 ;; (global-set-key (kbd "TAB") 'self-insert-command)   ;; Bind the TAB key
 
 (setq-default indent-tabs-mode nil)
-(setq default-tab-width 4)                          ;; Set the tab width
-(setq tab-width 4)                                  ;; display tabs as 4 chars
-(setq c-basic-indent 4)                             ;; c tabs length
+(setq default-tab-width 2)                          ;; Set the tab width
+(setq tab-width 2)                                  ;; display tabs as 2 chars
+(setq c-basic-indent 2)                             ;; c tabs length
+(setq-default web-mode-code-indent-offset 2)
+(setq-default web-mode-markup-indent-offset 2)
 
 ;;
 ;; custom functions
@@ -266,7 +268,7 @@
 (scroll-bar-mode -1)
 
 
-(set-default-font "Terminus-12")
+(set-default-font "Terminus-14")
 ;;(set-default-font "Hack-12")
 ;; (when (member "Terminus (TTF)" (font-family-list))
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
@@ -377,6 +379,7 @@
 ;; (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
 
+(global-set-key (kbd "s-s") 'avy-goto-subword-0)
 (define-key global-map (kbd "C-c s") 'avy-goto-subword-1)
 (define-key global-map (kbd "C-z") 'avy-goto-subword-1)
 
