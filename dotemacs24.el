@@ -432,7 +432,7 @@
 ;;
 ;; HOOKS
 ;;
-
+(add-hook 'after-change-major-mode-hook 'infer-indentation-style)
 (add-hook 'css-mode-hook 'xah-syntax-color-hex)
 (add-hook 'scss-mode-hook 'xah-syntax-color-hex)
 
