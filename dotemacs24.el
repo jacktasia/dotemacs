@@ -451,6 +451,7 @@
 (add-hook 'go-mode-hook 'turn-on-fic-mode)
 (add-hook 'python-mode-hook 'turn-on-fic-mode)
 (add-hook 'javascript-mode-hook 'turn-on-fic-mode)
+(add-hook 'web-mode-hook 'turn-on-fic-mode)
 (add-hook 'java-mode-hook 'turn-on-fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
 (add-hook 'web-mode-hook 'turn-on-fic-mode)
