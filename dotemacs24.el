@@ -43,13 +43,11 @@
        (shell-command-to-string
        "ls -al ~/.emacs | awk '{print $NF}'"))))
 
-;(kill-buffer "*Shell Command Output*")
 (load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
 
 ;; OLD WAY
 ;;(defvar emacsdir (file-name-directory load-file-name))
 ;;(add-to-list 'load-path emacsdir)
-
 
 ;; user-emacs-directory
 (message "%s is the value of emacsdir" emacsdir)
@@ -70,7 +68,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (setq gc-cons-threshold 20000000)
 (jack-visible-bell) ;; is effectively (setq visible-bell 1) but less annoying
@@ -266,12 +263,10 @@
 
 (scroll-bar-mode -1)
 
-
 (set-default-font "Terminus-14")
-;;(set-default-font "Hack-12")
+
 ;; (when (member "Terminus (TTF)" (font-family-list))
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
-
 
 ;;
 ;; packages to install
