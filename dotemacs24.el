@@ -36,7 +36,6 @@
 
 (defconst *start-time* (current-time)) ;; record start time to time .emacs load time
 
-
 (defvar emacsdir
   (file-name-directory
     (replace-regexp-in-string
