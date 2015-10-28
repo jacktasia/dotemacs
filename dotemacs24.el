@@ -105,6 +105,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(Vhl/highlight-zero-width-ranges t)
  '(anzu-deactivate-region t)
  '(anzu-mode-lighter "")
  '(anzu-replace-to-string-separator " => ")
@@ -112,7 +113,8 @@
  '(custom-safe-themes
    (quote
     ("21c149e080d562fe9169c8abda51c2f1f9b0a12c89cc2c7a4d9998a758e1cfbd" "d1dbb3c37e11ae8f986ca2d4b6a9d78bb1915fe66f3a6ffab1397cc746c18cba" "419637b7a8c9cb43f273980f0c9879c0cbadace6b38efac0281e031772c84eb2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
- '(linum-format (quote dynamic)))
+ '(linum-format (quote dynamic))
+ '(volatile-highlights-mode t))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
 (global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
@@ -259,7 +261,8 @@
  '(rainbow-delimiters-depth-6-face ((t (:foreground "blue"))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "dark violet"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
- '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown")))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown"))))
+ '(vhl/default-face ((t (:inherit default :background "yellow2")))))
 
 (scroll-bar-mode -1)
 
@@ -272,7 +275,7 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -287,8 +290,6 @@
 (nyan-mode)
 ;(projectile-global-mode)
 (projectile-mode)
-;(setq projectile-indexing-method 'alien)
-;(setq projectile-enable-caching t)
 (vimish-fold-global-mode 1)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
