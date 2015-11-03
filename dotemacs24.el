@@ -188,7 +188,7 @@
 
 (global-set-key  "\C-cd" 'jack-git-diff)
 (global-set-key  "\C-cw" 'whitespace-mode)
-(global-set-key  "\C-ce" 'jack-mark-word)
+(global-set-key  "\C-c e" 'er/mark-symbol)
 (global-set-key  "\C-ct" 'jack-insert-backtick)
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 

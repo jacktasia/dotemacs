@@ -257,13 +257,6 @@
 		(t
 			(message "%s" "Did not try to maximize screen. System type not supported."))))
 
-;; allows you to highligh a word regardless of position within
-(defun jack-mark-word ()
-	(interactive)
-	(forward-word)
-	(backward-word)
-	(mark-word))
-
 ;; search accross open bufers - http://stackoverflow.com/a/3434098/24998
 (defun jack-multi-occur-in-matching-buffers (regexp &optional allbufs)
   "Show all lines matching REGEXP in all buffers."
