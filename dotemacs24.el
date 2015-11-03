@@ -128,8 +128,6 @@
 ;;
 ;; make good use of arrow keys
 ;;
-(global-set-key (kbd "\C-c <up>") 'text-scale-increase)     ;; text size up
-(global-set-key (kbd "\C-c <down>") 'text-scale-decrease)   ;; text size down
 
 (global-set-key  [C-up] 'enlarge-window)                    ;; make window taller
 (global-set-key  [C-down] 'shrink-window)                   ;; make window shorter
@@ -267,7 +265,7 @@
 (scroll-bar-mode -1)
 
 
-;(set-default-font "Terminus-14")
+(set-default-font "Terminus-14")
 
 ;; (when (member "Terminus (TTF)" (font-family-list))
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
@@ -275,7 +273,7 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode default-text-scale)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -283,6 +281,13 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+;; (global-set-key (kbd "\C-c <up>") 'text-scale-increase)     ;; text size up
+;; (global-set-key (kbd "\C-c <down>") 'text-scale-decrease)   ;; text size down
+;; using a plugin across all buffers with default-text-scale
+(global-set-key (kbd "\C-c <up>") 'default-text-scale-increase)     ;; text size up
+(global-set-key (kbd "\C-c <down>") 'default-text-scale-decrease)   ;; text size down
+
 
 (setq avy-all-windows nil)
 (setq avy-keys (number-sequence ?a ?z))
