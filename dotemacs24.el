@@ -264,8 +264,8 @@
 
 (scroll-bar-mode -1)
 
-
-(set-default-font "Terminus-14")
+(when (string-equal system-type "darwin")
+  (set-default-font "Menlo-14"))
 
 ;; (when (member "Terminus (TTF)" (font-family-list))
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
