@@ -238,16 +238,6 @@
     (when (and (>= newalpha frame-alpha-lower-limit) (<= newalpha 100))
       (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
 
-(defun jack-php-key-to-fetch (start end)
-	(interactive "r")
-	(save-excursion
-		(save-restriction
-			(narrow-to-region (point-min) end)
-			(goto-char start)
-			(insert "fetch(")
-			(replace-string "[" ", ")
-			(replace-string "]" ")"))))
-
 (defun jack-emacs-maximize ()
 	(cond
 		((string-equal system-type "darwin")

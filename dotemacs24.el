@@ -117,22 +117,22 @@
  '(volatile-highlights-mode t))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
-(global-set-key (kbd "\C-c r") 'replace-string) ;; search & replace (file or region)
-(global-set-key (kbd "\C-c m") 'count-matches)  ;; count instaces of prompted string
-(global-set-key (kbd "\C-c l") 'goto-line)      ;; goes to prompted line number
-(global-set-key (kbd "\C-c i") 'ispell-region)  ;; spell check region
+(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
+(global-set-key (kbd "C-c m") 'count-matches)  ;; count instaces of prompted string
+(global-set-key (kbd "C-c l") 'goto-line)      ;; goes to prompted line number
+(global-set-key (kbd "C-c i") 'ispell-region)  ;; spell check region
 (global-set-key (kbd "C-c p") 'beginning-of-buffer)   ;; top of file
-(global-set-key "\C-cn" 'end-of-buffer)
+(global-set-key (kbd "C-c n") 'end-of-buffer)
 (global-set-key (kbd "C-x i") 'infer-indentation-style)   ;; infer spaces/tabs
 
 ;;
 ;; make good use of arrow keys
 ;;
 
-(global-set-key  [C-up] 'enlarge-window)                    ;; make window taller
-(global-set-key  [C-down] 'shrink-window)                   ;; make window shorter
-(global-set-key  [C-right] 'enlarge-window-horizontally)    ;; make window wider
-(global-set-key  [C-left] 'shrink-window-horizontally)      ;; make window less wide
+(global-set-key (kbd "C-<up>") 'enlarge-window)                    ;; make window taller
+(global-set-key (kbd "C-<down>") 'shrink-window)                   ;; make window shorter
+(global-set-key (kbd "C-<right>") 'enlarge-window-horizontally)    ;; make window wider
+(global-set-key (kbd "C-<left>") 'shrink-window-horizontally)      ;; make window less wide
 
 
 ;; handle s-m as if it is m-m on macs
@@ -173,23 +173,21 @@
 
 
 (global-set-key (kbd "<backtab>") 'jack-unindent-block)
-(global-set-key [C-tab] 'jack-unindent-block)
-(global-set-key (kbd "\C-c <tab>") 'jack-indent-block)           ;; indent selected region
-(global-set-key "\C-u" 'jack-backward-kill-line)
-(global-set-key (kbd "\C-c j") 'jack-newline-and-indent-no-spaces)
-(global-set-key  "\C-c4" 'jack-php-key-to-fetch)
-(global-set-key (kbd "\C-c b") 'jack-git-blame-line)
-(global-set-key [f8] 'jack-magic-lint)
-(global-set-key [f11] 'jack-toggle-fullscreen)
+(global-set-key (kbd "C-<tab>") 'jack-unindent-block)
+(global-set-key (kbd "C-c <tab>") 'jack-indent-block)           ;; indent selected region
+(global-set-key (kbd "C-u") 'jack-backward-kill-line)
+(global-set-key (kbd "C-c j") 'jack-newline-and-indent-no-spaces)
+(global-set-key (kbd "C-c b") 'jack-git-blame-line)
+;(global-set-key [f11] 'jack-toggle-fullscreen)
 (global-set-key (kbd "C-=") '(lambda()(interactive)(jack-alpha-change)))
 (global-set-key (kbd "C--") '(lambda()(interactive)(jack-alpha-change t)))
 (global-set-key (kbd "C-0") '(lambda()(interactive)
                                (modify-frame-parameters nil `((alpha . 100)))))
 
-(global-set-key  "\C-cd" 'jack-git-diff)
-(global-set-key  "\C-cw" 'whitespace-mode)
-(global-set-key  "\C-c e" 'er/mark-symbol)
-(global-set-key  "\C-ct" 'jack-insert-backtick)
+(global-set-key (kbd "C-c d")'jack-git-diff)
+(global-set-key (kbd "C-c w")'whitespace-mode)
+(global-set-key (kbd "C-c e")'er/mark-symbol)
+(global-set-key (kbd "C-c t")'jack-insert-backtick)
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 ;;; desktop-mode config
@@ -287,8 +285,8 @@
 ;; (global-set-key (kbd "\C-c <up>") 'text-scale-increase)     ;; text size up
 ;; (global-set-key (kbd "\C-c <down>") 'text-scale-decrease)   ;; text size down
 ;; using a plugin across all buffers with default-text-scale
-(global-set-key (kbd "\C-c <up>") 'default-text-scale-increase)     ;; text size up
-(global-set-key (kbd "\C-c <down>") 'default-text-scale-decrease)   ;; text size down
+(global-set-key (kbd "C-c <up>") 'default-text-scale-increase)     ;; text size up
+(global-set-key (kbd "C-c <down>") 'default-text-scale-decrease)   ;; text size down
 
 
 (setq avy-all-windows nil)
@@ -396,8 +394,8 @@
 
 (define-key flyspell-mode-map (kbd "C-c \$") 'jack-save-word)
 
-(global-set-key (quote [M-down]) (quote scroll-up-line)) ;; scroll by one line --
-(global-set-key (quote [M-up]) (quote scroll-down-line))
+(global-set-key (kbd "M-<down>") (quote scroll-up-line)) ;; scroll by one line --
+(global-set-key (kbd "M-<up>") (quote scroll-down-line))
 (global-set-key (kbd "M-n") '(lambda()(interactive)(scroll-up-line)(next-line)))
 (global-set-key (kbd "M-p") '(lambda()(interactive)(scroll-down-line)(previous-line)))
 ;; (global-set-key (kbd "M-n") 'highlight-symbol-next)
