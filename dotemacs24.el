@@ -190,17 +190,18 @@
 (global-set-key (kbd "C-c t")'jack-insert-backtick)
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
+
 ;;; desktop-mode config
-(desktop-save-mode 1)
-(setq history-length 250)
-(add-to-list 'desktop-globals-to-save 'file-name-history)
-(setq desktop-restore-frames nil)
-(setq desktop-dirname "~/.emacs.d/data/desktop/")
-(setq desktop-path '("~/.emacs.d/data/desktop/"))
-(setq desktop-base-file-name "desktop")
-(setq desktop-base-lock-name "desktop.lock")
-(setq desktop-save t) ;; always
-(make-directory "~/.emacs.d/data/desktop/" t) ;; ensure exists
+;; (desktop-save-mode 1)
+;; (setq history-length 250)
+;; (add-to-list 'desktop-globals-to-save 'file-name-history)
+;; (setq desktop-restore-frames nil)
+;; (setq desktop-dirname "~/.emacs.d/data/desktop/")
+;; (setq desktop-path '("~/.emacs.d/data/desktop/"))
+;; (setq desktop-base-file-name "desktop")
+;; (setq desktop-base-lock-name "desktop.lock")
+;; (setq desktop-save t) ;; always
+;; (make-directory "~/.emacs.d/data/desktop/" t) ;; ensure exists
 
 
 ;; (custom-set-variables)
@@ -271,7 +272,7 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode default-text-scale expand-region)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode default-text-scale expand-region use-package pmdm)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -279,6 +280,11 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+
+;; http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings
+(bind-keys*
+     ("C-c w" . whitespace-mode))
 
 (global-set-key (kbd "C-\'") 'er/expand-region)
 
@@ -476,6 +482,8 @@
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
 
+(add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
+
 (if (string-equal system-type "darwin")
   (setq gofmt-command "gofmt")
   (setq gofmt-command "~/go/bin/gofmt"))
@@ -488,4 +496,5 @@
   (message "Emacs!"))
 
 (server-start)
+(pmdm-load-files)
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
