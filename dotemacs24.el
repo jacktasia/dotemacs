@@ -272,7 +272,7 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode default-text-scale expand-region use-package)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode default-text-scale expand-region use-package)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -304,7 +304,7 @@
 (vimish-fold-global-mode 1)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
 (sml/setup)
 (sml/apply-theme 'dark)
 (ws-butler-global-mode t)
@@ -457,8 +457,8 @@
   :command ("jsxhint" source)
   :error-patterns
   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (web-mode))
-(add-hook 'web-mode-hook (lambda ()
+  :modes (js2-mode))
+(add-hook 'js2-mode-hook (lambda ()
                           (flycheck-select-checker 'jsxhint-checker)
                           (flycheck-mode)))
 
