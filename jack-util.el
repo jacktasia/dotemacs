@@ -342,4 +342,44 @@ Non-interactive arguments are Begin End Regexp"
     (when (> tab-count space-count) (message "%s" "Indention type: tabs") (setq indent-tabs-mode t))))
 
 
+
+;; https://bitbucket.org/inigoserna/pmdm.el/src/ab67371889fb5e70d227f863377f8d1f567ec580?at=default
+;;
+(defvar pmdm-file-name (expand-file-name ".pmdm-files" user-emacs-directory)
+  "Location of file to write in opened files.")
+
+;;; Internal functions
+;; Edited to make sure file exists first
+(defun pmdm--read-files-list ()
+  (when (file-exists-p pmdm-file-name)
+    (with-temp-buffer
+      (insert-file-contents pmdm-file-name)
+      (delete-matching-lines "^;; ")
+      (read (buffer-substring-no-properties (point-min) (point-max))))))
+
+;;; Public interface
+(defun pmdm-write-opened-files()
+  "Write a list of currently opened files to the file defined in `pmdm-file-name'."
+  (interactive)
+  (let ((files (delq nil (mapcar 'buffer-file-name (buffer-list)))))
+    (write-region (format ";; PMDM file.\n;; Please do not edit manually.\n%s"
+                          (prin1-to-string files))
+                  nil
+                  pmdm-file-name)))
+
+(defun pmdm-load-files ()
+  "Load the files found in file `pmdm-file-name'."
+  (interactive)
+  (let ((opened-files (delq nil (mapcar 'buffer-file-name (buffer-list))))
+        (files (pmdm--read-files-list))
+        (count 0))
+    (dolist (file files)
+      (unless (member file opened-files)
+        (find-file-noselect file)
+        (setq count (1+ count))))
+    (message (if (zerop count)
+                 "No files opened"
+               (format "%d file%s opened" count (if (> count 1) "s" ""))))))
+
+
 ;(provide 'jack-util)

@@ -272,7 +272,7 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode default-text-scale expand-region use-package pmdm)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode web-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent web-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy volatile-highlights emmet-mode default-text-scale expand-region use-package)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
