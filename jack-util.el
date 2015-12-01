@@ -1,8 +1,8 @@
 
 ; because i override tilda/backtick for kupfer, but need backticks a lot for markdown
 (defun jack-insert-backtick ()
-	(interactive)
-	(insert "`"))
+  (interactive)
+  (insert "`"))
 
 ;; forked from: https://github.com/bbatsov/prelude/blob/3017a151501d12695541706c717558dfb614f0c4/core/prelude-core.el#L294
 (defun jack-sudo-edit (&optional arg)
