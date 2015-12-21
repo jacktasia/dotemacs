@@ -470,6 +470,8 @@
 (add-hook 'java-mode-hook 'turn-on-fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
 (add-hook 'web-mode-hook 'turn-on-fic-mode)
+(add-hook 'js2-mode-hook 'turn-on-fic-mode)
+
 (add-hook 'javascript-mode-hook 'flycheck-mode)
 
 (add-hook 'mouse-leave-buffer-hook 'jack-stop-using-minibuffer)
