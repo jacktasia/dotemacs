@@ -1,6 +1,20 @@
 
-; because i override tilda/backtick for kupfer, but need backticks a lot for markdown
+
+;; http://emacs.stackexchange.com/a/2302
+(defun my/eval-buffer ()
+  "Execute the current buffer as Lisp code.
+Top-level forms are evaluated with `eval-defun' so that `defvar'
+and `defcustom' forms reset their default values."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (not (eobp))
+      (forward-sexp)
+      (eval-defun nil)))
+  (message "%s eval'd" (buffer-file-name)))
+
 (defun jack-insert-backtick ()
+  "because i override tilda/backtick for kupfer, but need backticks a lot for markdown"
   (interactive)
   (insert "`"))
 
