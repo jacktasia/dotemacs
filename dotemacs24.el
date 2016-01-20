@@ -45,10 +45,6 @@
 
 (load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
 
-;; OLD WAY
-;;(defvar emacsdir (file-name-directory load-file-name))
-;;(add-to-list 'load-path emacsdir)
-
 ;; user-emacs-directory
 (message "%s is the value of emacsdir" emacsdir)
 
@@ -193,24 +189,6 @@
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 
-;;; desktop-mode config
-;; (desktop-save-mode 1)
-;; (setq history-length 250)
-;; (add-to-list 'desktop-globals-to-save 'file-name-history)
-;; (setq desktop-restore-frames nil)
-;; (setq desktop-dirname "~/.emacs.d/data/desktop/")
-;; (setq desktop-path '("~/.emacs.d/data/desktop/"))
-;; (setq desktop-base-file-name "desktop")
-;; (setq desktop-base-lock-name "desktop.lock")
-;; (setq desktop-save t) ;; always
-;; (make-directory "~/.emacs.d/data/desktop/" t) ;; ensure exists
-
-
-;; (custom-set-variables)
-;; (custom-set-faces
-;;  '(whitespace-space ((t (:background "#3f3f3f" :foreground "#005500")))))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 2) External Packages -- will attempt to auto-install if it can't load
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -274,10 +252,14 @@
 ;;
 ;; packages to install
 ;;
-(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy vimish-fold nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan)))
+(let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters
+                         php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido
+                         switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag
+                         highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
+                         multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy
+                         nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
-
 
 ;;
 ;; POST PACKAGE INSTALL
@@ -304,7 +286,6 @@
 (nyan-mode)
 ;(projectile-global-mode)
 (projectile-mode)
-(vimish-fold-global-mode 1)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
@@ -386,10 +367,6 @@
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
-(global-set-key (kbd "C-c f") 'vimish-fold)
-(global-set-key (kbd "C-c v") 'vimish-fold-delete)
-
-
 ;; (setq ace-jump-mode-scope 'window)
 ;; (setq ace-jump-mode-move-keys
 ;;       (loop for i from ?a to ?z collect i))
@@ -425,26 +402,10 @@
    (define-key sgml-mode-map (kbd "C-M-n") 'sgml-skip-tag-forward)
    (define-key sgml-mode-map (kbd "C-M-p") 'sgml-skip-tag-backward)))
 
-
-;; sadly this won't work on first install!!
-;; (when (fboundp 'git-gutter-fr+-minimal)
-;;   (git-gutter-fr+-minimal))
-
-
-;(setq git-gutter-fr+-side 'right-fringe)
-;(git-gutter+-toggle-fringe)
-
-
-;; (global-git-gutter-mode t)
-;; (global-set-key (kbd "C-x C-g") 'git-gutter:toggle)
-;; (setq git-gutter:update-threshold 2)
-;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
-
 ;; http://stackoverflow.com/questions/2903426/display-path-of-file-in-status-bar
 (setq frame-title-format  ;show directory and filename on frame top
       (list (format "%s %%S: %%j " (system-name))
         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
-
 
 ;;
 ;; HOOKS
