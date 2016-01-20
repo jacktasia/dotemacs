@@ -503,3 +503,4 @@
 (server-start)
 (pmdm-load-files)
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
+(put 'erase-buffer 'disabled nil)
