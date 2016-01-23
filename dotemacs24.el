@@ -181,6 +181,7 @@
                                (modify-frame-parameters nil `((alpha . 100)))))
 
 (global-set-key (kbd "C-c 5") 'my/eval-buffer)
+(global-set-key (kbd "C-c 6") 'emacs-uptime)
 
 (global-set-key (kbd "C-c d")'jack-git-diff)
 (global-set-key (kbd "C-c w")'whitespace-mode)
