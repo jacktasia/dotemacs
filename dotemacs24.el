@@ -365,6 +365,7 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;;old M-x.
 (global-set-key (kbd "C-x o") 'switch-window)
+(global-set-key (kbd "M-o") 'switch-window)
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
