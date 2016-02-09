@@ -89,6 +89,7 @@
 (global-auto-revert-mode 1)        ;; so git branch changes and checkouts update the mode line
 (setq auto-revert-check-vc-info t)
 (setq confirm-kill-emacs 'y-or-n-p)
+(setq message-log-max t)           ;; If t, log messages but don't truncate the buffer when it becomes large.
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
@@ -257,7 +258,7 @@
                          php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido
                          switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
-                         multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy
+                         multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
