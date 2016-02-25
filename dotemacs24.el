@@ -259,7 +259,7 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode)))
+                         clojure-mode smooth-scrolling)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
