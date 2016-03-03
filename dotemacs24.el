@@ -220,11 +220,7 @@
 (let ((cur-bg-color (face-attribute 'default :background)))
   (set-face-attribute 'fringe nil :background cur-bg-color))
 
-(let ((my-select-color "#83F52C")) ;; this is a neon green, FF8300 is orange -- but plain "green" is also nice
-  ;(set-face-background 'region my-select-color) ;; make region stick out more
-  (set-cursor-color my-select-color))
 
-(setq-default cursor-type '(bar . 2))
 
 ;; https://github.com/bbatsov/zenburn-emacs/blob/master/zenburn-theme.el#L132
 (custom-set-faces
@@ -458,6 +454,13 @@
 (if (string-equal system-type "darwin")
   (setq gofmt-command "gofmt")
   (setq gofmt-command "~/go/bin/gofmt"))
+
+;; cursor tweaks
+(let ((my-select-color "#83F52C")) ;; this is a neon green, FF8300 is orange -- but plain "green" is also nice
+  ;(set-face-background 'region my-select-color) ;; make region stick out more
+  (set-cursor-color my-select-color))
+
+(setq-default cursor-type '(bar . 2))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
