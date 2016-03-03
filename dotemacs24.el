@@ -257,13 +257,20 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling)))
+                         clojure-mode smooth-scrolling beacon)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+(beacon-mode 1)
+(setq beacon-blink-duration 0.5)
+(setq beacon-blink-delay 0.2)
+(setq beacon-size 80)
+(setq beacon-color "green")
+
 
 (dumb-jump-mode)
 (global-smartscan-mode 1)
