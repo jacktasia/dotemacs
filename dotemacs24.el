@@ -220,9 +220,11 @@
 (let ((cur-bg-color (face-attribute 'default :background)))
   (set-face-attribute 'fringe nil :background cur-bg-color))
 
-(let ((my-select-color "#FF8300")) ;; this is orange -- but plain "green" is also nice
-  (set-face-background 'region my-select-color) ;; make region stick out more
+(let ((my-select-color "#83F52C")) ;; this is a neon green, FF8300 is orange -- but plain "green" is also nice
+  ;(set-face-background 'region my-select-color) ;; make region stick out more
   (set-cursor-color my-select-color))
+
+(setq-default cursor-type '(bar . 2))
 
 ;; https://github.com/bbatsov/zenburn-emacs/blob/master/zenburn-theme.el#L132
 (custom-set-faces
