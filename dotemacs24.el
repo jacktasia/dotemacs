@@ -268,7 +268,7 @@
 (beacon-mode 1)
 (setq beacon-blink-duration 0.5)
 (setq beacon-blink-delay 0.2)
-(setq beacon-size 80)
+(setq beacon-size 15)
 (setq beacon-color "green")
 
 
