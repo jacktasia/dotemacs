@@ -52,6 +52,7 @@
 (require 'ido)
 (require 'midnight)
 (require 'uniquify)
+(require 'org)
 
 (unless (string-equal system-type "darwin")
   (jack-emacs-maximize)) ;; only works for linux right now (requires wmctrl)
@@ -74,7 +75,8 @@
 (setq clean-buffer-list-delay-general 7)
 
 (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
-(defalias 'yes-or-no-p 'y-or-n-p) ;; don't require full "yes" for confirms
+(setq org-log-done t)              ;; show done time when marking a todo done
+(defalias 'yes-or-no-p 'y-or-n-p)  ;; don't require full "yes" for confirms
 (tool-bar-mode -1)                 ;; get rid of tool bar
 (setq inhibit-startup-message t)   ;; git rid of startup page
 (menu-bar-mode 0)                  ;; no menu bar
