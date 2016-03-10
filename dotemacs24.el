@@ -473,6 +473,9 @@
 
 (setq-default cursor-type '(bar . 2))
 
+;; always use a random beacon color
+(add-function :before (symbol-function 'beacon-blink-automated) (lambda () (setq beacon-color (nth (random 5) '("red" "orange" "yellow" "green" "blue")))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
