@@ -174,7 +174,7 @@
 (global-set-key (kbd "<backtab>") 'jack-unindent-block)
 (global-set-key (kbd "C-<tab>") 'jack-unindent-block)
 (global-set-key (kbd "C-c <tab>") 'jack-indent-block)           ;; indent selected region
-(global-set-key (kbd "C-u") 'jack-backward-kill-line)
+(global-set-key (kbd "M-u") 'jack-backward-kill-line)
 (global-set-key (kbd "C-c j") 'jack-newline-and-indent-no-spaces)
 (global-set-key (kbd "C-c b") 'jack-git-blame-line)
 ;(global-set-key [f11] 'jack-toggle-fullscreen)
