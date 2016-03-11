@@ -164,6 +164,7 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
+            (enable-paredit-mode)
             (setq tab-width 2)
             (setq indent-tabs-mode nil)))
 
