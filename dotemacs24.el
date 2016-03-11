@@ -475,7 +475,10 @@
 
 ;; always use a random beacon color
 (setq jacks-colors (--reject (s-contains? "gray" it) (defined-colors)))
-(add-function :before (symbol-function 'beacon-blink-automated) (lambda () (setq beacon-color (nth (random (length jacks-colors)) jacks-colors))))
+(add-function :before (symbol-function 'beacon-blink-automated)
+              (lambda ()
+                (setq beacon-color (nth (random (length jacks-colors)) jacks-colors))
+                (setq beacon-size (max (random 50) 15))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
