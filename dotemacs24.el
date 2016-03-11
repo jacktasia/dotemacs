@@ -259,7 +259,7 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling beacon hlinum)))
+                         clojure-mode smooth-scrolling beacon hlinum paredit)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -474,7 +474,8 @@
 (setq-default cursor-type '(bar . 2))
 
 ;; always use a random beacon color
-(add-function :before (symbol-function 'beacon-blink-automated) (lambda () (setq beacon-color (nth (random 5) '("red" "orange" "yellow" "green" "blue")))))
+(setq jacks-colors (--reject (s-contains? "gray" it) (defined-colors)))
+(add-function :before (symbol-function 'beacon-blink-automated) (lambda () (setq beacon-color (nth (random (length jacks-colors)) jacks-colors))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
