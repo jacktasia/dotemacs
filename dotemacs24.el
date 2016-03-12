@@ -92,6 +92,7 @@
 (setq auto-revert-check-vc-info t)
 (setq confirm-kill-emacs 'y-or-n-p)
 (setq message-log-max t)           ;; If t, log messages but don't truncate the buffer when it becomes large.
+(setq-default cursor-in-non-selected-windows nil)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
@@ -479,7 +480,7 @@
 (add-function :before (symbol-function 'beacon-blink-automated)
               (lambda ()
                 (setq beacon-color (nth (random (length jacks-colors)) jacks-colors))
-                (setq beacon-size (max (random 50) 15))))
+                (setq beacon-size (+ 15 (random 60)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
