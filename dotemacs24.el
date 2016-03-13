@@ -272,8 +272,8 @@
 (hlinum-activate)
 
 (beacon-mode 1)
-(setq beacon-blink-duration 0.5)
-(setq beacon-blink-delay 0.2)
+(setq beacon-blink-duration 0.6)
+(setq beacon-blink-delay 0.3)
 (setq beacon-size 15)
 (setq beacon-color "green")
 
