@@ -97,7 +97,7 @@
 (setq cua-enable-cua-keys nil)
 (cua-mode)
 
-
+;(column-number-mode t)
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
 (custom-set-variables
@@ -260,7 +260,7 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling beacon hlinum fill-column-indicator)))
+                         clojure-mode smooth-scrolling beacon hlinum)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -268,10 +268,15 @@
 ;; POST PACKAGE INSTALL
 ;;
 
-(setq fci-rule-color "#6272a4") ; dracula theme comment color
-(setq fci-dash-pattern 0.5)
-(setq fci-rule-use-dashes t)
-(setq fci-rule-column 100)
+;; fill-column-indicator
+;; turn off fci for now. is buggy with company mode
+;; (setq fci-rule-color "#6272a4") ; dracula theme comment color
+;; (setq fci-dash-pattern 0.5)
+;; (setq fci-rule-use-dashes t)
+;; (setq fci-rule-column 100)
+
+;; (define-globalized-minor-mode jack-global-fci-mode fci-mode turn-on-fci-mode)
+;; (jack-global-fci-mode 1)
 
 (hlinum-activate)
 
@@ -444,14 +449,14 @@
                           (flycheck-select-checker 'jsxhint-checker)
                           (flycheck-mode)))
 
-(add-hook 'go-mode-hook 'turn-on-fic-mode)
-(add-hook 'python-mode-hook 'turn-on-fic-mode)
-(add-hook 'javascript-mode-hook 'turn-on-fic-mode)
-(add-hook 'web-mode-hook 'turn-on-fic-mode)
-(add-hook 'java-mode-hook 'turn-on-fic-mode)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
-(add-hook 'web-mode-hook 'turn-on-fic-mode)
-(add-hook 'js2-mode-hook 'turn-on-fic-mode)
+(add-hook 'go-mode-hook 'fic-mode)
+(add-hook 'python-mode-hook 'fic-mode)
+(add-hook 'javascript-mode-hook 'fic-mode)
+(add-hook 'web-mode-hook 'fic-mode)
+(add-hook 'java-mode-hook 'fic-mode)
+(add-hook 'emacs-lisp-mode-hook 'fic-mode)
+(add-hook 'web-mode-hook 'fic-mode)
+(add-hook 'js2-mode-hook 'fic-mode)
 
 (add-hook 'javascript-mode-hook 'flycheck-mode)
 
@@ -478,7 +483,6 @@
   (set-cursor-color my-select-color))
 
 (setq-default cursor-type '(bar . 2))
-
 ;; always use a random beacon color
 (setq jacks-colors (--reject (s-contains? "gray" it) (defined-colors)))
 (add-function :before (symbol-function 'beacon-blink-automated)

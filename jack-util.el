@@ -1,5 +1,4 @@
 
-
 ;; http://emacs.stackexchange.com/a/2302
 (defun my/eval-buffer ()
   "Execute the current buffer as Lisp code.
