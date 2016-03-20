@@ -46,7 +46,7 @@
 (load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
 
 ;; user-emacs-directory
-(message "%s is the value of emacsdir" emacsdir)
+;(message "%s is the value of emacsdir" emacsdir)
 
 (require 'cl) ;; gotta have it
 (require 'ido)
@@ -165,7 +165,6 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (enable-paredit-mode)
             (setq tab-width 2)
             (setq indent-tabs-mode nil)))
 
@@ -261,13 +260,18 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling beacon hlinum paredit)))
+                         clojure-mode smooth-scrolling beacon hlinum fill-column-indicator)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+(setq fci-rule-color "#6272a4") ; dracula theme comment color
+(setq fci-dash-pattern 0.5)
+(setq fci-rule-use-dashes t)
+(setq fci-rule-column 100)
 
 (hlinum-activate)
 
