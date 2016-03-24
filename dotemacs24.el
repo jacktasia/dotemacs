@@ -254,13 +254,14 @@
 ;;
 ;; packages to install
 ;;
+;; package-install (since i always end up searching for this)
 (let ((pkgs-to-install '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters
                          php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido
                          switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling beacon hlinum)))
+                         clojure-mode smooth-scrolling beacon hlinum google-this crux)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -295,6 +296,8 @@
 
 (global-set-key (kbd "C-\'") 'er/expand-region)
 
+(global-set-key (kbd "C-c g") 'google-this-noconfirm)
+
 ;; (global-set-key (kbd "\C-c <up>") 'text-scale-increase)     ;; text size up
 ;; (global-set-key (kbd "\C-c <down>") 'text-scale-decrease)   ;; text size down
 ;; using a plugin across all buffers with default-text-scale
@@ -302,6 +305,7 @@
 (global-set-key (kbd "C-c <down>") 'default-text-scale-decrease)   ;; text size down
 
 (global-set-key (kbd "C-c t") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c 3") 'crux-transpose-windows)
 
 
 (setq avy-all-windows nil)
