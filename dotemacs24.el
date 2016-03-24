@@ -190,7 +190,6 @@
 (global-set-key (kbd "C-c d")'jack-git-diff)
 (global-set-key (kbd "C-c w")'whitespace-mode)
 (global-set-key (kbd "C-c e")'er/mark-symbol)
-(global-set-key (kbd "C-c t")'jack-insert-backtick)
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 
@@ -300,6 +299,8 @@
 ;; using a plugin across all buffers with default-text-scale
 (global-set-key (kbd "C-c <up>") 'default-text-scale-increase)     ;; text size up
 (global-set-key (kbd "C-c <down>") 'default-text-scale-decrease)   ;; text size down
+
+(global-set-key (kbd "C-c t") 'mc/mark-next-like-this)
 
 
 (setq avy-all-windows nil)
@@ -417,6 +418,8 @@
 
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 (define-key global-map (kbd "C-s") 'isearch-forward)
+(bind-keys* ("<C-return>" . set-rectangular-region-anchor))
+
 
 ;; jump to start end of tags in sgml modes (html, etc)
 
