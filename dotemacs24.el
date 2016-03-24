@@ -97,8 +97,9 @@
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
+(if window-system
+  (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend))
 
-;(column-number-mode t)
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
 (custom-set-variables
