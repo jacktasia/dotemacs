@@ -93,6 +93,7 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 (setq message-log-max t)           ;; If t, log messages but don't truncate the buffer when it becomes large.
 (setq-default cursor-in-non-selected-windows nil)
+(setq column-number-mode t)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode)
