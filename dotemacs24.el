@@ -417,6 +417,7 @@
 (global-set-key (kbd "C-x C-g") 'git-gutter+-mode) ; because i accidentally do this half the time anyway
 
 (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
+(define-key global-map (kbd "C-c a") 'ace-jump-mode-pop-mark)
 (define-key global-map (kbd "C-s") 'isearch-forward)
 (bind-keys* ("<C-return>" . set-rectangular-region-anchor))
 
