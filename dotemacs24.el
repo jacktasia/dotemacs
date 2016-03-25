@@ -189,9 +189,9 @@
 (global-set-key (kbd "C-c 5") 'my/eval-buffer)
 (global-set-key (kbd "C-c 6") 'emacs-uptime)
 
-(global-set-key (kbd "C-c d")'jack-git-diff)
-(global-set-key (kbd "C-c w")'whitespace-mode)
-(global-set-key (kbd "C-c e")'er/mark-symbol)
+(global-set-key (kbd "C-c d") 'jack-git-diff)
+(global-set-key (kbd "C-c w") 'whitespace-mode)
+(global-set-key (kbd "C-c e") 'er/mark-symbol)
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 
@@ -282,8 +282,8 @@
 
 (key-chord-mode 1)
 (key-chord-define-global "qw" 'undo)
+(key-chord-define-global "gh" 'er/mark-symbol)
 (key-chord-define-global "fj" 'ace-jump-char-mode)
-
 
 (hlinum-activate)
 
