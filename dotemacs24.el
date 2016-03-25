@@ -402,9 +402,9 @@
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
-;; (setq ace-jump-mode-scope 'window)
-;; (setq ace-jump-mode-move-keys
-;;       (loop for i from ?a to ?z collect i))
+(setq ace-jump-mode-scope 'window)
+(setq ace-jump-mode-move-keys
+      (loop for i from ?a to ?z collect i))
 ;; (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
 
