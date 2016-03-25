@@ -262,7 +262,7 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling beacon hlinum google-this crux)))
+                         clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -279,6 +279,11 @@
 
 ;; (define-globalized-minor-mode jack-global-fci-mode fci-mode turn-on-fci-mode)
 ;; (jack-global-fci-mode 1)
+
+(key-chord-mode 1)
+(key-chord-define-global "qw" 'undo)
+(key-chord-define-global "fj" 'ace-jump-char-mode)
+
 
 (hlinum-activate)
 
