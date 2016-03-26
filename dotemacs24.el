@@ -181,9 +181,9 @@
 (global-set-key (kbd "C-c j") 'jack-newline-and-indent-no-spaces)
 (global-set-key (kbd "C-c b") 'jack-git-blame-line)
 ;(global-set-key [f11] 'jack-toggle-fullscreen)
-(global-set-key (kbd "C-=") '(lambda()(interactive)(jack-alpha-change)))
-(global-set-key (kbd "C--") '(lambda()(interactive)(jack-alpha-change t)))
-(global-set-key (kbd "C-0") '(lambda()(interactive)
+(global-set-key (kbd "C-c =") '(lambda()(interactive)(jack-alpha-change)))
+(global-set-key (kbd "C-c -") '(lambda()(interactive)(jack-alpha-change t)))
+(global-set-key (kbd "C-c 0") '(lambda()(interactive)
                                (modify-frame-parameters nil `((alpha . 100)))))
 
 (global-set-key (kbd "C-c 5") 'my/eval-buffer)
@@ -262,7 +262,7 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord)))
+                         clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -299,6 +299,11 @@
 ;; http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings
 (bind-keys*
      ("C-c w" . whitespace-mode))
+
+
+(global-set-key (kbd "C-0") 'ace-jump-char-mode)
+(global-set-key (kbd "C--") 'ace-mc-add-multiple-cursors)
+(global-set-key (kbd "C-=") 'ace-mc-add-single-cursor)
 
 (global-set-key (kbd "C-\'") 'er/expand-region)
 
