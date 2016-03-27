@@ -323,7 +323,6 @@
 (setq avy-keys (number-sequence ?a ?z))
 
 (nyan-mode)
-;(projectile-global-mode)
 (projectile-mode)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
@@ -424,8 +423,6 @@
 (global-set-key (kbd "M-<up>") (quote scroll-down-line))
 (global-set-key (kbd "M-n") '(lambda()(interactive)(scroll-up-line)(next-line)))
 (global-set-key (kbd "M-p") '(lambda()(interactive)(scroll-down-line)(previous-line)))
-;; (global-set-key (kbd "M-n") 'highlight-symbol-next)
-;; (global-set-key (kbd "M-p") 'highlight-symbol-prev)
 
 
 (global-git-gutter+-mode t)
