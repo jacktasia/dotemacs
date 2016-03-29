@@ -95,6 +95,10 @@
 (setq-default cursor-in-non-selected-windows nil)
 (setq column-number-mode t)
 
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+
+(setq create-lockfiles nil)
+
 (setq cua-enable-cua-keys nil)
 (cua-mode)
 (if window-system
