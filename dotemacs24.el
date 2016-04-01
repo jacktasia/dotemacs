@@ -287,10 +287,10 @@
 
 (persistent-scratch-setup-default)
 
-(key-chord-mode 1)
-(key-chord-define-global "qw" 'undo)
-(key-chord-define-global "gh" 'er/mark-symbol)
-(key-chord-define-global "fj" 'ace-jump-char-mode)
+;; (key-chord-mode 1)
+;; (key-chord-define-global "qw" 'undo)
+;; (key-chord-define-global "gh" 'er/mark-symbol)
+;; (key-chord-define-global "fj" 'ace-jump-char-mode)
 
 (hlinum-activate)
 
