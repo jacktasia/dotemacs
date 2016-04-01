@@ -514,6 +514,13 @@
                 (setq beacon-color (nth (random (length jacks-colors)) jacks-colors))
                 (setq beacon-size (+ 15 (random 60)))))
 
+
+(let* ((custom-file-name "overrides.el")
+      (custom-file-path (concat (file-name-as-directory emacsdir) custom-file-name)))
+  (if (file-exists-p custom-file-path)
+      (load-file custom-file-path)
+    (message "No %s file found in %s" custom-file-name emacsdir)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
