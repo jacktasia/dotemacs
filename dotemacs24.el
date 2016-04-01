@@ -196,6 +196,8 @@
 (global-set-key (kbd "C-c d") 'jack-git-diff)
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "C-c e") 'er/mark-symbol)
+(global-set-key (kbd "C-c 4") 'er/expand-region)
+
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 
 
