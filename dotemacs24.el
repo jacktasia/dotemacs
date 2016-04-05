@@ -335,7 +335,8 @@
 (projectile-mode)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-jsx-mode))
 (sml/setup)
 (sml/apply-theme 'dark)
 (ws-butler-global-mode t)
@@ -470,8 +471,8 @@
   :command ("jsxhint" source)
   :error-patterns
   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (js2-mode))
-(add-hook 'js2-mode-hook (lambda ()
+  :modes (js2-jsx-mode))
+(add-hook 'js2-jsx-mode-hook (lambda ()
                           (flycheck-select-checker 'jsxhint-checker)
                           (flycheck-mode)))
 
