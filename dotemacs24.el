@@ -268,7 +268,8 @@
                          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
                          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
                          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-                         clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit)))
+                         clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
+                         goto-last-change)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -329,6 +330,7 @@
 
 (global-set-key (kbd "C-c t") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c 3") 'crux-transpose-windows)
+(global-set-key (kbd "C-c 7") 'goto-last-change)
 
 
 (setq avy-all-windows nil)
