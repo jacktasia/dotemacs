@@ -307,11 +307,9 @@
 (dumb-jump-mode)
 (global-smartscan-mode 1)
 ;; http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings
-(bind-keys*
-     ("C-c w" . whitespace-mode))
-
-(bind-keys*
-     ("C-x m" . magit-status))
+(bind-keys* ("C-c w" . whitespace-mode))
+(bind-keys* ("C-x m" . magit-status))
+(bind-keys* ("C-M-f" . helm-projectile-grep))
 
 
 (global-set-key (kbd "C-0") 'ace-jump-char-mode)
