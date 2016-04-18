@@ -104,6 +104,16 @@
 (if window-system
   (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend))
 
+;; http://stackoverflow.com/a/25438277/24998
+(mouse-wheel-mode -1)
+(global-set-key [wheel-up] 'ignore)
+(global-set-key [wheel-down] 'ignore)
+(global-set-key [double-wheel-up] 'ignore)
+(global-set-key [double-wheel-down] 'ignore)
+(global-set-key [triple-wheel-up] 'ignore)
+(global-set-key [triple-wheel-down] 'ignore)
+
+
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
 (custom-set-variables
