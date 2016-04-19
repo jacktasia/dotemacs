@@ -137,7 +137,8 @@
 (global-set-key (kbd "C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "C-c l") 'goto-line)      ;; goes to prompted line number
 (global-set-key (kbd "C-c i") 'ispell-region)  ;; spell check region
-(global-set-key (kbd "C-c p") 'beginning-of-buffer)   ;; top of file
+;(global-set-key (kbd "C-c p") 'beginning-of-buffer)   ;; top of file
+(bind-keys* ("C-c p" . beginning-of-buffer))
 (global-set-key (kbd "C-c n") 'end-of-buffer)
 (global-set-key (kbd "C-x i") 'infer-indentation-style)   ;; infer spaces/tabs
 
