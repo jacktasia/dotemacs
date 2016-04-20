@@ -137,9 +137,8 @@
 (global-set-key (kbd "C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "C-c l") 'goto-line)      ;; goes to prompted line number
 (global-set-key (kbd "C-c i") 'ispell-region)  ;; spell check region
-;(global-set-key (kbd "C-c p") 'beginning-of-buffer)   ;; top of file
-(bind-keys* ("C-c p" . beginning-of-buffer))
-(global-set-key (kbd "C-c n") 'end-of-buffer)
+
+
 (global-set-key (kbd "C-x i") 'infer-indentation-style)   ;; infer spaces/tabs
 
 ;;
@@ -249,6 +248,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-dim-other-buffers-face ((t (:background "#424450"))))
  '(isearch ((t (:background "yellow" :foreground "black" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "dark orange"))))
@@ -281,7 +281,7 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -299,7 +299,8 @@
 ;; (define-globalized-minor-mode jack-global-fci-mode fci-mode turn-on-fci-mode)
 ;; (jack-global-fci-mode 1)
 
-
+(bind-keys* ("C-c p" . beginning-of-buffer))
+(bind-keys* ("C-c n" . end-of-buffer))
 (persistent-scratch-setup-default)
 
 ;; (key-chord-mode 1)
@@ -490,6 +491,10 @@
 (add-hook 'js2-jsx-mode-hook (lambda ()
                           (flycheck-select-checker 'jsxhint-checker)
                           (flycheck-mode)))
+
+(add-hook 'after-init-hook (lambda ()
+  (when (fboundp 'auto-dim-other-buffers-mode)
+    (auto-dim-other-buffers-mode t))))
 
 (add-hook 'go-mode-hook 'fic-mode)
 (add-hook 'python-mode-hook 'fic-mode)
