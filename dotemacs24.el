@@ -308,6 +308,8 @@
 ;; (key-chord-define-global "gh" 'er/mark-symbol)
 ;; (key-chord-define-global "fj" 'ace-jump-char-mode)
 
+(auto-dim-other-buffers-mode t)
+
 (hlinum-activate)
 
 (beacon-mode 1)
@@ -491,10 +493,6 @@
 (add-hook 'js2-jsx-mode-hook (lambda ()
                           (flycheck-select-checker 'jsxhint-checker)
                           (flycheck-mode)))
-
-(add-hook 'after-init-hook (lambda ()
-  (when (fboundp 'auto-dim-other-buffers-mode)
-    (auto-dim-other-buffers-mode t))))
 
 (add-hook 'go-mode-hook 'fic-mode)
 (add-hook 'python-mode-hook 'fic-mode)
