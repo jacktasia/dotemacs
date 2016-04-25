@@ -554,3 +554,4 @@
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 (put 'erase-buffer 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
