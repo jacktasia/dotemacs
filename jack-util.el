@@ -12,6 +12,12 @@ and `defcustom' forms reset their default values."
       (eval-defun nil)))
   (message "%s eval'd" (buffer-file-name)))
 
+; based off of http://stackoverflow.com/a/10364547/24998
+(defun jack-new-scratch ()
+  "open up a new scratch buffer"
+  (interactive)
+  (switch-to-buffer (generate-new-buffer "*scratch*")))
+
 (defun jack-insert-backtick ()
   "because i override tilda/backtick for kupfer, but need backticks a lot for markdown"
   (interactive)

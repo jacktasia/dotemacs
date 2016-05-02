@@ -302,6 +302,8 @@
 (bind-keys* ("C-c p" . beginning-of-buffer))
 (bind-keys* ("C-c n" . end-of-buffer))
 (bind-keys* ("C-`" . pop-to-mark-command))
+(bind-keys* ("C-M-," . jack-new-scratch))
+
 (persistent-scratch-setup-default)
 
 ;; (key-chord-mode 1)
