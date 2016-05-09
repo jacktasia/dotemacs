@@ -274,7 +274,7 @@
 ;;
 ;; package-install (since i always end up searching for this)
 (let ((pkgs-to-install
-       '(company company-anaconda company-tern ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters
+       '(company company-anaconda company-tern company-jedi ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters
          php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido
          switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag
          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
@@ -514,9 +514,9 @@
 
 (add-hook 'python-mode-hook
   (lambda ()
-    (setq indent-tabs-mode t)
-    (setq python-indent 8)
-    (setq tab-width 4)))
+    (setq indent-tabs-mode nil)
+    (setq python-indent 2)
+    (setq tab-width 2)))
 
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
