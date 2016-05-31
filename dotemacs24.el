@@ -28,6 +28,9 @@
 ;; sudo apt-get install xfonts-terminus
 ;; mac: http://files.ax86.net/terminus-ttf/
 
+;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+;; npm install -g eslint babel-eslint eslint-plugin-react eslint-plugin-import eslint-config-airbnb eslint-plugin-jsx-a11y
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; START UP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -281,7 +284,7 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -358,8 +361,8 @@
 (projectile-mode)
 (flyspell-lazy-mode 1)
 (flyspell-mode 1)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-jsx-mode))
+;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-jsx-mode))
 (sml/setup)
 (sml/apply-theme 'dark)
 (ws-butler-global-mode t)
@@ -426,7 +429,8 @@
 ;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c \$") 'jack-save-word)
-(global-set-key (kbd "s-t") 'projectile-find-file)
+;(global-set-key (kbd "s-t") 'projectile-find-file)
+(global-set-key (kbd "s-t") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
 (global-set-key (kbd "C-x b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x p") 'projectile-switch-project)
@@ -487,21 +491,22 @@
 (add-hook 'css-mode-hook 'xah-syntax-color-hex)
 (add-hook 'scss-mode-hook 'xah-syntax-color-hex)
 
-;; from: https://truongtx.me/2014/03/10/emacs-setup-jsx-mode-and-jsx-syntax-checking/
-(flycheck-define-checker jsxhint-checker
-  "A JSX syntax and style checker based on JSXHint."
+;; ;; from: https://truongtx.me/2014/03/10/emacs-setup-jsx-mode-and-jsx-syntax-checking/
+;; (flycheck-define-checker jsxhint-checker
+;;   "A JSX syntax and style checker based on JSXHint."
 
-  :command ("jsxhint" source)
-  :error-patterns
-  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (js2-jsx-mode))
-(add-hook 'js2-jsx-mode-hook (lambda ()
-                          (flycheck-select-checker 'jsxhint-checker)
-                          (flycheck-mode)))
+;;   :command ("jsxhint" source)
+;;   :error-patterns
+;;   ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
+;;   :modes (js2-jsx-mode))
+;; (add-hook 'js2-jsx-mode-hook (lambda ()
+;;                           (flycheck-select-checker 'jsxhint-checker)
+;;                           (flycheck-mode)))
 
 (add-hook 'go-mode-hook 'fic-mode)
 (add-hook 'python-mode-hook 'fic-mode)
 (add-hook 'javascript-mode-hook 'fic-mode)
+(add-hook 'js-mode-hook 'fic-mode)
 (add-hook 'web-mode-hook 'fic-mode)
 (add-hook 'java-mode-hook 'fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'fic-mode)
@@ -527,6 +532,10 @@
   (setq gofmt-command "gofmt")
   (setq gofmt-command "~/go/bin/gofmt"))
 
+
+;; make helm selections easier to see
+(set-face-attribute 'helm-selection nil :background "yellow" :foreground "black")
+
 ;; cursor tweaks
 (let ((my-select-color "#83F52C")) ;; this is a neon green, FF8300 is orange -- but plain "green" is also nice
   ;(set-face-background 'region my-select-color) ;; make region stick out more
@@ -541,11 +550,44 @@
                 (setq beacon-size (+ 15 (random 60)))))
 
 
+
+;;;;;;;;;;;;;;;;;;;;;
+
+;; use web-mode for .jsx files
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+
+;; http://www.flycheck.org/manual/latest/index.html
+(require 'flycheck)
+
+;; turn on flychecking globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
+
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+
+;; customize flycheck temp file prefix
+(setq-default flycheck-temp-prefix ".flycheck")
+
+;; disable json-jsonlist checking for json files
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(json-jsonlist)))
+
+
+;;;;;;;;;;;;;;;;;
+
+
 (let* ((custom-file-name "overrides.el")
       (custom-file-path (concat (file-name-as-directory emacsdir) custom-file-name)))
   (if (file-exists-p custom-file-path)
       (load-file custom-file-path)
     (message "No %s file found in %s" custom-file-name emacsdir)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
