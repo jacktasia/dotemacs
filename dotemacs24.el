@@ -347,9 +347,13 @@
 (bind-keys* ("C-M-f" . helm-projectile-ag))
 
 
-(global-set-key (kbd "C-0") 'ace-jump-char-mode)
-(global-set-key (kbd "C--") 'ace-mc-add-multiple-cursors)
-(global-set-key (kbd "C-=") 'ace-mc-add-single-cursor)
+;; (global-set-key (kbd "C-0") 'ace-jump-char-mode)
+;; (global-set-key (kbd "C--") 'ace-mc-add-multiple-cursors)
+;; (global-set-key (kbd "C-=") 'ace-mc-add-single-cursor)
+;(define-key global-map (kbd "C-c s") 'avy-goto-char)
+
+(global-set-key (kbd "C-0") 'avy-goto-char)
+(global-set-key (kbd "C-;") 'avy-goto-char)
 
 (global-set-key (kbd "C-\'") 'er/expand-region)
 
@@ -463,9 +467,11 @@
 ;; (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
 
-(global-set-key (kbd "s-s") 'avy-goto-subword-0)
-(define-key global-map (kbd "C-c s") 'avy-goto-subword-1)
-(define-key global-map (kbd "C-z") 'avy-goto-subword-1)
+;; (global-set-key (kbd "s-s") 'avy-goto-subword-0)
+;; (define-key global-map (kbd "C-c s") 'avy-goto-subword-1)
+;; (define-key global-map (kbd "C-z") 'avy-goto-subword-1)
+(define-key global-map (kbd "C-c s") 'avy-goto-char)
+;(define-key global-map (kbd "C-c a") 'ace-jump-mode-pop-mark)
 
 
 (define-key flyspell-mode-map (kbd "C-c \$") 'jack-save-word)
@@ -480,8 +486,7 @@
 (global-set-key (kbd "C-x g") 'git-gutter+-mode)
 (global-set-key (kbd "C-x C-g") 'git-gutter+-mode) ; because i accidentally do this half the time anyway
 
-(define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
-(define-key global-map (kbd "C-c a") 'ace-jump-mode-pop-mark)
+
 (define-key global-map (kbd "C-s") 'isearch-forward)
 (bind-keys* ("<C-return>" . set-rectangular-region-anchor))
 
