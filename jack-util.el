@@ -1,4 +1,13 @@
 
+; http://stackoverflow.com/a/3417473/24998 adding confirmation
+(defun jack-kill-other-buffers ()
+    "Kill all other buffers."
+    (interactive)
+    (when (y-or-n-p "Kill all other buffers? ")
+      (mapc 'kill-buffer
+            (delq (current-buffer)
+                  (remove-if-not 'buffer-file-name (buffer-list))))))
+
 ;; http://emacs.stackexchange.com/a/2302
 (defun my/eval-buffer ()
   "Execute the current buffer as Lisp code.

@@ -69,7 +69,8 @@
 ;; 1) LOGICAL DEFAULTS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq gc-cons-threshold 20000000)
+(setq gc-cons-threshold 8000000)
+;(setq gc-cons-threshold 20000000)
 (jack-visible-bell) ;; is effectively (setq visible-bell 1) but less annoying
 (setq uniquify-min-dir-content 3)
 ;; https://github.com/emacs-mirror/emacs/blob/0537943561a37b54467bec19d1b8afbeba8e1e58/lisp/uniquify.el#L107
@@ -131,7 +132,7 @@
  '(anzu-search-threshold 1000)
  '(custom-safe-themes
    (quote
-    ("21c149e080d562fe9169c8abda51c2f1f9b0a12c89cc2c7a4d9998a758e1cfbd" "d1dbb3c37e11ae8f986ca2d4b6a9d78bb1915fe66f3a6ffab1397cc746c18cba" "419637b7a8c9cb43f273980f0c9879c0cbadace6b38efac0281e031772c84eb2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+    ("b0ab5c9172ea02fba36b974bbd93bc26e9d26f379c9a29b84903c666a5fde837" "21c149e080d562fe9169c8abda51c2f1f9b0a12c89cc2c7a4d9998a758e1cfbd" "d1dbb3c37e11ae8f986ca2d4b6a9d78bb1915fe66f3a6ffab1397cc746c18cba" "419637b7a8c9cb43f273980f0c9879c0cbadace6b38efac0281e031772c84eb2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(linum-format (quote dynamic))
  '(volatile-highlights-mode t))
 
@@ -169,8 +170,8 @@
 ;; (setq-default indent-tabs-mode t)
 ;; (global-set-key (kbd "TAB") 'self-insert-command)   ;; Bind the TAB key
 
+(setq-default js-indent-level 2)
 (setq-default indent-tabs-mode nil)
-(setq default-tab-width 2)                          ;; Set the tab width
 (setq tab-width 2)                                  ;; display tabs as 2 chars
 (setq c-basic-indent 2)                             ;; c tabs length
 (setq-default web-mode-code-indent-offset 2)
@@ -212,6 +213,7 @@
 (global-set-key (kbd "C-c 4") 'er/expand-region)
 
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
+(global-set-key (kbd "C-c q") 'jack-kill-other-buffers)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -284,13 +286,23 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+(define-key company-active-map (kbd "C-n") (lambda () (interactive) (company-complete-common-or-cycle 1)))
+(define-key company-active-map (kbd "C-p") (lambda () (interactive) (company-complete-common-or-cycle -1)))
+
+(global-set-key (kbd "M-i") 'helm-swoop)
+(define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+(define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+(define-key helm-map (kbd "C-r") 'helm-previous-line)
+(define-key helm-map (kbd "C-s") 'helm-next-line)
+
 
 ;; fill-column-indicator
 ;; turn off fci for now. is buggy with company mode
