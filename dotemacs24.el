@@ -286,7 +286,7 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -352,6 +352,7 @@
 ;; (global-set-key (kbd "C-=") 'ace-mc-add-single-cursor)
 ;(define-key global-map (kbd "C-c s") 'avy-goto-char)
 
+(global-set-key (kbd "M-g l") 'avy-goto-line)
 (global-set-key (kbd "C-0") 'avy-goto-char)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 
