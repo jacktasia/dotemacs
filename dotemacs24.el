@@ -137,7 +137,9 @@
  '(volatile-highlights-mode t))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
-(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
+;(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
+(global-set-key (kbd "C-c r") 'vr/replace) ;; search & replace (file or region)
+(global-set-key (kbd "C-c q") 'vr/query-replace)
 (global-set-key (kbd "C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "C-c l") 'goto-line)      ;; goes to prompted line number
 (global-set-key (kbd "C-c i") 'ispell-region)  ;; spell check region
@@ -213,7 +215,7 @@
 (global-set-key (kbd "C-c 4") 'er/expand-region)
 
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
-(global-set-key (kbd "C-c q") 'jack-kill-other-buffers)
+(global-set-key (kbd "C-c k") 'jack-kill-other-buffers)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
