@@ -305,6 +305,8 @@
 (define-key helm-map (kbd "C-r") 'helm-previous-line)
 (define-key helm-map (kbd "C-s") 'helm-next-line)
 
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
 
 ;; fill-column-indicator
 ;; turn off fci for now. is buggy with company mode
