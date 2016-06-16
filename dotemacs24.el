@@ -349,6 +349,8 @@
 (bind-keys* ("C-c w" . whitespace-mode))
 (bind-keys* ("C-x m" . magit-status))
 (bind-keys* ("C-M-f" . helm-projectile-ag))
+(bind-keys* ("C-M-f" . helm-projectile-ag))
+(bind-keys* ("C-M-;" . jack-helm-projectile-ag-at-point))
 
 
 ;; (global-set-key (kbd "C-0") 'ace-jump-char-mode)

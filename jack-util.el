@@ -1,4 +1,9 @@
 
+(defun jack-helm-projectile-ag-at-point ()
+  (interactive)
+  (let ((helm-ag-insert-at-point 'symbol))
+    (helm-projectile-ag)))
+
 ; http://stackoverflow.com/a/3417473/24998 adding confirmation
 (defun jack-kill-other-buffers ()
     "Kill all other buffers."
