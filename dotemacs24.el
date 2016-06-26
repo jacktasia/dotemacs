@@ -256,7 +256,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-dim-other-buffers-face ((t (:background "#424450"))))
- '(isearch ((t (:background "yellow" :foreground "black" :weight bold))))
+; '(isearch ((t (:background "yellow" :foreground "black" :weight bold))))
+ '(isearch ((t (:background "light green" :foreground "black" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "dark orange"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "yellow"))))
@@ -395,8 +396,8 @@
 (smex-initialize)
 (global-anzu-mode +1)
 
-(set-face-attribute 'anzu-mode-line nil
-                    :foreground "yellow" :weight 'bold)
+;(set-face-attribute 'anzu-mode-line nil :foreground "yellow" :weight 'bold)
+(set-face-attribute 'anzu-mode-line nil :foreground "light green" :weight 'bold)
 
 (setq anzu-cons-mode-line-p nil)
 (setcar (cdr (assq 'isearch-mode minor-mode-alist))
@@ -561,7 +562,8 @@
 
 
 ;; make helm selections easier to see
-(set-face-attribute 'helm-selection nil :background "yellow" :foreground "black")
+; (set-face-attribute 'helm-selection nil :background "yellow" :foreground "black")
+(set-face-attribute 'helm-selection nil :background "light green" :foreground "black")
 
 ;; cursor tweaks
 (let ((my-select-color "#83F52C")) ;; this is a neon green, FF8300 is orange -- but plain "green" is also nice
