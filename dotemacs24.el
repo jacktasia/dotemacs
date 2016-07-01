@@ -288,7 +288,7 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -303,6 +303,8 @@
 (diminish 'emacs-lisp-mode)
 (diminish 'ws-butler-mode)
 (diminish 'beacon-mode)
+
+(helm-adaptive-mode)
 
 (define-key company-active-map (kbd "C-n") (lambda () (interactive) (company-complete-common-or-cycle 1)))
 (define-key company-active-map (kbd "C-p") (lambda () (interactive) (company-complete-common-or-cycle -1)))
@@ -370,6 +372,8 @@
 (global-set-key (kbd "C-0") 'avy-goto-char)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
+(global-set-key (kbd "C-,") 'avy-goto-char)
+(global-set-key (kbd "M-SPC") 'avy-goto-char)
 
 (global-set-key (kbd "C-\'") 'er/expand-region)
 
