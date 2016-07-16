@@ -297,6 +297,9 @@
 ;; POST PACKAGE INSTALL
 ;;
 
+(projectile-global-mode +1)
+(setq projectile-enable-caching t)
+
 (diminish 'flycheck-mode)
 (diminish 'company-mode)
 (diminish 'projectile-mode)
@@ -331,6 +334,8 @@
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
 
+
+(bind-keys* ("C-x p" . helm-projectile-switch-project))
 (bind-keys* ("C-c p" . beginning-of-buffer))
 (bind-keys* ("C-c n" . end-of-buffer))
 (bind-keys* ("C-`" . pop-to-mark-command))
