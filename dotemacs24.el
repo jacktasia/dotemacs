@@ -1,3 +1,4 @@
+
 ;;; package --- Summary
 ;;; Commentary:
 
@@ -284,12 +285,12 @@
 (let ((pkgs-to-install
        '(company company-anaconda company-tern company-jedi ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters
          php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido
-         switch-window anzu git-gutter+ git-gutter-fringe+ smex exec-path-from-shell groovy-mode ag
+         switch-window anzu smex exec-path-from-shell groovy-mode ag
          highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl diff-hl)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -334,7 +335,11 @@
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
 
-
+(bind-keys* ("s-p" . previous-line))
+(bind-keys* ("s-n" . next-line))
+(bind-keys* ("C-z" . avy-goto-char))
+(bind-keys* ("C-S-P" . scroll-down-line))
+(bind-keys* ("C-S-N" . scroll-up-line))
 (bind-keys* ("C-x p" . helm-projectile-switch-project))
 (bind-keys* ("C-c p" . beginning-of-buffer))
 (bind-keys* ("C-c n" . end-of-buffer))
@@ -509,9 +514,10 @@
 (global-set-key (kbd "M-p") '(lambda()(interactive)(scroll-down-line)(previous-line)))
 
 
-(global-git-gutter+-mode t)
-(global-set-key (kbd "C-x g") 'git-gutter+-mode)
-(global-set-key (kbd "C-x C-g") 'git-gutter+-mode) ; because i accidentally do this half the time anyway
+(global-set-key (kbd "C-c 8") 'diff-hl-previous-hunk)
+(global-set-key (kbd "C-c 9") 'diff-hl-next-hunk)
+
+(global-diff-hl-mode)
 
 
 (define-key global-map (kbd "C-s") 'isearch-forward)
