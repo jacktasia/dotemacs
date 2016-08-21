@@ -232,6 +232,10 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
+;; swap above with this if melpa is ever down.
+;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+;;                          ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
 (package-initialize) ;; turn on
 
 (when *refresh-package-list*
@@ -290,13 +294,24 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl diff-hl)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl diff-hl swiper counsel)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-load-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+
+(global-set-key (kbd "C-s") 'swiper)
 
 (projectile-global-mode +1)
 (setq projectile-enable-caching t)
@@ -315,12 +330,12 @@
 (define-key company-active-map (kbd "C-p") (lambda () (interactive) (company-complete-common-or-cycle -1)))
 
 (global-set-key (kbd "M-i") 'helm-swoop)
-(define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
-(define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+;(define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+;(define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
 (define-key helm-map (kbd "C-r") 'helm-previous-line)
 (define-key helm-map (kbd "C-s") 'helm-next-line)
 
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 
 ;; fill-column-indicator
@@ -370,7 +385,7 @@
 (bind-keys* ("C-c w" . whitespace-mode))
 (bind-keys* ("C-x m" . magit-status))
 (bind-keys* ("C-M-f" . helm-projectile-ag))
-(bind-keys* ("C-M-f" . helm-projectile-ag))
+;(bind-keys* ("C-M-f" . counsel-ag))
 (bind-keys* ("C-M-;" . jack-helm-projectile-ag-at-point))
 
 
@@ -481,11 +496,12 @@
 (global-set-key (kbd "s-t") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
 ;(global-set-key (kbd "C-x b") 'ido-switch-buffer)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+;(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-x p") 'projectile-switch-project)
 (global-set-key (kbd "C-x f") 'projectile-grep)
 ;(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-x") 'helm-M-x)
+;(global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;;old M-x.
 (global-set-key (kbd "C-x o") 'switch-window)
@@ -520,7 +536,7 @@
 (global-diff-hl-mode)
 
 
-(define-key global-map (kbd "C-s") 'isearch-forward)
+;(define-key global-map (kbd "C-s") 'isearch-forward)
 (bind-keys* ("<C-return>" . set-rectangular-region-anchor))
 
 
