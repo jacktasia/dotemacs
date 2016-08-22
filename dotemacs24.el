@@ -78,7 +78,7 @@
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets) ;; or "forward"
 (setq tramp-default-method "scpx")
 (setq clean-buffer-list-delay-general 7)
-
+(show-paren-mode t)
 (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
 (setq org-log-done t)              ;; show done time when marking a todo done
 (defalias 'yes-or-no-p 'y-or-n-p)  ;; don't require full "yes" for confirms
@@ -294,7 +294,7 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl diff-hl swiper counsel)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl diff-hl swiper counsel counsel-projectile)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -378,8 +378,9 @@
 (setq beacon-size 15)
 (setq beacon-color "green")
 
-
+(setq dumb-jump-selector 'ivy)
 (dumb-jump-mode)
+
 (global-smartscan-mode 1)
 ;; http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings
 (bind-keys* ("C-c w" . whitespace-mode))
@@ -399,6 +400,7 @@
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
 (global-set-key (kbd "C-,") 'avy-goto-char)
+(global-set-key (kbd "C-'") 'avy-goto-char)
 (global-set-key (kbd "M-SPC") 'avy-goto-char)
 
 (global-set-key (kbd "C-\'") 'er/expand-region)
@@ -493,7 +495,7 @@
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c \$") 'jack-save-word)
 ;(global-set-key (kbd "s-t") 'projectile-find-file)
-(global-set-key (kbd "s-t") 'helm-projectile-find-file)
+(global-set-key (kbd "s-t") 'counsel-projectile-find-file)
 (global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
 ;(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 ;(global-set-key (kbd "C-x b") 'helm-buffers-list)
