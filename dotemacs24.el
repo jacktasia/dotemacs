@@ -284,6 +284,7 @@
 ;; (when (member "Terminus (TTF)" (font-family-list))
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
 
+(setq python-shell-interpreter "python3")
 ;;
 ;; packages to install
 ;;
@@ -296,15 +297,22 @@
          multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
          nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
          clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl diff-hl swiper counsel counsel-projectile)))
+         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl spotify volume diff-hl swiper counsel counsel-projectile)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+(bind-keys* ("C-c `" . spotify-playpause))
+(bind-keys* ("C-c v" . volume))
 (ivy-mode 1)
+;(setq dumb-jump-window 'other)
+(bind-keys* ("M-g o" . dumb-jump-go-other-window))
+(bind-keys* ("M-g j" . dumb-jump-go))
+
 (setq ivy-use-virtual-buffers t)
+
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
@@ -398,11 +406,13 @@
 ;(define-key global-map (kbd "C-c s") 'avy-goto-char)
 
 (global-set-key (kbd "M-g l") 'avy-goto-line)
+(global-set-key (kbd "M-g j") 'dumb-jump-go)
+(global-set-key (kbd "M-g c") 'avy-goto-char)
 (global-set-key (kbd "C-0") 'avy-goto-char)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
 (global-set-key (kbd "C-,") 'avy-goto-char)
-(global-set-key (kbd "C-'") 'avy-goto-char)
+(bind-keys* ("C-'" . avy-goto-char))
 (global-set-key (kbd "M-SPC") 'avy-goto-char)
 
 (global-set-key (kbd "C-\'") 'er/expand-region)
