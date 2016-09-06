@@ -290,14 +290,20 @@
 ;;
 ;; package-install (since i always end up searching for this)
 (let ((pkgs-to-install
-       '(company company-anaconda company-tern company-jedi ace-jump-mode ace-jump-buffer fuzzy-match rainbow-delimiters
-         php-mode go-mode multiple-cursors dash s projectile fringe-helper flycheck f ido-sort-mtime flx-ido
-         switch-window anzu smex exec-path-from-shell groovy-mode ag
-         highlight-symbol ws-butler ht smart-mode-line smart-mode-line-powerline-theme imgix fic-mode
-         multi-term ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile flyspell-lazy request
-         nyan-mode avy emmet-mode default-text-scale expand-region use-package smartscan yaml-mode dumb-jump
-         clojure-mode smooth-scrolling beacon hlinum google-this crux key-chord ace-mc persistent-scratch magit
-         goto-last-change free-keys which-key helm-ag auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop visual-regexp helm-themes diminish grizzl spotify volume diff-hl swiper counsel counsel-projectile)))
+       '(company company-anaconda company-tern company-jedi ace-jump-mode
+         ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode
+         multiple-cursors dash s projectile fringe-helper flycheck f
+         ido-sort-mtime flx-ido switch-window anzu smex exec-path-from-shell
+         groovy-mode ag highlight-symbol ws-butler ht smart-mode-line
+         smart-mode-line-powerline-theme imgix fic-mode multi-term
+         ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile
+         flyspell-lazy request nyan-mode avy emmet-mode default-text-scale
+         expand-region use-package smartscan yaml-mode dumb-jump clojure-mode
+         smooth-scrolling beacon hlinum google-this crux key-chord ace-mc
+         persistent-scratch magit goto-last-change free-keys which-key helm-ag
+         auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
+         visual-regexp helm-themes diminish grizzl spotify volume diff-hl
+         swiper counsel counsel-projectile)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -408,6 +414,8 @@
 (global-set-key (kbd "M-g l") 'avy-goto-line)
 (global-set-key (kbd "M-g j") 'dumb-jump-go)
 (global-set-key (kbd "M-g c") 'avy-goto-char)
+(global-set-key (kbd "M-g w") 'avy-goto-word-0)
+(global-set-key (kbd "M-g t") 'avy-goto-char-timer)
 (global-set-key (kbd "C-0") 'avy-goto-char)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
@@ -415,7 +423,7 @@
 (bind-keys* ("C-'" . avy-goto-char))
 (global-set-key (kbd "M-SPC") 'avy-goto-char)
 
-(global-set-key (kbd "C-\'") 'er/expand-region)
+;(global-set-key (kbd "C-\'") 'er/expand-region)
 
 (global-set-key (kbd "C-c g") 'google-this-noconfirm)
 
@@ -532,7 +540,8 @@
 ;; (global-set-key (kbd "s-s") 'avy-goto-subword-0)
 ;; (define-key global-map (kbd "C-c s") 'avy-goto-subword-1)
 ;; (define-key global-map (kbd "C-z") 'avy-goto-subword-1)
-(define-key global-map (kbd "C-c s") 'avy-goto-char)
+(define-key global-map (kbd "C-c s") 'avy-goto-char-timer)
+(define-key global-map (kbd "C-=") 'avy-goto-char-timer)
 ;(define-key global-map (kbd "C-c a") 'ace-jump-mode-pop-mark)
 
 
