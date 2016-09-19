@@ -123,22 +123,6 @@
 
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(Vhl/highlight-zero-width-ranges t)
- '(anzu-deactivate-region t)
- '(anzu-mode-lighter "")
- '(anzu-replace-to-string-separator " => ")
- '(anzu-search-threshold 1000)
- '(custom-safe-themes
-   (quote
-    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "b0ab5c9172ea02fba36b974bbd93bc26e9d26f379c9a29b84903c666a5fde837" "21c149e080d562fe9169c8abda51c2f1f9b0a12c89cc2c7a4d9998a758e1cfbd" "d1dbb3c37e11ae8f986ca2d4b6a9d78bb1915fe66f3a6ffab1397cc746c18cba" "419637b7a8c9cb43f273980f0c9879c0cbadace6b38efac0281e031772c84eb2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "c5a044ba03d43a725bd79700087dea813abcb6beb6be08c7eb3303ed90782482" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
- '(linum-format (quote dynamic))
- '(magit-popup-use-prefix-argument (quote popup))
- '(volatile-highlights-mode t))
 
 (global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
 ;(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
@@ -289,13 +273,15 @@
 ;; packages to install
 ;;
 ;; package-install (since i always end up searching for this)
+
+; smart-mode-line-powerline-theme
 (let ((pkgs-to-install
        '(company company-anaconda company-tern company-jedi ace-jump-mode
          ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode
          multiple-cursors dash s projectile fringe-helper flycheck f
          ido-sort-mtime flx-ido switch-window anzu smex exec-path-from-shell
          groovy-mode ag highlight-symbol ws-butler ht smart-mode-line
-         smart-mode-line-powerline-theme imgix fic-mode multi-term
+         imgix fic-mode multi-term
          ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile
          flyspell-lazy request nyan-mode avy emmet-mode default-text-scale
          expand-region use-package smartscan yaml-mode dumb-jump clojure-mode
@@ -303,13 +289,29 @@
          persistent-scratch magit goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes diminish grizzl spotify volume diff-hl
-         swiper counsel counsel-projectile)))
+         swiper counsel counsel-projectile delight spaceline)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+(require 'spaceline-config)
+
+(spaceline-emacs-theme)
+
+(spaceline-toggle-minor-modes-off)
+(spaceline-toggle-major-mode-off)
+(spaceline-toggle-buffer-modified-on)
+(spaceline-toggle-buffer-size-off)
+(spaceline-toggle-version-control-on)
+(spaceline-toggle-buffer-encoding-abbrev-off)
+(spaceline-toggle-projectile-root-on)
+(spaceline-toggle-anzu-on)
+
+;; https://github.com/angrybacon/dotemacs/blob/master/dotemacs.org#12-mode-line
+;; end spaceline config
+
 (bind-keys* ("C-c `" . spotify-playpause))
 (bind-keys* ("C-c v" . volume))
 (ivy-mode 1)
@@ -411,6 +413,7 @@
 ;; (global-set-key (kbd "C-=") 'ace-mc-add-single-cursor)
 ;(define-key global-map (kbd "C-c s") 'avy-goto-char)
 
+(global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
 (global-set-key (kbd "M-g j") 'dumb-jump-go)
 (global-set-key (kbd "M-g c") 'avy-goto-char)
@@ -421,6 +424,8 @@
 (global-set-key (kbd "C-.") 'avy-goto-char)
 (global-set-key (kbd "C-,") 'avy-goto-char)
 (bind-keys* ("C-'" . avy-goto-char))
+
+(bind-keys* ("M-r" . counsel-yank-pop))
 (global-set-key (kbd "M-SPC") 'avy-goto-char)
 
 ;(global-set-key (kbd "C-\'") 'er/expand-region)
@@ -697,3 +702,15 @@
 (put 'erase-buffer 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(package-selected-packages
+   (quote
+    (ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
