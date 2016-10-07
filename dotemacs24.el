@@ -184,6 +184,7 @@
 ;; custom functions
 ;;
 
+(global-set-key (kbd "C-j") 'jack-match-above-indentation)
 (add-hook 'php-mode-hook 'jack-php-setup)
 
 (add-hook 'emacs-lisp-mode-hook
@@ -217,6 +218,8 @@
 
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 (global-set-key (kbd "C-c k") 'jack-kill-other-buffers)
+
+(global-set-key (kbd "C-_") '(lambda()(interactive)(message "%s" "Use \"C-x u\"!!")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -381,8 +384,8 @@
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
 
-(bind-keys* ("s-p" . previous-line))
-(bind-keys* ("s-n" . next-line))
+(bind-keys* ("s-p" . smartscan-symbol-go-backward))
+(bind-keys* ("s-n" . smartscan-symbol-go-forward))
 (bind-keys* ("C-z" . avy-goto-char))
 (bind-keys* ("C-S-P" . scroll-down-line))
 (bind-keys* ("C-S-N" . scroll-up-line))
