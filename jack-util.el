@@ -4,6 +4,17 @@
   (let ((helm-ag-insert-at-point 'symbol))
     (helm-projectile-ag)))
 
+
+(defun jack-match-above-indentation ()
+  (interactive)
+  (let ((above-col (save-excursion
+                     (previous-line)
+                     (back-to-indentation)
+                     (current-column))))
+    (move-beginning-of-line nil)
+    (delete-horizontal-space)
+    (insert-char (string-to-char " ") above-col)))
+
 ; http://stackoverflow.com/a/3417473/24998 adding confirmation
 (defun jack-kill-other-buffers ()
     "Kill all other buffers."
