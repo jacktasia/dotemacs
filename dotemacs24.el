@@ -114,6 +114,8 @@
 (setq message-log-max t)           ;; If t, log messages but don't truncate the buffer when it becomes large.
 (setq-default cursor-in-non-selected-windows nil)
 (setq column-number-mode t)
+(global-subword-mode t)
+
 
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
@@ -189,6 +191,7 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
+            (eldoc-mode t)
             (setq tab-width 2)
             (setq indent-tabs-mode nil)))
 
