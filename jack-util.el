@@ -4,7 +4,7 @@
   (let ((helm-ag-insert-at-point 'symbol))
     (helm-projectile-ag)))
 
-
+;;TODO: if col is 0 keep going up ALSO go down and if below is higher col than up then use below
 (defun jack-match-above-indentation ()
   (interactive)
   (let ((above-col (save-excursion
