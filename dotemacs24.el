@@ -59,7 +59,7 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -295,19 +295,20 @@
 
 ; smart-mode-line-powerline-theme
 (let ((pkgs-to-install
-       '(company company-anaconda company-tern company-jedi ace-jump-mode
+       '(dash s projectile use-package diminish bind-key company company-anaconda
+         company-tern company-jedi ace-jump-mode
          ace-jump-buffer fuzzy-match rainbow-delimiters php-mode go-mode
-         multiple-cursors dash s projectile fringe-helper flycheck f
+         multiple-cursors fringe-helper flycheck f
          ido-sort-mtime flx-ido switch-window anzu smex exec-path-from-shell
          groovy-mode ag highlight-symbol ws-butler ht smart-mode-line
          imgix fic-mode multi-term
          ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile
          flyspell-lazy request nyan-mode avy emmet-mode default-text-scale
-         expand-region use-package smartscan yaml-mode dumb-jump clojure-mode
+         expand-region smartscan yaml-mode clojure-mode
          smooth-scrolling beacon hlinum google-this crux key-chord ace-mc
-         persistent-scratch magit goto-last-change free-keys which-key helm-ag
+         persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
-         visual-regexp helm-themes diminish grizzl spotify volume diff-hl
+         visual-regexp helm-themes grizzl spotify volume diff-hl
          swiper counsel counsel-projectile delight spaceline web-beautify py-autopep8)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
@@ -315,6 +316,16 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go-other-window))
+  :config (setq dumb-jump-selector 'ivy)
+  :ensure)
+
+(use-package magit
+  :bind (("C-x m" . magit-status))
+  :ensure)
+
 (require 'spaceline-config)
 
 (spaceline-emacs-theme)
@@ -341,9 +352,6 @@
 (bind-keys* ("C-c `" . spotify-playpause))
 (bind-keys* ("C-c v" . volume))
 (ivy-mode 1)
-;(setq dumb-jump-window 'other)
-(bind-keys* ("M-g o" . dumb-jump-go-other-window))
-(bind-keys* ("M-g j" . dumb-jump-go))
 
 (setq ivy-use-virtual-buffers t)
 
@@ -422,13 +430,13 @@
 (setq beacon-size 15)
 (setq beacon-color "green")
 
-(setq dumb-jump-selector 'ivy)
-(dumb-jump-mode)
+
+
 
 (global-smartscan-mode 1)
 ;; http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings
 (bind-keys* ("C-c w" . whitespace-mode))
-(bind-keys* ("C-x m" . magit-status))
+
 (bind-keys* ("C-M-f" . helm-projectile-ag))
 ;(bind-keys* ("C-M-f" . counsel-ag))
 (bind-keys* ("C-M-;" . jack-helm-projectile-ag-at-point))
@@ -441,7 +449,6 @@
 
 (global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
-(global-set-key (kbd "M-g j") 'dumb-jump-go)
 (global-set-key (kbd "M-g c") 'avy-goto-char)
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
 (global-set-key (kbd "M-g t") 'avy-goto-char-timer)
