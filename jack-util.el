@@ -5,7 +5,7 @@
     (helm-projectile-ag)))
 
 ;;TODO: if col is 0 keep going up ALSO go down and if below is higher col than up then use below
-(defun jack-match-above-indentation ()
+(defun jack-match-above-indentation-old ()
   (interactive)
   (let ((above-col (save-excursion
                      (previous-line)
@@ -14,6 +14,20 @@
     (move-beginning-of-line nil)
     (delete-horizontal-space)
     (insert-char (string-to-char " ") above-col)))
+
+(defun jack-match-above-indentation ()
+  (interactive)
+  (let ((above-col (save-excursion
+                     (previous-line)
+                     (back-to-indentation)
+                     (current-column)))
+        (below-col (save-excursion
+                     (next-line)
+                     (back-to-indentation)
+                     (current-column))))
+    (move-beginning-of-line nil)
+    (delete-horizontal-space)
+    (insert-char (string-to-char " ") (max below-col above-col))))
 
 ; http://stackoverflow.com/a/3417473/24998 adding confirmation
 (defun jack-kill-other-buffers ()
