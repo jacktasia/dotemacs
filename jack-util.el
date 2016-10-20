@@ -1,4 +1,14 @@
 
+(defun jack-start-fullscreen ()
+  (interactive)
+  (set-frame-parameter writeroom--frame 'writeroom-fullscreen (frame-parameter writeroom--frame 'fullscreen))
+  (set-frame-parameter writeroom--frame 'fullscreen writeroom-fullscreen-effect))
+
+(defun jack-stop-fullscreen ()
+  (interactive)
+  (set-frame-parameter writeroom--frame 'fullscreen (frame-parameter writeroom--frame 'writeroom-fullscreen))
+  (set-frame-parameter writeroom--frame 'writeroom-fullscreen nil))
+
 (defun jack-helm-projectile-ag-at-point ()
   (interactive)
   (let ((helm-ag-insert-at-point 'symbol))

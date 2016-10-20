@@ -139,7 +139,9 @@
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
 
-(global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
+;(global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
+(global-set-key (kbd "C-c 1") 'previous-buffer)
+(global-set-key (kbd "C-c 2") 'next-buffer)
 ;(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "C-c r") 'vr/replace) ;; search & replace (file or region)
 (global-set-key (kbd "C-c q") 'vr/query-replace)
@@ -308,8 +310,8 @@
          smooth-scrolling beacon hlinum google-this crux key-chord ace-mc
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
-         visual-regexp helm-themes grizzl spotify volume diff-hl
-         swiper counsel counsel-projectile delight spaceline web-beautify py-autopep8)))
+         visual-regexp helm-themes grizzl spotify volume
+         swiper delight spaceline web-beautify py-autopep8)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -324,6 +326,30 @@
 
 (use-package magit
   :bind (("C-x m" . magit-status))
+  :ensure)
+
+(use-package diff-hl
+  :bind (("C-c 8" . diff-hl-previous-hunk)
+         ("C-c 9" . diff-hl-next-hunk))
+  :config (global-diff-hl-mode)
+  :ensure)
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("<f1> f" . counsel-describe-function)
+         ("<f1> v" . counsel-describe-variable)
+         ("<f1> l" . counsel-load-library)
+         ("<f2> i" . counsel-info-lookup-symbol)
+         ("<f2> u" . counsel-unicode-char))
+  :ensure)
+
+(use-package counsel-projectile
+  :bind (("s-t" . counsel-projectile-find-file))
+  :ensure)
+
+(use-package writeroom-mode
+  :config (jack-start-fullscreen)
   :ensure)
 
 (require 'spaceline-config)
@@ -355,13 +381,7 @@
 
 (setq ivy-use-virtual-buffers t)
 
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-load-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+
 
 (global-set-key (kbd "C-s") 'swiper)
 
@@ -553,7 +573,7 @@
 ;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c \$") 'jack-save-word)
 ;(global-set-key (kbd "s-t") 'projectile-find-file)
-(global-set-key (kbd "s-t") 'counsel-projectile-find-file)
+
 (global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
 ;(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 ;(global-set-key (kbd "C-x b") 'helm-buffers-list)
@@ -591,10 +611,7 @@
 (global-set-key (kbd "M-p") '(lambda()(interactive)(scroll-down-line)(previous-line)))
 
 
-(global-set-key (kbd "C-c 8") 'diff-hl-previous-hunk)
-(global-set-key (kbd "C-c 9") 'diff-hl-next-hunk)
 
-(global-diff-hl-mode)
 
 
 ;(define-key global-map (kbd "C-s") 'isearch-forward)
