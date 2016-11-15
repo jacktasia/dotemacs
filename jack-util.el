@@ -1,6 +1,15 @@
 
+;; http://stackoverflow.com/a/6133921/24998
+;; don't want to add delete word to the kill-ring
+(defun jack-backward-delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (backward-word arg) (point))))
+
 (defun jack-start-fullscreen ()
   (interactive)
+  (require 'writeroom-mode)
   (set-frame-parameter writeroom--frame 'writeroom-fullscreen (frame-parameter writeroom--frame 'fullscreen))
   (set-frame-parameter writeroom--frame 'fullscreen writeroom-fullscreen-effect))
 

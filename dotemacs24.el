@@ -306,7 +306,7 @@
          imgix fic-mode multi-term
          ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile
          flyspell-lazy request nyan-mode avy emmet-mode default-text-scale
-         expand-region smartscan yaml-mode clojure-mode
+         expand-region yaml-mode clojure-mode
          smooth-scrolling beacon hlinum google-this crux key-chord ace-mc
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
@@ -320,7 +320,7 @@
 ;;
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
-         ("M-g j" . dumb-jump-go-other-window))
+         ("M-g j" . dumb-jump-go))
   :config (setq dumb-jump-selector 'ivy)
   :ensure)
 
@@ -331,7 +331,7 @@
 (use-package diff-hl
   :bind (("C-c 8" . diff-hl-previous-hunk)
          ("C-c 9" . diff-hl-next-hunk))
-  :config (global-diff-hl-mode)
+  :config (global-diff-hl-mode +1)
   :ensure)
 
 (use-package counsel
@@ -348,9 +348,9 @@
   :bind (("s-t" . counsel-projectile-find-file))
   :ensure)
 
-(use-package writeroom-mode
-  :config (jack-start-fullscreen)
-  :ensure)
+;; (use-package writeroom-mode
+;;   :config (jack-start-fullscreen)
+;;   :ensure)
 
 (require 'spaceline-config)
 
@@ -364,9 +364,6 @@
 (spaceline-toggle-buffer-encoding-abbrev-off)
 (spaceline-toggle-projectile-root-on)
 (spaceline-toggle-anzu-on)
-
-;; smartscan
-(setq smartscan-symbol-selector "symbol")
 
 ;; beautify
 ;; TODO: make this major-mode based and use py-autopep8 for python, yapf (and esformatter-jsx)
@@ -422,8 +419,10 @@
 
 (global-set-key [remap kill-ring-save] 'easy-kill)
 
-(bind-keys* ("s-p" . smartscan-symbol-go-backward))
-(bind-keys* ("s-n" . smartscan-symbol-go-forward))
+(bind-keys* ("s-p" . highlight-symbol-prev))
+(bind-keys* ("s-n" . highlight-symbol-next))
+(bind-keys* ("M-p" . highlight-symbol-prev))
+(bind-keys* ("M-n" . highlight-symbol-next))
 (bind-keys* ("C-z" . avy-goto-char))
 (bind-keys* ("C-S-P" . scroll-down-line))
 (bind-keys* ("C-S-N" . scroll-up-line))
@@ -453,13 +452,13 @@
 
 
 
-(global-smartscan-mode 1)
+;(global-smartscan-mode 1)
 ;; http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings
 (bind-keys* ("C-c w" . whitespace-mode))
 
 (bind-keys* ("C-M-f" . helm-projectile-ag))
 ;(bind-keys* ("C-M-f" . counsel-ag))
-(bind-keys* ("C-M-;" . jack-helm-projectile-ag-at-point))
+;(bind-keys* ("C-M-;" . jack-helm-projectile-ag-at-point))
 
 
 ;; (global-set-key (kbd "C-0") 'ace-jump-char-mode)
@@ -473,6 +472,7 @@
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
 (global-set-key (kbd "M-g t") 'avy-goto-char-timer)
 (global-set-key (kbd "C-0") 'avy-goto-char)
+(global-set-key (kbd "C-\\") 'avy-goto-char)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
 (global-set-key (kbd "C-,") 'avy-goto-char)
@@ -494,6 +494,9 @@
 (global-set-key (kbd "C-c t") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c 3") 'crux-transpose-windows)
 (global-set-key (kbd "C-c 7") 'goto-last-change)
+
+(global-set-key (kbd "C-<backspace>") 'jack-backward-delete-word)
+(global-set-key (kbd "M-<backspace>") 'jack-backward-delete-word)
 
 
 (setq avy-all-windows nil)
@@ -738,7 +741,10 @@
       (load-file custom-file-path)
     (message "No %s file found in %s" custom-file-name emacsdir)))
 
-
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
