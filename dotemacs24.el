@@ -312,20 +312,26 @@
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume
-         swiper delight spaceline web-beautify py-autopep8)))
+         swiper delight spaceline web-beautify py-autopep8 undo-tree)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+;; fix
+(global-unset-key (kbd "C-x r"))
+(global-set-key (kbd "C-x r") 'undo-tree-redo)
+(global-set-key (kbd "C-x u") 'undo-tree-undo)
+(global-set-key (kbd "C-x v") 'undo-tree-visualize)
+(global-undo-tree-mode t)
+
 (use-package undo-tree
   :bind (:map undo-tree-map
               ("C-x u" . undo-tree-undo)
               ("C-x r" . undo-tree-redo)
               ("C-x v" . undo-tree-visualize))
-  :config (global-undo-tree-mode)
-  :ensure)
+  :config (global-undo-tree-mode t))
 
 
 (use-package dumb-jump
