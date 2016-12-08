@@ -54,12 +54,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(chess-default-display (quote (chess-ics1 chess-plain)))
  '(custom-safe-themes
    (quote
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -180,6 +181,7 @@
 (setq-default js-indent-level 2)
 (setq-default indent-tabs-mode nil)
 (setq tab-width 2)                                  ;; display tabs as 2 chars
+(setq default-tab-width 2)
 (setq c-basic-indent 2)                             ;; c tabs length
 (setq-default web-mode-code-indent-offset 2)
 (setq-default web-mode-markup-indent-offset 2)
@@ -224,8 +226,7 @@
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 (global-set-key (kbd "C-c k") 'jack-kill-other-buffers)
 
-(global-set-key (kbd "C-_") '(lambda()(interactive)(message "%s" "Use \"C-x u\"!!")))
-
+;(global-set-key (kbd "C-_") '(lambda()(interactive)(message "%s" "Use \"C-x u\"!!")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 2) External Packages -- will attempt to auto-install if it can't load
@@ -318,6 +319,14 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+(use-package undo-tree
+  :bind (("C-x u" . undo-tree-undo)
+         ("C-x r" . undo-tree-redo)
+         ("C-x v" . undo-tree-visualize))
+  :config (global-undo-tree-mode)
+  :ensure)
+
+
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
          ("M-g j" . dumb-jump-go))
