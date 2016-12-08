@@ -320,9 +320,10 @@
 ;; POST PACKAGE INSTALL
 ;;
 (use-package undo-tree
-  :bind (("C-x u" . undo-tree-undo)
-         ("C-x r" . undo-tree-redo)
-         ("C-x v" . undo-tree-visualize))
+  :bind (:map undo-tree-map
+              ("C-x u" . undo-tree-undo)
+              ("C-x r" . undo-tree-redo)
+              ("C-x v" . undo-tree-visualize))
   :config (global-undo-tree-mode)
   :ensure)
 
