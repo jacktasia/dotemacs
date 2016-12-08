@@ -157,10 +157,10 @@
 ;; make good use of arrow keys
 ;;
 
-(global-set-key (kbd "C-<up>") 'enlarge-window)                    ;; make window taller
-(global-set-key (kbd "C-<down>") 'shrink-window)                   ;; make window shorter
-(global-set-key (kbd "C-<right>") 'enlarge-window-horizontally)    ;; make window wider
-(global-set-key (kbd "C-<left>") 'shrink-window-horizontally)      ;; make window less wide
+(global-set-key (kbd "C-c <up>") 'enlarge-window)                    ;; make window taller
+(global-set-key (kbd "C-c <down>") 'shrink-window)                   ;; make window shorter
+(global-set-key (kbd "C-c <right>") 'enlarge-window-horizontally)    ;; make window wider
+(global-set-key (kbd "C-c <left>") 'shrink-window-horizontally)      ;; make window less wide
 
 
 ;; handle s-m as if it is m-m on macs
@@ -498,8 +498,8 @@
 ;; (global-set-key (kbd "\C-c <up>") 'text-scale-increase)     ;; text size up
 ;; (global-set-key (kbd "\C-c <down>") 'text-scale-decrease)   ;; text size down
 ;; using a plugin across all buffers with default-text-scale
-(global-set-key (kbd "C-c <up>") 'default-text-scale-increase)     ;; text size up
-(global-set-key (kbd "C-c <down>") 'default-text-scale-decrease)   ;; text size down
+;(global-set-key (kbd "C-c <up>") 'default-text-scale-increase)     ;; text size up
+;(global-set-key (kbd "C-c <down>") 'default-text-scale-decrease)   ;; text size down
 
 (global-set-key (kbd "C-c t") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c 3") 'crux-transpose-windows)
@@ -587,7 +587,7 @@
 (global-set-key (kbd "C-c \$") 'jack-save-word)
 ;(global-set-key (kbd "s-t") 'projectile-find-file)
 
-(global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
+;(global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
 ;(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 ;(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
