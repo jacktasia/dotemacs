@@ -60,7 +60,7 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (helm-git-grep undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -110,7 +110,7 @@
 (electric-indent-mode 0)           ;; no thanks
 (global-hl-line-mode 0)
 (global-auto-revert-mode 1)        ;; so git branch changes and checkouts update the mode line
-(setq auto-revert-check-vc-info t)
+(setq auto-revert-check-vc-info nil)
 (setq confirm-kill-emacs 'y-or-n-p)
 (setq message-log-max t)           ;; If t, log messages but don't truncate the buffer when it becomes large.
 (setq-default cursor-in-non-selected-windows nil)
@@ -148,7 +148,7 @@
 (global-set-key (kbd "C-c q") 'vr/query-replace)
 (global-set-key (kbd "C-c m") 'count-matches)  ;; count instaces of prompted string
 (global-set-key (kbd "C-c l") 'goto-line)      ;; goes to prompted line number
-(global-set-key (kbd "C-c i") 'ispell-region)  ;; spell check region
+;(global-set-key (kbd "C-c i") 'ispell-region)  ;; spell check region
 
 
 (global-set-key (kbd "C-x i") 'infer-indentation-style)   ;; infer spaces/tabs
@@ -312,7 +312,7 @@
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume
-         swiper delight spaceline web-beautify py-autopep8 undo-tree)))
+         swiper delight spaceline web-beautify py-autopep8 undo-tree helm-git-grep)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -337,7 +337,7 @@
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
          ("M-g j" . dumb-jump-go))
-  :config (setq dumb-jump-selector 'ivy)
+  :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
 (use-package magit
@@ -361,7 +361,8 @@
   :ensure)
 
 (use-package counsel-projectile
-  :bind (("s-t" . counsel-projectile-find-file))
+  :bind (("s-t" . counsel-projectile-find-file)
+         ("s-o" . counsel-projectile-find-file))
   :ensure)
 
 
@@ -451,6 +452,7 @@
 (bind-keys* ("C-c n" . end-of-buffer))
 (bind-keys* ("C-`" . pop-to-mark-command))
 (bind-keys* ("C-M-," . jack-new-scratch))
+(bind-keys* ("M-," . jack-new-scratch))
 
 (persistent-scratch-setup-default)
 
@@ -486,7 +488,9 @@
 ;; (global-set-key (kbd "C-=") 'ace-mc-add-single-cursor)
 ;(define-key global-map (kbd "C-c s") 'avy-goto-char)
 
-(global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
+;(global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
+(global-set-key (kbd "M-g f") 'helm-git-grep-at-point)
+(global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
 (global-set-key (kbd "M-g c") 'avy-goto-char)
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
@@ -686,11 +690,17 @@
 
 (add-hook 'mouse-leave-buffer-hook 'jack-stop-using-minibuffer)
 
+(setq prettify-symbols-alist '(("lambda" . ?λ)))
+(setq python--prettify-symbols-alist prettify-symbols-alist)
+
 (add-hook 'python-mode-hook
   (lambda ()
+    (prettify-symbols-mode)
     (setq indent-tabs-mode nil)
     (setq python-indent 2)
     (setq tab-width 2)))
+
+;(global-prettify-symbols-mode nil)
 
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
