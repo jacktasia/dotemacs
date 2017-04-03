@@ -60,7 +60,7 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (helm-git-grep undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (slime hydra helm-git-grep undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -284,9 +284,11 @@
 
 (scroll-bar-mode -1)
 
-(when (string-equal system-type "darwin")
-  (set-default-font "Menlo-14"))
+(when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
+  (set-default-font "Iosevka"))
+;  (set-default-font "Menlo-14"))
 
+;(member "Iosevka" (font-family-list))
 ;; (when (member "Terminus (TTF)" (font-family-list))
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
 
@@ -312,7 +314,7 @@
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume
-         swiper delight spaceline web-beautify py-autopep8 undo-tree helm-git-grep)))
+         swiper delight spaceline web-beautify py-autopep8 undo-tree helm-git-grep hydra slime)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -320,8 +322,10 @@
 ;; POST PACKAGE INSTALL
 ;;
 ;; fix
-(global-unset-key (kbd "C-x r"))
-(global-set-key (kbd "C-x r") 'undo-tree-redo)
+(global-unset-key (kbd "s-x"))
+;(global-unset-key (kbd "C-x r"))
+;(global-set-key (kbd "C-x r") 'undo-tree-redo)
+(global-set-key (kbd "s-Z") 'undo-tree-redo)
 (global-set-key (kbd "C-x u") 'undo-tree-undo)
 (global-set-key (kbd "C-x v") 'undo-tree-visualize)
 (global-undo-tree-mode t)
@@ -329,14 +333,16 @@
 (use-package undo-tree
   :bind (:map undo-tree-map
               ("C-x u" . undo-tree-undo)
-              ("C-x r" . undo-tree-redo)
+              ("s-Z" . undo-tree-redo)
               ("C-x v" . undo-tree-visualize))
   :config (global-undo-tree-mode t))
 
 
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
-         ("M-g j" . dumb-jump-go))
+         ("M-g j" . dumb-jump-go)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
@@ -775,6 +781,24 @@
       (format "\\(%s\\)\\|\\(%s\\)"
               vc-ignore-dir-regexp
               tramp-file-name-regexp))
+
+;;; start common lisp stuff
+
+(require 'cl)
+
+(setq inferior-lisp-program "ros -Q run")
+(require 'slime)
+(slime-setup '(slime-fancy))    ;adds some nice features
+
+;; these give you unicode
+(set-language-environment "UTF-8")
+(setenv "LC_LOCALE" "en_US.UTF-8")
+(setenv "LC_CTYPE" "en_US.UTF-8")
+(setq slime-net-coding-system 'utf-8-unix)
+
+;;; end common lisp stuff
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
