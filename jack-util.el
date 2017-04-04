@@ -57,6 +57,12 @@ With argument ARG, do this that many times."
             (delq (current-buffer)
                   (remove-if-not 'buffer-file-name (buffer-list))))))
 
+(defun jack-kill-all-buffers ()
+    "Kill all other buffers."
+    (interactive)
+    (when (y-or-n-p "Kill all other buffers? ")
+      (mapc 'kill-buffer (buffer-list))))
+
 ;; http://emacs.stackexchange.com/a/2302
 (defun my/eval-buffer ()
   "Execute the current buffer as Lisp code.

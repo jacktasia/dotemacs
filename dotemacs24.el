@@ -141,7 +141,7 @@
 (set-face-attribute 'linum nil :height 120) ; static height
 
 ;(global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
-(global-set-key (kbd "C-c 1") 'previous-buffer)
+(global-set-key (kbd "C-c 1") 'jack-kill-all-buffers)
 (global-set-key (kbd "C-c 2") 'next-buffer)
 ;(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "C-c r") 'vr/replace) ;; search & replace (file or region)
@@ -286,6 +286,7 @@
 
 (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
   (set-default-font "Iosevka"))
+
 ;  (set-default-font "Menlo-14"))
 
 ;(member "Iosevka" (font-family-list))
