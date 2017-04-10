@@ -23,6 +23,10 @@ With argument ARG, do this that many times."
   (let ((helm-ag-insert-at-point 'symbol))
     (helm-projectile-ag)))
 
+(defun jack-counsel-git-grep-at-point ()
+  (interactive)
+  (counsel-git-grep nil (thing-at-point 'symbol)))
+
 ;;TODO: if col is 0 keep going up ALSO go down and if below is higher col than up then use below
 (defun jack-match-above-indentation-old ()
   (interactive)
