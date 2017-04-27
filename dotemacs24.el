@@ -281,6 +281,7 @@
  '(rainbow-delimiters-depth-7-face ((t (:foreground "dark violet"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown"))))
+ '(show-paren-match ((t (:background "light green" :weight bold))))
  '(vhl/default-face ((t (:inherit default :background "yellow2")))))
 
 (scroll-bar-mode -1)
@@ -355,7 +356,7 @@
 (use-package diff-hl
   :bind (("C-c 8" . diff-hl-previous-hunk)
          ("C-c 9" . diff-hl-next-hunk))
-  :config (global-diff-hl-mode +1)
+  :config (global-diff-hl-mode 1)
   :ensure)
 
 (use-package counsel
@@ -806,6 +807,8 @@
 
 ; make default font size slightly bigger...
 (set-face-attribute 'default nil :height 140)
+
+(global-diff-hl-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
