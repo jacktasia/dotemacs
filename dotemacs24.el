@@ -256,7 +256,7 @@
 (jack-require-or-install 'rainbow-mode)
 
 ; (jack-load-theme 'dracula-theme) ;; material-theme darktooth-theme monokai-theme ample-theme zenburn-theme misterioso-theme
-(jack-load-theme 'gruvbox)
+(jack-load-theme 'gruvbox-theme)
 
 ;; force the fringe to match the current theme's bg color
 (let ((cur-bg-color (face-attribute 'default :background)))
@@ -346,7 +346,7 @@
          ("M-g j" . dumb-jump-go)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil) ;; (setq dumb-jump-selector 'helm)
+  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
 (use-package magit
