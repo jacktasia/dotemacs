@@ -27,6 +27,10 @@ With argument ARG, do this that many times."
   (interactive)
   (counsel-git-grep nil (thing-at-point 'symbol)))
 
+(defun jack-counsel-ag-at-point ()
+  (interactive)
+  (counsel-ag (thing-at-point 'symbol)))
+
 ;;TODO: if col is 0 keep going up ALSO go down and if below is higher col than up then use below
 (defun jack-match-above-indentation-old ()
   (interactive)

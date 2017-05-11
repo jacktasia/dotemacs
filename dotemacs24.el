@@ -345,6 +345,7 @@
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
          ("M-g j" . dumb-jump-go)
+         ("M-g i" . dumb-jump-go-prompt)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil) ;; (setq dumb-jump-selector 'helm)
@@ -502,7 +503,9 @@
 ;(global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
 ;(global-set-key (kbd "M-g f") 'helm-git-grep-at-point)
 (global-set-key (kbd "M-g d") 'osx-dictionary-search-word-at-point)
-(global-set-key (kbd "M-g f") 'jack-counsel-git-grep-at-point)
+;(global-set-key (kbd "M-g f") 'jack-counsel-git-grep-at-point)
+(global-set-key (kbd "M-g f") 'jack-counsel-ag-at-point)
+
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
 (global-set-key (kbd "M-g c") 'avy-goto-char)
