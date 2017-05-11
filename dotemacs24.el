@@ -317,7 +317,8 @@
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
-         swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme)))
+         swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme
+         git-link)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
