@@ -500,11 +500,11 @@
 ;; (global-set-key (kbd "C-=") 'ace-mc-add-single-cursor)
 ;(define-key global-map (kbd "C-c s") 'avy-goto-char)
 
-;(global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
+(global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
 ;(global-set-key (kbd "M-g f") 'helm-git-grep-at-point)
 (global-set-key (kbd "M-g d") 'osx-dictionary-search-word-at-point)
 ;(global-set-key (kbd "M-g f") 'jack-counsel-git-grep-at-point)
-(global-set-key (kbd "M-g f") 'jack-counsel-ag-at-point)
+
 
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
