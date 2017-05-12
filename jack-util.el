@@ -18,6 +18,11 @@ With argument ARG, do this that many times."
   (set-frame-parameter writeroom--frame 'fullscreen (frame-parameter writeroom--frame 'writeroom-fullscreen))
   (set-frame-parameter writeroom--frame 'writeroom-fullscreen nil))
 
+(defun jack-counsel-projectile-find-file-clear-cache ()
+  (interactive)
+  (projectile-invalidate-cache nil)
+  (counsel-projectile-find-file))
+
 (defun jack-helm-projectile-ag-at-point ()
   (interactive)
   (let ((helm-ag-insert-at-point 'symbol))
