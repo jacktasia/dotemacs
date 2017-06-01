@@ -141,7 +141,7 @@
 (set-face-attribute 'linum nil :height 120) ; static height
 
 ;(global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
-(global-set-key (kbd "C-c 1") 'jack-kill-all-buffers)
+(global-set-key (kbd "C-c x") 'jack-kill-all-buffers)
 (global-set-key (kbd "C-c 2") 'next-buffer)
 ;(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "C-c r") 'vr/replace) ;; search & replace (file or region)
@@ -318,7 +318,7 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme
-         git-link smartparens)))
+         git-link smartparens move-text)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -333,6 +333,16 @@
 (global-set-key (kbd "C-x u") 'undo-tree-undo)
 (global-set-key (kbd "C-x v") 'undo-tree-visualize)
 (global-undo-tree-mode t)
+
+(defhydra hydra-zoom (global-map "C-c 1")
+  "zoom"
+  ("<up>" text-scale-increase "in")
+  ("<down>" text-scale-decrease "out"))
+
+(use-package move-text
+  :bind (("C-x <up>" . move-text-line-up)
+         ("C-x <down>" . move-text-line-down))
+  :ensure)
 
 (use-package undo-tree
   :bind (:map undo-tree-map
@@ -365,6 +375,9 @@
          ("C-c 9" . diff-hl-next-hunk))
   :config (global-diff-hl-mode 1)
   :ensure)
+
+;; TODO set to keybinding or hydra
+;(diff-hl-flydiff-mode)
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -515,14 +528,15 @@
 (global-set-key (kbd "M-g d") 'osx-dictionary-search-word-at-point)
 ;(global-set-key (kbd "M-g f") 'jack-counsel-git-grep-at-point)
 
-
+(setq avy-case-fold-search nil)
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
 (global-set-key (kbd "M-g c") 'avy-goto-char)
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
 (global-set-key (kbd "M-g t") 'avy-goto-char-timer)
 (global-set-key (kbd "C-0") 'avy-goto-char)
-(global-set-key (kbd "C-\\") 'avy-goto-char)
+;(global-set-key (kbd "C-\\") 'avy-goto-char)
+(global-set-key (kbd "C-\\") 'avy-goto-char-2)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
 (global-set-key (kbd "C-,") 'avy-goto-char)
