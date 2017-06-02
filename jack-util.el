@@ -1,4 +1,22 @@
 
+
+(defun jack-insert-code-next-line (code)
+  (move-end-of-line nil)
+  (insert "\n")
+  (jack-match-above-indentation)
+  (insert code))
+
+(defun jack-debug-symbol-at-point ()
+  (interactive)
+  (let ((cur-symbol (thing-at-point 'symbol))
+        (cur-ext (f-ext (buffer-file-name))))
+    (cond
+     ((string= cur-ext "py")
+      (jack-insert-code-next-line (format "print(\"value of `%s`\", %s)" cur-symbol cur-symbol)))
+     ((string= cur-ext "js")
+      (jack-insert-code-next-line (format "console.log(\"value of `%s`\", %s)" cur-symbol cur-symbol))))))
+
+
 ;; http://stackoverflow.com/a/6133921/24998
 ;; don't want to add delete word to the kill-ring
 (defun jack-backward-delete-word (arg)
