@@ -827,11 +827,7 @@
 ;;;;;;;;;;;;;;;;;
 
 
-(let* ((custom-file-name "overrides.el")
-      (custom-file-path (concat (file-name-as-directory emacsdir) custom-file-name)))
-  (if (file-exists-p custom-file-path)
-      (load-file custom-file-path)
-    (message "No %s file found in %s" custom-file-name emacsdir)))
+
 
 (setq vc-ignore-dir-regexp
       (format "\\(%s\\)\\|\\(%s\\)"
@@ -876,3 +872,8 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+(let* ((custom-file-name "overrides.el")
+      (custom-file-path (concat (file-name-as-directory emacsdir) custom-file-name)))
+  (if (file-exists-p custom-file-path)
+      (load-file custom-file-path)
+    (message "No %s file found in %s" custom-file-name emacsdir)))
