@@ -60,7 +60,7 @@
     ("10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -255,8 +255,12 @@
 
 (jack-require-or-install 'rainbow-mode)
 
+;; Loading themes at the very end of the file instead. Seems to work better
 ; (jack-load-theme 'dracula-theme) ;; material-theme darktooth-theme monokai-theme ample-theme zenburn-theme misterioso-theme
-(jack-load-theme 'gruvbox-theme)
+;(jack-load-theme 'gruvbox-theme)
+;(jack-load-theme 'zerodark-theme)
+
+
 
 ;; force the fringe to match the current theme's bg color
 (let ((cur-bg-color (face-attribute 'default :background)))
@@ -271,7 +275,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-dim-other-buffers-face ((t (:background "#424450"))))
- '(isearch ((t (:background "light green" :foreground "black" :weight bold))))
+ '(isearch ((((class color) (min-colors 89)) (:background "#ddbd78" :foreground "#3e4451"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "white"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "dark orange"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "yellow"))))
@@ -281,7 +285,7 @@
  '(rainbow-delimiters-depth-7-face ((t (:foreground "dark violet"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown"))))
- '(show-paren-match ((t (:background "light green" :weight bold))))
+ '(show-paren-match ((((class color) (min-colors 89)) (:background "#1f5582"))))
  '(vhl/default-face ((t (:inherit default :background "yellow2")))))
 
 (scroll-bar-mode -1)
@@ -317,8 +321,8 @@
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
-         swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme
-         git-link smartparens move-text)))
+         swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
+         git-link smartparens move-text add-node-modules-path)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -338,6 +342,12 @@
   "zoom"
   ("<up>" text-scale-increase "in")
   ("<down>" text-scale-decrease "out"))
+
+(defhydra hydra-zoom (global-map "C-t")
+  "tmux muscle memeory bindings"
+  ("d" jack-debug-symbol-at-point "switch window")
+  ("w" switch-window "switch window")
+  ("z" delete-other-windows "zoom"))
 
 (use-package move-text
   :bind (("C-x <up>" . move-text-line-up)
@@ -777,8 +787,19 @@
 
 ;;;;;;;;;;;;;;;;;;;;;
 
+; https://www.npmjs.com/package/eslint-plugin-import
+;sudo npm install eslint-plugin-import -g
+;sudo npm install eslint -g
+
+;; in javascript project root: npm install eslint-plugin-import --save-dev
+
+; https://github.com/flycheck/flycheck/issues/1175
+
 ;; use web-mode for .jsx files
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
+
+(eval-after-load 'web-mode
+  '(add-hook 'web-mode-hook #'add-node-modules-path))
 
 ;; http://www.flycheck.org/manual/latest/index.html
 (require 'flycheck)
@@ -844,6 +865,9 @@
 ;; override
 (defun display-startup-echo-area-message ()
   (message "Emacs!"))
+
+(jack-load-theme 'zerodark-theme)
+(zerodark-setup-modeline-format)
 
 (server-start)
 (pmdm-load-files)
