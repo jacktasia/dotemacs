@@ -12,9 +12,9 @@
         (cur-ext (f-ext (buffer-file-name))))
     (cond
      ((string= cur-ext "py")
-      (jack-insert-code-next-line (format "print(\"value of `%s`\", %s)" cur-symbol cur-symbol)))
+      (jack-insert-code-next-line (format "print(\'value of `%s`\', %s)" cur-symbol cur-symbol)))
      ((string= cur-ext "js")
-      (jack-insert-code-next-line (format "console.log(\"value of `%s`\", %s)" cur-symbol cur-symbol))))))
+      (jack-insert-code-next-line (format "console.log(\'value of `%s`\', %s);" cur-symbol cur-symbol))))))
 
 
 ;; http://stackoverflow.com/a/6133921/24998
