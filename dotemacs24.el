@@ -287,6 +287,7 @@
  '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown"))))
  '(show-paren-match ((((class color) (min-colors 89)) (:background "#1f5582"))))
+ '(swiper-line-face ((t (:inherit highlight :background "gray0" :foreground "gray100"))))
  '(vhl/default-face ((t (:inherit default :background "yellow2")))))
 
 (scroll-bar-mode -1)
@@ -797,10 +798,10 @@
 ; https://github.com/flycheck/flycheck/issues/1175
 
 ;; use web-mode for .jsx files
-(add-to-list 'auto-mode-alist '("\\.js$" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 
-(eval-after-load 'web-mode
-  '(add-hook 'web-mode-hook #'add-node-modules-path))
+(eval-after-load 'javascript-mode
+  '(add-hook 'javascript-mode-hook #'add-node-modules-path))
 
 ;; http://www.flycheck.org/manual/latest/index.html
 (require 'flycheck)
@@ -814,7 +815,7 @@
     '(javascript-jshint)))
 
 ;; use eslint with web-mode for jsx files
-(flycheck-add-mode 'javascript-eslint 'web-mode)
+(flycheck-add-mode 'javascript-eslint 'javascript-mode)
 
 ;; customize flycheck temp file prefix
 (setq-default flycheck-temp-prefix ".flycheck")
