@@ -185,6 +185,7 @@
 (setq c-basic-indent 2)                             ;; c tabs length
 (setq-default web-mode-code-indent-offset 2)
 (setq-default web-mode-markup-indent-offset 2)
+(setq web-mode-enable-auto-indentation nil)
 
 ;;
 ;; custom functions
