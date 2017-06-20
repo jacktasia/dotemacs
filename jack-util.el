@@ -1,11 +1,11 @@
 
 (defun to-snake-case ()
-	(interactive)
-	(replace-regexp "\\([A-Z]\\)" "-\\1" nil (region-beginning) (region-end))
+  (interactive)
+  (replace-regexp "\\([A-Z]\\)" "-\\1" nil (region-beginning) (region-end))
   (downcase-region (region-beginning) (region-end)))
 
 (defun css-ify ()
-	(interactive)
+  (interactive)
   (let ((beginning (region-beginning)) (end (region-end)))
     (replace-regexp " *[=] *" ": " nil beginning end)
     (replace-regexp "[,]\n" ";\n" nil beginning end)
