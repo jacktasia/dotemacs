@@ -1,4 +1,16 @@
 
+(defun vlad-to-snake-case ()
+  (interactive)
+  (replace-regexp "\\([A-Z]\\)" "-\\1" nil (region-beginning) (region-end))
+  (downcase-region (region-beginning) (region-end)))
+
+(defun vlad-css-ify ()
+  (interactive)
+  (let ((beginning (region-beginning)) (end (region-end)))
+    (replace-regexp " *[=] *" ": " nil beginning end)
+    (replace-regexp "[,]\n" ";\n" nil beginning end)
+    (replace-regexp "[`'\"]" "" nil beginning end)
+    (to-snake-case)))
 
 (defun jack-insert-code-next-line (code)
   (move-end-of-line nil)
