@@ -1,10 +1,10 @@
 
-(defun to-snake-case ()
+(defun vlad-to-snake-case ()
   (interactive)
   (replace-regexp "\\([A-Z]\\)" "-\\1" nil (region-beginning) (region-end))
   (downcase-region (region-beginning) (region-end)))
 
-(defun css-ify ()
+(defun vlad-css-ify ()
   (interactive)
   (let ((beginning (region-beginning)) (end (region-end)))
     (replace-regexp " *[=] *" ": " nil beginning end)
