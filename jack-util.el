@@ -28,7 +28,6 @@
      ((string= cur-ext "js")
       (jack-insert-code-next-line (format "console.log(\'value of `%s`\', %s);" cur-symbol cur-symbol))))))
 
-
 ;; http://stackoverflow.com/a/6133921/24998
 ;; don't want to add delete word to the kill-ring
 (defun jack-backward-delete-word (arg)

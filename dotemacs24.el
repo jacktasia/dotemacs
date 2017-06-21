@@ -60,7 +60,7 @@
     ("10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -128,14 +128,6 @@
   (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend))
 
 ;; http://stackoverflow.com/a/25438277/24998
-(mouse-wheel-mode -1)
-(global-set-key [wheel-up] 'ignore)
-(global-set-key [wheel-down] 'ignore)
-(global-set-key [double-wheel-up] 'ignore)
-(global-set-key [double-wheel-down] 'ignore)
-(global-set-key [triple-wheel-up] 'ignore)
-(global-set-key [triple-wheel-down] 'ignore)
-
 
 (global-linum-mode)
 (set-face-attribute 'linum nil :height 120) ; static height
@@ -347,6 +339,7 @@
 
 (defhydra hydra-zoom (global-map "C-t")
   "tmux muscle memeory bindings"
+  ("e" eval-expression "eval expression")
   ("d" jack-debug-symbol-at-point "switch window")
   ("w" switch-window "switch window")
   ("z" delete-other-windows "zoom"))
@@ -656,6 +649,8 @@
 ;(global-set-key (kbd "C-x v") 'projectile-switch-to-buffer)
 ;(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 ;(global-set-key (kbd "C-x b") 'helm-buffers-list)
+
+(global-set-key (kbd "C-x e") 'eval-expression)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-x p") 'projectile-switch-project)
 (global-set-key (kbd "C-x f") 'projectile-grep)
