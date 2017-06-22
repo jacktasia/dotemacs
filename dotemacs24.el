@@ -60,7 +60,7 @@
     ("10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -316,7 +316,7 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
-         git-link smartparens move-text add-node-modules-path)))
+         git-link smartparens move-text add-node-modules-path visible-mark)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -356,6 +356,15 @@
               ("C-x v" . undo-tree-visualize))
   :config (global-undo-tree-mode t))
 
+(use-package visible-mark
+  :init (defface visible-mark-active ;; put this before (require 'visible-mark)
+             '((((type tty) (class mono)))
+               (t (:background "magenta"))) "")
+  :config
+           (global-visible-mark-mode 1)
+           (setq visible-mark-max 5)
+           (setq visible-mark-faces `(visible-mark-face1 visible-mark-face2))
+  :ensure)
 
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
@@ -363,7 +372,7 @@
          ("M-g i" . dumb-jump-go-prompt)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil) ;; (setq dumb-jump-selector 'helm)
+  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
 (use-package smartparens
@@ -490,7 +499,8 @@
 (bind-keys* ("C-c p" . beginning-of-buffer))
 (bind-keys* ("C-c n" . end-of-buffer))
 ;(bind-keys* ("C-`" . pop-to-mark-command))
-(bind-keys* ("C-`" . avy-pop-mark))
+(bind-keys* ("C-`" . pop-to-mark-command))
+(bind-keys* ("M-`" . push-mark-command))
 (bind-keys* ("C-M-," . jack-new-scratch))
 (bind-keys* ("M-," . jack-new-scratch))
 
@@ -541,7 +551,7 @@
 (global-set-key (kbd "M-g t") 'avy-goto-char-timer)
 (global-set-key (kbd "C-0") 'avy-goto-char)
 ;(global-set-key (kbd "C-\\") 'avy-goto-char)
-(global-set-key (kbd "C-\\") 'avy-goto-char-2)
+(global-set-key (kbd "C-\\") 'avy-goto-char)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
 (global-set-key (kbd "C-,") 'avy-goto-char)
