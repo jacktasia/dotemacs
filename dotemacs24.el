@@ -500,7 +500,7 @@
 (bind-keys* ("C-c n" . end-of-buffer))
 ;(bind-keys* ("C-`" . pop-to-mark-command))
 (bind-keys* ("C-`" . pop-to-mark-command))
-(bind-keys* ("M-`" . push-mark-command))
+(bind-keys* ("M-`" . (lambda()(interactive)(push-mark))))
 (bind-keys* ("C-M-," . jack-new-scratch))
 (bind-keys* ("M-," . jack-new-scratch))
 
