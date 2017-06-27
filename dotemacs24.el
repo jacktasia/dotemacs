@@ -316,7 +316,7 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
-         git-link smartparens move-text add-node-modules-path visible-mark)))
+         git-link smartparens move-text add-node-modules-path visible-mark cider)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -733,6 +733,7 @@
 ;;                           (flycheck-select-checker 'jsxhint-checker)
 ;;                           (flycheck-mode)))
 
+(add-hook 'clojure-mode-hook 'fic-mode)
 (add-hook 'go-mode-hook 'fic-mode)
 (add-hook 'python-mode-hook 'fic-mode)
 (add-hook 'javascript-mode-hook 'fic-mode)
@@ -760,6 +761,7 @@
 ;(global-prettify-symbols-mode nil)
 
 (add-hook 'hy-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
 
@@ -861,6 +863,8 @@
 (set-face-attribute 'default nil :height 140)
 
 (global-diff-hl-mode 1)
+
+(midnight-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
