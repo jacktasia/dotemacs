@@ -362,7 +362,7 @@
                (t (:background "magenta"))) "")
   :config
            (global-visible-mark-mode 1)
-           (setq visible-mark-max 5)
+           (setq visible-mark-max 1)
            (setq visible-mark-faces `(visible-mark-face1 visible-mark-face2))
   :ensure)
 
