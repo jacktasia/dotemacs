@@ -743,6 +743,7 @@
 (add-hook 'emacs-lisp-mode-hook 'fic-mode)
 (add-hook 'web-mode-hook 'fic-mode)
 (add-hook 'js2-mode-hook 'fic-mode)
+(add-hook 'terraform-mode-hook 'fic-mode)
 
 (add-hook 'javascript-mode-hook 'flycheck-mode)
 
