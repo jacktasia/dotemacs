@@ -285,7 +285,13 @@
 (scroll-bar-mode -1)
 
 (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
-  (set-default-font "Iosevka"))
+  (if (or (s-contains? (system-name) "sf.blue")
+          (s-contains? (system-name) "Jack-Angers.local"))
+      (set-default-font "Iosevka-18")
+    (set-default-font "Iosevka")))
+
+;; (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
+;;   (set-default-font "Iosevka"))
 
 ;  (set-default-font "Menlo-14"))
 
@@ -337,11 +343,21 @@
   ("<up>" text-scale-increase "in")
   ("<down>" text-scale-decrease "out"))
 
-(defhydra hydra-zoom (global-map "C-t")
+
+(defhydra hydra-font-size (global-map "C-c 2")
+  "zoom"
+  ("2" (lambda () (interactive) (set-default-font "Iosevka-12")) "12")
+  ("4" (lambda () (interactive) (set-default-font "Iosevka-14")) "14")
+  ("6" (lambda () (interactive) (set-default-font "Iosevka-16")) "16")
+  ("8" (lambda () (interactive) (set-default-font "Iosevka-18")) "18")
+  ("0" (lambda () (interactive) (set-default-font "Iosevka-20")) "20"))
+
+(defhydra hydra-tmux-memory (global-map "C-t")
   "tmux muscle memeory bindings"
   ("e" eval-expression "eval expression")
-  ("d" jack-debug-symbol-at-point "switch window")
-  ("w" switch-window "switch window")
+  ("d" jack-debug-symbol-at-point "debug")
+  ("q" switch-window "switch window")
+  ("w" ivy-switch-buffer "list buffers")
   ("z" delete-other-windows "zoom"))
 
 (use-package move-text
