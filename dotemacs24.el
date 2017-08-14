@@ -60,7 +60,7 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -214,7 +214,7 @@
 (global-set-key (kbd "C-c d") 'jack-git-diff)
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "C-c e") 'er/mark-symbol)
-(global-set-key (kbd "C-c 4") 'er/expand-region)
+;(global-set-key (kbd "C-c 4") 'er/expand-region)
 
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 (global-set-key (kbd "C-c k") 'jack-kill-other-buffers)
@@ -284,11 +284,7 @@
 
 (scroll-bar-mode -1)
 
-(when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
-  (if (or (s-contains? (system-name) "sf.blue")
-          (s-contains? (system-name) "Jack-Angers.local"))
-      (set-default-font "Iosevka-18")
-    (set-default-font "Iosevka")))
+
 
 ;; (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
 ;;   (set-default-font "Iosevka"))
@@ -322,13 +318,20 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
-         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode)))
+         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+(when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
+  (if (or (s-contains? (system-name) "sf.blue")
+          (s-contains? (system-name) "Jack-Angers.local"))
+      (set-default-font "Iosevka-18")
+    (set-default-font "Iosevka")))
+
 ;; fix
 (global-unset-key (kbd "s-x"))
 ;(global-unset-key (kbd "C-x r"))
@@ -337,6 +340,11 @@
 (global-set-key (kbd "C-x u") 'undo-tree-undo)
 (global-set-key (kbd "C-x v") 'undo-tree-visualize)
 (global-undo-tree-mode t)
+
+(defhydra hydra-go (global-map "C-c g")
+  "go from point"
+  ("g" google-this-noconfirm "google")
+  ("d" define-word-at-point "define"))
 
 (defhydra hydra-zoom (global-map "C-c 1")
   "zoom"
@@ -578,7 +586,7 @@
 
 ;(global-set-key (kbd "C-\'") 'er/expand-region)
 
-(global-set-key (kbd "C-c g") 'google-this-noconfirm)
+;(global-set-key (kbd "C-c g") 'google-this-noconfirm)
 
 ;; (global-set-key (kbd "\C-c <up>") 'text-scale-increase)     ;; text size up
 ;; (global-set-key (kbd "\C-c <down>") 'text-scale-decrease)   ;; text size down
@@ -587,7 +595,11 @@
 ;(global-set-key (kbd "C-c <down>") 'default-text-scale-decrease)   ;; text size down
 
 (global-set-key (kbd "C-c t") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c 3") 'crux-transpose-windows)
+;(global-set-key (kbd "C-c 3") 'crux-transpose-windows)
+
+(global-set-key (kbd "C-c 3") 'kmacro-start-macro-or-insert-counter)
+(global-set-key (kbd "C-c 4") 'kmacro-end-or-call-macro)
+
 (global-set-key (kbd "C-c 7") 'goto-last-change)
 
 (global-set-key (kbd "C-<backspace>") 'jack-backward-delete-word)
@@ -677,7 +689,8 @@
 ;(global-set-key (kbd "C-x b") 'helm-buffers-list)
 
 (global-set-key (kbd "C-x e") 'eval-expression)
-(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x p") 'projectile-switch-project)
 (global-set-key (kbd "C-x f") 'projectile-grep)
 ;(global-set-key (kbd "M-x") 'smex)
@@ -726,9 +739,11 @@
    (define-key sgml-mode-map (kbd "C-M-p") 'sgml-skip-tag-backward)))
 
 ;; http://stackoverflow.com/questions/2903426/display-path-of-file-in-status-bar
-(setq frame-title-format  ;show directory and filename on frame top
-      (list (format "%s %%S: %%j " (system-name))
-        '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+;; (setq frame-title-format  ;show directory and filename on frame top
+;;       (list (format "%s %%S: %%j " (system-name))
+;;         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+
+(setq frame-title-format "%F | 🤴 | %b | %&")
 
 ;;
 ;; HOOKS
@@ -848,7 +863,7 @@
 ;; disable json-jsonlist checking for json files
 (setq-default flycheck-disabled-checkers
   (append flycheck-disabled-checkers
-    '(json-jsonlist)))
+    '(json-jsonlist go-gofmt go-golint go-vet go-build go-test go-errcheck go-unconvert go-megacheck)))
 
 
 ;;;;;;;;;;;;;;;;;
@@ -883,6 +898,8 @@
 (global-diff-hl-mode 1)
 
 (midnight-mode)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
