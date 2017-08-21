@@ -60,7 +60,7 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode imgix smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -318,13 +318,15 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
-         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp)))
+         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp emamux)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+
+
 
 (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
   (if (or (s-contains? (system-name) "sf.blue")
@@ -360,13 +362,20 @@
   ("8" (lambda () (interactive) (set-default-font "Iosevka-18")) "18")
   ("0" (lambda () (interactive) (set-default-font "Iosevka-20")) "20"))
 
-(defhydra hydra-tmux-memory (global-map "C-t")
+;(global-set-key (kbd "C-t") emamux:keymap)
+(defhydra hydra-tmux-memory
+  (global-map "C-t")
   "tmux muscle memeory bindings"
-  ("e" eval-expression "eval expression")
-  ("d" jack-debug-symbol-at-point "debug")
-  ("q" switch-window "switch window")
-  ("w" ivy-switch-buffer "list buffers")
-  ("z" delete-other-windows "zoom"))
+  ("e" eval-expression "eval expression"  :exit t)
+  ("d" jack-debug-symbol-at-point "debug"  :exit t)
+  ("\"" split-window-below "split below"  :exit t)
+  ("'" split-window-below "split below"  :exit t)
+  ("%" split-window-right "split window right"  :exit t)
+  ("5" split-window-right "split window right"  :exit t)
+  ("q" switch-window "switch window"  :exit t)
+  ("o" other-window "other window"  :exit t)
+  ("w" ivy-switch-buffer "list buffers"  :exit t)
+  ("z" delete-other-windows "zoom"  :exit t))
 
 (use-package move-text
   :bind (("C-x <up>" . move-text-line-up)
@@ -697,7 +706,8 @@
 ;(global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;;old M-x.
-(global-set-key (kbd "C-x o") 'switch-window)
+;(global-set-key (kbd "C-x o") 'switch-window)
+(global-set-key (kbd "C-x o") 'other-window)
 (global-set-key (kbd "M-o") 'switch-window)
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
