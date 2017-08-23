@@ -539,10 +539,10 @@
 
 (persistent-scratch-setup-default)
 
-;; (key-chord-mode 1)
+(key-chord-mode 1)
 ;; (key-chord-define-global "qw" 'undo)
 ;; (key-chord-define-global "gh" 'er/mark-symbol)
-;; (key-chord-define-global "fj" 'ace-jump-char-mode)
+(key-chord-define-global "fj" 'avy-goto-char)
 
 (auto-dim-other-buffers-mode t)
 
@@ -553,8 +553,6 @@
 (setq beacon-blink-delay 0.3)
 (setq beacon-size 15)
 (setq beacon-color "green")
-
-
 
 
 ;(global-smartscan-mode 1)
