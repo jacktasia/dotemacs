@@ -211,7 +211,7 @@
 (global-set-key (kbd "C-c 5") 'my/eval-buffer)
 (global-set-key (kbd "C-c 6") 'emacs-uptime)
 
-(global-set-key (kbd "C-c d") 'jack-git-diff)
+;(global-set-key (kbd "C-c d") 'jack-git-diff)
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "C-c e") 'er/mark-symbol)
 ;(global-set-key (kbd "C-c 4") 'er/expand-region)
@@ -376,6 +376,17 @@
   ("o" other-window "other window"  :exit t)
   ("w" ivy-switch-buffer "list buffers"  :exit t)
   ("z" delete-other-windows "zoom"  :exit t))
+
+; (global-set-key (kbd "C-c d") 'jack-git-diff)
+(defhydra hydra-diff
+  (global-map "C-c d")
+  "diff tools"
+  ("g" jack-git-diff "git-diff"  :exit t)
+  ("d" dumb-diff "dumb-diff"  :exit t)
+  ("1" dumb-diff-set-region-as-buffer1 "inject into diff buf 1"  :exit t)
+  ("2" dumb-diff-set-region-as-buffer2 "inject into diff buf 2"  :exit t))
+
+
 
 (use-package move-text
   :bind (("C-x <up>" . move-text-line-up)
