@@ -1,1 +1,4 @@
 overrides.el
+id_rsa
+*.log
+.vagrant/
