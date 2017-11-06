@@ -60,7 +60,7 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify ido-ubiquitous spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -318,7 +318,7 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
-         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp emamux)))
+         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp emamux gh-md)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -375,6 +375,7 @@
   ("q" switch-window "switch window"  :exit t)
   ("o" other-window "other window"  :exit t)
   ("w" ivy-switch-buffer "list buffers"  :exit t)
+  ("C-t" switch-to-prev-buffer "switch to previous buffer"  :exit t)
   ("z" delete-other-windows "zoom"  :exit t))
 
 ; (global-set-key (kbd "C-c d") 'jack-git-diff)
@@ -485,7 +486,7 @@
 (bind-keys* ("C-c v" . volume))
 (ivy-mode 1)
 
-(setq ivy-use-virtual-buffers t)
+(setq ivy-use-virtual-buffers nil)
 
 
 
@@ -883,6 +884,11 @@
 (setq-default flycheck-disabled-checkers
   (append flycheck-disabled-checkers
     '(json-jsonlist go-gofmt go-golint go-vet go-build go-test go-errcheck go-unconvert go-megacheck)))
+
+
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(sh-shellscript sh-bash)))
 
 
 ;;;;;;;;;;;;;;;;;
