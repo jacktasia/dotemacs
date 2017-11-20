@@ -330,13 +330,16 @@ and `defcustom' forms reset their default values."
 (defun jack-git-diff ()
   (interactive)
   (let* ((cmd_tmpl "git diff %s")
-		(git_diff_cmd (format cmd_tmpl (buffer-file-name)))
-		(file_name (car (last (split-string (buffer-file-name) "/"))))
-		(buffer_title (concat "DIFF " file_name " on " (format-time-string "%D @ %H:%M:%S"))))
-	(shell-command git_diff_cmd)
-	(with-current-buffer (get-buffer "*Shell Command Output*")
-		(rename-buffer buffer_title)
-		(diff-mode))))
+         (git_diff_cmd (format cmd_tmpl (buffer-file-name)))
+         (file_name (car (last (split-string (buffer-file-name) "/"))))
+         (hunk-re "^@@ -\\([0-9]+\\)\\(?:,\\([0-9]+\\)\\)? \\+\\([0-9]+\\)\\(?:,\\([0-9]+\\)\\)? @@")
+         (buffer_title (concat "DIFF " file_name " on " (format-time-string "%D @ %H:%M:%S"))))
+    (shell-command git_diff_cmd)
+    (with-current-buffer (get-buffer "*Shell Command Output*")
+      (rename-buffer buffer_title)
+      (diff-mode)
+      (while (re-search-forward hunk-re nil t)
+        (funcall-interactively 'diff-refine-hunk)))))
 
 ;;
 ;; window
