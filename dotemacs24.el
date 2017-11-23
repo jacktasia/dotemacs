@@ -547,7 +547,7 @@
 (bind-keys* ("C-`" . pop-to-mark-command))
 (bind-keys* ("M-`" . (lambda()(interactive)(push-mark))))
 (bind-keys* ("C-M-," . jack-new-scratch))
-(bind-keys* ("M-," . jack-new-scratch))
+(bind-keys* ("M-," . jack-select-scratch))
 
 (persistent-scratch-setup-default)
 
