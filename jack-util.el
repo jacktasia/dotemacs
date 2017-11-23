@@ -125,9 +125,20 @@ and `defcustom' forms reset their default values."
   (switch-to-buffer (generate-new-buffer "*scratch*")))
 
 (defun jack-select-scratch ()
-  "open up a new scratch buffer"
+  "select *scratch* buffer and insert delimiter if existing content between them"
   (interactive)
-  (switch-to-buffer "*scratch*"))
+  (let* ((buf "*scratch*")
+         (buf-ref (get-buffer-create buf))
+         (delimiter "\n;;;;;;;;;;;;;;;;;;;;;\n")
+         (contents (with-current-buffer buf-ref
+                     (buffer-string)))
+         (do-inject (not (string-prefix-p delimiter contents))))
+    (when do-inject
+      (with-current-buffer buf-ref
+        (goto-char (point-min))
+        (insert delimiter)
+        (goto-char (point-min))))
+    (switch-to-buffer buf)))
 
 (defun jack-insert-backtick ()
   "because i override tilda/backtick for kupfer, but need backticks a lot for markdown"
