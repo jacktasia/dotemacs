@@ -1,3 +1,4 @@
+(require 'time-stamp)
 
 (defun vlad-to-snake-case ()
   (interactive)
@@ -129,14 +130,14 @@ and `defcustom' forms reset their default values."
   (interactive)
   (let* ((buf "*scratch*")
          (buf-ref (get-buffer-create buf))
-         (delimiter "\n;;;;;;;;;;;;;;;;;;;;;\n")
+         (delimiter "\n;;;;;;;;;;;;;;;;;;;;;")
          (contents (with-current-buffer buf-ref
                      (buffer-string)))
          (do-inject (not (string-prefix-p delimiter contents))))
     (when do-inject
       (with-current-buffer buf-ref
         (goto-char (point-min))
-        (insert delimiter)
+        (insert (format "%s - ^^^ %s\n" delimiter (time-stamp-string)))
         (goto-char (point-min))))
     (switch-to-buffer buf)))
 
