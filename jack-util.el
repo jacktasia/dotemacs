@@ -103,8 +103,9 @@ With argument ARG, do this that many times."
 (defun jack-kill-all-buffers ()
     "Kill all other buffers."
     (interactive)
-    (when (y-or-n-p "Kill all other buffers? ")
-      (mapc 'kill-buffer (buffer-list))))
+    (when (y-or-n-p "Kill ALL buffers (except *scratch*)? ")
+      (mapc 'kill-buffer
+            (delq (get-buffer "*scratch*") (remove-if-not 'buffer-file-name (buffer-list))))))
 
 ;; http://emacs.stackexchange.com/a/2302
 (defun my/eval-buffer ()
