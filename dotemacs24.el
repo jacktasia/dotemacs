@@ -685,7 +685,7 @@
 
 (ido-sort-mtime-mode 1)
 ;(ido-better-flex/enable)
-(ido-ubiquitous-mode)
+;(ido-ubiquitous-mode)
 
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -921,7 +921,11 @@
 
 (midnight-mode)
 
-
+;; make it totally clear which buffers are not saved
+(set-face-attribute 'helm-buffer-modified nil
+                        :overline  nil
+                        :underline  "red"
+                        :foreground "red")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DONE - report time
