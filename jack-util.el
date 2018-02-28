@@ -107,6 +107,24 @@ With argument ARG, do this that many times."
       (mapc 'kill-buffer
             (delq (get-buffer "*scratch*") (remove-if-not 'buffer-file-name (buffer-list))))))
 
+(defun jack-kill-current-project-buffers ()
+    "Kill all buffers in the current project."
+    (interactive)
+    (let* ((proj-root (projectile-project-root))
+           (proj-buffers
+            (-filter
+             (lambda (x)
+               (string-prefix-p
+                proj-root
+                (buffer-file-name x)))
+             (buffer-list)))
+           (proj-buffer-count (length proj-buffers)))
+      (if (y-or-n-p (format "Kill ALL buffers in %s (%s bufffers)? " proj-root proj-buffer-count))
+        (progn
+          (mapc 'kill-buffer proj-buffers)
+          (message "Killed %s buffers in %s" proj-buffer-count proj-root))
+        (message "Cancelled killing %s buffers in %s" proj-buffer-count proj-root))))
+
 ;; http://emacs.stackexchange.com/a/2302
 (defun my/eval-buffer ()
   "Execute the current buffer as Lisp code.
