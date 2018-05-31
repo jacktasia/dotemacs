@@ -60,7 +60,7 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
+    (ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters fuzzy-match ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode))))
 
 
 ;; user-emacs-directory
@@ -114,6 +114,7 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 (setq message-log-max t)           ;; If t, log messages but don't truncate the buffer when it becomes large.
 (setq-default cursor-in-non-selected-windows nil)
+(setq-default bidi-display-reordering nil)
 (setq column-number-mode t)
 (global-subword-mode t)
 
@@ -277,7 +278,7 @@
  '(rainbow-delimiters-depth-7-face ((t (:foreground "dark violet"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "magenta"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "saddle brown"))))
- '(show-paren-match ((((class color) (min-colors 89)) (:background "#1f5582"))))
+ '(show-paren-match ((((class color) (min-colors 89)) (:foreground "#61afef" :weight bold))))
  '(swiper-line-face ((t (:inherit highlight :background "gray0" :foreground "gray100"))))
  '(vhl/default-face ((t (:inherit default :background "yellow2")))))
 
@@ -310,7 +311,7 @@
          groovy-mode ag highlight-symbol ws-butler ht smart-mode-line
          fic-mode multi-term
          ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile
-         flyspell-lazy request nyan-mode avy emmet-mode default-text-scale
+         flyspell-correct-ivy request nyan-mode avy emmet-mode default-text-scale
          expand-region yaml-mode clojure-mode
          smooth-scrolling beacon hlinum google-this crux key-chord ace-mc
          persistent-scratch goto-last-change free-keys which-key helm-ag
@@ -324,12 +325,13 @@
 ;;
 ;; POST PACKAGE INSTALL
 ;;
+;; (setq helm-ag-use-agignore t)
 
-
+(setq helm-ag-base-command "ag --mmap --nocolor --nogroup --ignore=*terraform.tfstate.backup*")
 
 (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
   (if (or (s-contains? (system-name) "sf.blue")
-          (s-contains? (system-name) "Jack-Angers.local"))
+          (s-contains? (system-name) "Jack-Angers"))
       (set-default-font "Iosevka-18")
     (set-default-font "Iosevka")))
 
@@ -415,7 +417,7 @@
          ("M-g i" . dumb-jump-go-prompt)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
+  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'git-grep dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
 (use-package smartparens
@@ -628,8 +630,8 @@
 
 (nyan-mode)
 (projectile-mode)
-(flyspell-lazy-mode 1)
-(flyspell-mode 1)
+;; (flyspell-lazy-mode 1)
+;; (flyspell-mode 1)
 ;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-jsx-mode))
 (sml/setup)
@@ -708,6 +710,7 @@
 ;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x p") 'projectile-switch-project)
+(global-set-key (kbd "s-y") 'projectile-switch-project)
 (global-set-key (kbd "C-x f") 'projectile-grep)
 ;(global-set-key (kbd "M-x") 'smex)
 ;(global-set-key (kbd "M-x") 'helm-M-x)
@@ -734,6 +737,7 @@
 
 
 (define-key flyspell-mode-map (kbd "C-c \$") 'jack-save-word)
+(define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic)
 
 (global-set-key (kbd "M-<down>") (quote scroll-up-line)) ;; scroll by one line --
 (global-set-key (kbd "M-<up>") (quote scroll-down-line))
@@ -760,7 +764,7 @@
 ;;       (list (format "%s %%S: %%j " (system-name))
 ;;         '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-(setq frame-title-format "%F | 🤴 | %b | %&")
+(setq frame-title-format "%F |  🤯 | %b | %&")
 
 ;;
 ;; HOOKS
@@ -804,8 +808,8 @@
   (lambda ()
     (prettify-symbols-mode)
     (setq indent-tabs-mode nil)
-    (setq python-indent 2)
-    (setq tab-width 2)))
+    (setq python-indent 4)
+    (setq tab-width 4)))
 
 ;(global-prettify-symbols-mode nil)
 
