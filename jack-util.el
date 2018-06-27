@@ -308,6 +308,29 @@ and `defcustom' forms reset their default values."
 	(jack-shift-region 4)
 	(setq deactivate-mark nil))
 
+
+;; https://emacs.stackexchange.com/a/16793/2738
+(defun jack-current-line-empty-p ()
+  (save-excursion
+    (beginning-of-line)
+    (looking-at "[[:space:]]*$")))
+
+(defun jack-reformat-next-line ()
+       (interactive)
+       (with-current-buffer (current-buffer)
+         (next-line nil)
+         (back-to-indentation)
+         (kill-line 0)
+         (indent-for-tab-command)))
+
+(defun jack-reformat-block ()
+       (interactive)
+       (if (null (jack-current-line-empty-p))
+           (progn
+             (jack-reformat-next-line)
+             (jack-reformat-block))
+         (message "%s" "Done formatting block")))
+
 (defun jack-backward-kill-line (arg)
   "removes all tabs/spaces on the front of the line regardless of where your cursor is"
   (interactive "p")

@@ -327,7 +327,7 @@
 ;;
 ;; (setq helm-ag-use-agignore t)
 
-(setq helm-ag-base-command "ag --mmap --nocolor --nogroup --ignore=*terraform.tfstate.backup*")
+(setq helm-ag-base-command "ag --mmap --nocolor --nogroup --ignore-case --ignore=*terraform.tfstate.backup*")
 
 (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
   (if (or (s-contains? (system-name) "sf.blue")
@@ -476,9 +476,8 @@
 (spaceline-toggle-projectile-root-on)
 (spaceline-toggle-anzu-on)
 
-;; beautify
-;; TODO: make this major-mode based and use py-autopep8 for python, yapf (and esformatter-jsx)
-(bind-keys* ("C-c f" . web-beautify-js))
+
+(bind-keys* ("C-c f" . jack-reformat-block))
 
 ;; https://github.com/angrybacon/dotemacs/blob/master/dotemacs.org#12-mode-line
 ;; end spaceline config
