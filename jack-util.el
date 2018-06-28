@@ -13,6 +13,12 @@
     (replace-regexp "[`'\"]" "" nil beginning end)
     (to-snake-case)))
 
+(defun jack-toggle-chinese-input ()
+  (interactive)
+  (if (null default-input-method)
+      (set-input-method 'chinese-py)
+    (set-input-method nil)))
+
 (defun jack-insert-code-next-line (code)
   (move-end-of-line nil)
   (insert "\n")

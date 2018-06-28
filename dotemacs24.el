@@ -613,7 +613,7 @@
 ;(global-set-key (kbd "C-c <up>") 'default-text-scale-increase)     ;; text size up
 ;(global-set-key (kbd "C-c <down>") 'default-text-scale-decrease)   ;; text size down
 
-(global-set-key (kbd "C-c t") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c t") 'jack-toggle-chinese-input)
 ;(global-set-key (kbd "C-c 3") 'crux-transpose-windows)
 
 (global-set-key (kbd "C-c 3") 'kmacro-start-macro-or-insert-counter)
