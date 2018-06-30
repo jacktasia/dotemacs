@@ -19,6 +19,26 @@
       (set-input-method 'chinese-py)
     (set-input-method nil)))
 
+(defun jack-en-to-chinese ()
+  (interactive)
+  (jack-translate-at-point "en" "zh-CN"))
+
+(defun jack-chinese-to-english ()
+  (interactive)
+  (jack-translate-at-point "zh-CN" "en"))
+
+
+(defun jack-translate-at-point (from-lang to-lang)
+  (interactive)
+    (google-translate-translate
+     from-lang to-lang
+     (if (use-region-p)
+         (buffer-substring-no-properties (region-beginning) (region-end))
+       (or (and (setq bounds (bounds-of-thing-at-point 'word))
+                (buffer-substring-no-properties (car bounds) (cdr bounds)))
+           (error "No word at point.")))))
+
+
 (defun jack-insert-code-next-line (code)
   (move-end-of-line nil)
   (insert "\n")
