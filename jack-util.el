@@ -19,25 +19,31 @@
       (set-input-method 'chinese-py)
     (set-input-method nil)))
 
-(defun jack-en-to-chinese ()
+(defun jack-english-to-chinese ()
   (interactive)
-  (jack-translate-at-point "en" "zh-CN"))
+  (google-translate-translate
+     "en" "zh-CN" (jack-get-region-or-word)))
 
 (defun jack-chinese-to-english ()
   (interactive)
-  (jack-translate-at-point "zh-CN" "en"))
+  (google-translate-translate
+     "zh-CN" "en" (jack-get-region-or-word)))
 
+(defun jack-get-region-or-word ()
+  (if (use-region-p)
+      (buffer-substring-no-properties (region-beginning) (region-end))
+    (or (and (setq bounds (bounds-of-thing-at-point 'word))
+             (buffer-substring-no-properties (car bounds) (cdr bounds)))
+        (error "No word at point."))))
 
-(defun jack-translate-at-point (from-lang to-lang)
+;      ((content (buffer-substring-no-properties (region-beginning) (region-end)))
+(defun jack-smart-translate ()
   (interactive)
-    (google-translate-translate
-     from-lang to-lang
-     (if (use-region-p)
-         (buffer-substring-no-properties (region-beginning) (region-end))
-       (or (and (setq bounds (bounds-of-thing-at-point 'word))
-                (buffer-substring-no-properties (car bounds) (cdr bounds)))
-           (error "No word at point.")))))
-
+  (let* ((content (jack-get-region-or-word))
+         (is-cn (null (string-match-p "[a-z]" content))))
+    (if is-cn
+        (google-translate-translate "zh-CN" "en" content)
+      (google-translate-translate "en" "zh-CN"  content))))
 
 (defun jack-insert-code-next-line (code)
   (move-end-of-line nil)
