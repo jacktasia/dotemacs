@@ -185,6 +185,7 @@
 ;;
 ;; custom functions
 ;;
+(global-set-key (kbd "<f10>") 'jack-run-python3-buffer)
 (global-set-key (kbd "<f12>") 'jack-smart-translate)
 (global-set-key (kbd "C-j") 'jack-match-above-indentation)
 (add-hook 'php-mode-hook 'jack-php-setup)

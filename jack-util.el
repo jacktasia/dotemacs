@@ -13,6 +13,13 @@
     (replace-regexp "[`'\"]" "" nil beginning end)
     (to-snake-case)))
 
+(defun jack-run-python3-buffer ()
+  (interactive)
+  (let* ((buff (buffer-file-name))
+         (cmd (format "python3 %s" buff))
+         (result (shell-command-to-string cmd)))
+    (message "%s" result)))
+
 (defun jack-toggle-chinese-input ()
   (interactive)
   (if (null default-input-method)
