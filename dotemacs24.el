@@ -60,7 +60,7 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
+    (dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
  '(paradox-github-token t))
 
 
@@ -90,9 +90,9 @@
 ;(jack-visible-bell) ;; is effectively (setq visible-bell 1) but less annoying
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
-(setq uniquify-min-dir-content 3)
+(setq uniquify-min-dir-content 0) ;; 3
 ;; https://github.com/emacs-mirror/emacs/blob/0537943561a37b54467bec19d1b8afbeba8e1e58/lisp/uniquify.el#L107
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets) ;; or "forward"
+(setq uniquify-buffer-name-style nil) ;; 'post-forward-angle-brackets or "forward"
 (setq tramp-default-method "scpx")
 (setq clean-buffer-list-delay-general 7)
 (show-paren-mode t)
@@ -321,7 +321,7 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
-         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp emamux gh-md google-translate)))
+         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp emamux gh-md google-translate ivy-rich)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -488,8 +488,16 @@
 (bind-keys* ("C-c `" . spotify-playpause))
 (bind-keys* ("C-c v" . volume))
 (ivy-mode 1)
+(ivy-rich-mode 1)
+
+(setq ivy-rich-switch-buffer-align-virtual-buffer t)
+(setq ivy-count-format "(%d/%d) ")
+(setq ivy-rich-path-style 'abbrev)
+(setq ivy-rich-switch-buffer-name-max-length 40)
+(setq ivy-rich-switch-buffer-project-max-length 20)
 
 (setq ivy-use-virtual-buffers nil)
+(setq enable-recursive-minibuffers t)
 
 
 
@@ -543,7 +551,8 @@
 (bind-keys* ("C-z" . avy-goto-char))
 (bind-keys* ("C-S-P" . scroll-down-line))
 (bind-keys* ("C-S-N" . scroll-up-line))
-(bind-keys* ("C-x p" . helm-projectile-switch-project))
+;(bind-keys* ("C-x p" . helm-projectile-switch-project))
+(bind-keys* ("C-x p" . counsel-projectile-switch-project))
 (bind-keys* ("C-c p" . beginning-of-buffer))
 (bind-keys* ("C-c n" . end-of-buffer))
 ;(bind-keys* ("C-`" . pop-to-mark-command))
@@ -710,8 +719,9 @@
 ;(global-set-key (kbd "C-x b") 'helm-buffers-list)
 
 (global-set-key (kbd "C-x e") 'eval-expression)
-;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
+;(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x p") 'projectile-switch-project)
 (global-set-key (kbd "s-y") 'projectile-switch-project)
 (global-set-key (kbd "C-x f") 'projectile-grep)

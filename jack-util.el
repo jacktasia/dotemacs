@@ -164,6 +164,7 @@ With argument ARG, do this that many times."
           (message "Killed %s buffers in %s" proj-buffer-count proj-root))
         (message "Cancelled killing %s buffers in %s" proj-buffer-count proj-root))))
 
+
 ;; http://emacs.stackexchange.com/a/2302
 (defun my/eval-buffer ()
   "Execute the current buffer as Lisp code.
@@ -419,11 +420,13 @@ and `defcustom' forms reset their default values."
 
 	(shell-command (format (cdr (assoc the_mode lang_cmds)) (buffer-file-name)))))
 
+
 (defun jack-git-blame-line ()
   (interactive)
   (let ((cmd_tmpl "git blame -L %s,+3 %s")
-		(current_line (cadr (split-string (what-line) " "))))
-	(shell-command (format cmd_tmpl current_line (buffer-file-name)))))
+        (minibuffer-message-timeout 20)
+        (current_line (cadr (split-string (what-line) " "))))
+	(minibuffer-message (shell-command-to-string (format cmd_tmpl current_line (buffer-file-name))))))
 
 ;;
 ;; window
