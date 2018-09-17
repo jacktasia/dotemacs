@@ -60,7 +60,7 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock yapfify py-yapf mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
+    (scala-mode dockerfile-mode dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
  '(paradox-github-token t))
 
 
@@ -321,7 +321,8 @@
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
-         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode vagrant-tramp emamux gh-md google-translate ivy-rich)))
+         git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode
+         vagrant-tramp emamux gh-md google-translate ivy-rich dockerfile-mode)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -334,7 +335,7 @@
 
 (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
   (if (or (s-contains? (system-name) "sf.blue")
-          (s-contains? (system-name) "Jack-Angers"))
+          (s-contains? (system-name) "MC-JAC"))
       (set-default-font "Iosevka-18")
     (set-default-font "Iosevka-16")))
 
@@ -389,7 +390,6 @@
   ("d" dumb-diff "dumb-diff"  :exit t)
   ("1" dumb-diff-set-region-as-buffer1 "inject into diff buf 1"  :exit t)
   ("2" dumb-diff-set-region-as-buffer2 "inject into diff buf 2"  :exit t))
-
 
 
 (use-package move-text
@@ -485,8 +485,9 @@
 ;; https://github.com/angrybacon/dotemacs/blob/master/dotemacs.org#12-mode-line
 ;; end spaceline config
 
-(bind-keys* ("C-c `" . spotify-playpause))
-(bind-keys* ("C-c v" . volume))
+;; Nice if I am listening to music only
+;;(bind-keys* ("C-c `" . spotify-playpause))
+;;(bind-keys* ("C-c v" . volume))
 (ivy-mode 1)
 (ivy-rich-mode 1)
 
@@ -560,13 +561,17 @@
 (bind-keys* ("M-`" . (lambda()(interactive)(push-mark))))
 (bind-keys* ("C-M-," . jack-new-scratch))
 (bind-keys* ("M-," . jack-select-scratch))
+(bind-keys* ("C-c v" . avy-goto-word-0))
 
 (persistent-scratch-setup-default)
 
 (key-chord-mode 1)
 ;; (key-chord-define-global "qw" 'undo)
 ;; (key-chord-define-global "gh" 'er/mark-symbol)
-(key-chord-define-global "fj" 'avy-goto-char)
+;(key-chord-define-global "fj" 'avy-goto-char)
+(key-chord-define-global "fj" 'avy-goto-word-0)
+;; (key-chord-define-global "gh" 'avy-goto-line)
+;; (key-chord-define-global "dk" 'avy-goto-char-in-line)
 
 (auto-dim-other-buffers-mode t)
 
@@ -601,7 +606,8 @@
 (setq avy-case-fold-search nil)
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
-(global-set-key (kbd "M-g c") 'avy-goto-char)
+;(global-set-key (kbd "M-g c") 'avy-goto-char)
+(global-set-key (kbd "M-g c") 'avy-goto-char-in-line)
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
 (global-set-key (kbd "M-g t") 'avy-goto-char-timer)
 (global-set-key (kbd "C-0") 'avy-goto-char)
