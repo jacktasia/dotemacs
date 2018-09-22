@@ -23,7 +23,10 @@
 (defun jack-toggle-chinese-input ()
   (interactive)
   (if (null default-input-method)
-      (set-input-method 'chinese-py)
+      (progn
+        ;; hack
+        (set-input-method 'chinese-py)
+        (set-input-method 'chinese-py))
     (set-input-method nil)))
 
 (defun jack-english-to-chinese ()
@@ -67,6 +70,23 @@
       (jack-insert-code-next-line (format "print(\'value of `%s`\', %s)" cur-symbol cur-symbol)))
      ((string= cur-ext "js")
       (jack-insert-code-next-line (format "console.log(\'value of `%s`\', %s);" cur-symbol cur-symbol))))))
+
+
+(defun jack-special-delete ()
+  (interactive)
+  (let ((start-point (point)))
+    (jack-hungry-delete)
+    (when (= (point) start-point)
+      (jack-backward-delete-word 1))))
+
+
+(defun jack-hungry-delete ()
+  (interactive)
+  (let ((cur (char-to-string
+              (char-before (point)))))
+    (when (string-equal " " cur)
+      (delete-char -1)
+      (jack-hungry-delete))))
 
 ;; http://stackoverflow.com/a/6133921/24998
 ;; don't want to add delete word to the kill-ring

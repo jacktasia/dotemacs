@@ -639,8 +639,8 @@
 
 (global-set-key (kbd "C-c 7") 'goto-last-change)
 
-(global-set-key (kbd "C-<backspace>") 'jack-backward-delete-word)
-(global-set-key (kbd "M-<backspace>") 'jack-backward-delete-word)
+(global-set-key (kbd "C-<backspace>") 'jack-special-delete)
+(global-set-key (kbd "M-<backspace>") 'jack-special-delete)
 
 
 (setq avy-all-windows nil)
