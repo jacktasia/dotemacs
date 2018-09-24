@@ -333,11 +333,6 @@
 
 (setq helm-ag-base-command "ag --mmap --nocolor --nogroup --ignore-case --ignore=*terraform.tfstate.backup*")
 
-(when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
-  (if (or (s-contains? (system-name) "sf.blue")
-          (s-contains? (system-name) "MC-JAC"))
-      (set-default-font "Iosevka-18")
-    (set-default-font "Iosevka-16")))
 
 ;; fix
 (global-unset-key (kbd "s-x"))
@@ -966,6 +961,14 @@
 (put 'erase-buffer 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+(when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
+  (if (or (s-contains? "sf.blue" (system-name) )
+          (s-contains? "JAC" (system-name)))
+      (set-default-font "Iosevka-18")
+    (set-default-font "Iosevka-16")))
+
+
 
 (let* ((custom-file-name "overrides.el")
       (custom-file-path (concat (file-name-as-directory emacsdir) custom-file-name)))
