@@ -84,7 +84,8 @@
   (interactive)
   (let ((cur (char-to-string
               (char-before (point)))))
-    (when (string-equal " " cur)
+    (when (or (string-equal " " cur)
+              (string-equal "\t" cur))
       (delete-char -1)
       (jack-hungry-delete))))
 
