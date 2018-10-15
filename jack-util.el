@@ -79,6 +79,30 @@
     (when (= (point) start-point)
       (jack-backward-delete-word 1))))
 
+(defun jack-special-next ()
+  "Try going to next symbol or avy-got-char."
+  (interactive)
+  (let ((start-point (point))
+        (tmp-sym (thing-at-point 'symbol)))
+    (if tmp-sym
+        (progn
+          (highlight-symbol-next)
+          (when (= (point) start-point)
+            (call-interactively 'avy-goto-char)))
+      (call-interactively 'avy-goto-char))))
+
+
+(defun jack-special-prev ()
+  "Try going to prev symbol or avy-got-char."
+  (interactive)
+  (let ((start-point (point))
+        (tmp-sym (thing-at-point 'symbol)))
+    (if tmp-sym
+        (progn
+          (highlight-symbol-prev)
+          (when (= (point) start-point)
+            (call-interactively 'avy-goto-char)))
+      (call-interactively 'avy-goto-char))))
 
 (defun jack-hungry-delete ()
   (interactive)

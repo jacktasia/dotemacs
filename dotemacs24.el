@@ -542,8 +542,11 @@
 
 (bind-keys* ("s-p" . highlight-symbol-prev))
 (bind-keys* ("s-n" . highlight-symbol-next))
-(bind-keys* ("M-p" . highlight-symbol-prev))
-(bind-keys* ("M-n" . highlight-symbol-next))
+;(bind-keys* ("M-p" . highlight-symbol-prev))
+(bind-keys* ("M-p" . jack-special-prev))
+;(bind-keys* ("M-n" . highlight-symbol-next))
+(bind-keys* ("M-n" . jack-special-next))
+
 (bind-keys* ("C-z" . avy-goto-char))
 (bind-keys* ("C-S-P" . scroll-down-line))
 (bind-keys* ("C-S-N" . scroll-up-line))
