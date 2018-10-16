@@ -546,7 +546,6 @@
 (bind-keys* ("M-p" . jack-special-prev))
 ;(bind-keys* ("M-n" . highlight-symbol-next))
 (bind-keys* ("M-n" . jack-special-next))
-
 (bind-keys* ("C-z" . avy-goto-char))
 (bind-keys* ("C-S-P" . scroll-down-line))
 (bind-keys* ("C-S-N" . scroll-up-line))
@@ -966,12 +965,11 @@
 (put 'downcase-region 'disabled nil)
 
 (when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
-  (if (or (s-contains? "sf.blue" (system-name) )
-          (s-contains? "JAC" (system-name)))
-      (set-default-font "Iosevka-18")
-    (set-default-font "Iosevka-16")))
+  (set-default-font "Iosevka-18"))
 
-
+(when (string-equal system-type "darwin")
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark)))
 
 (let* ((custom-file-name "overrides.el")
       (custom-file-path (concat (file-name-as-directory emacsdir) custom-file-name)))
