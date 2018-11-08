@@ -587,11 +587,12 @@
 (setq beacon-color "green")
 
 
-(defun my-blacken-buffer (blacken-buffer &rest arguments)
-  "Send t to blacken-buffer to display any issues"
-  (apply 'blacken-buffer '(t)))
+;; (defun my-blacken-buffer (blacken-buffer &rest arguments)
+;;   "Send t to blacken-buffer to display any issues"
+;;   (apply 'blacken-buffer '(t)))
 
-(advice-add #'blacken-buffer :around #'my-blacken-buffer)
+;; (advice-add #'blacken-buffer :around #'my-blacken-buffer)
+;; (advice-remove #'blacken-buffer :around)
 
 
 ;(global-smartscan-mode 1)
