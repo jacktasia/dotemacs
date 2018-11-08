@@ -587,6 +587,13 @@
 (setq beacon-color "green")
 
 
+(defun my-blacken-buffer (blacken-buffer &rest arguments)
+  "Send t to blacken-buffer to display any issues"
+  (apply 'blacken-buffer '(t)))
+
+(advice-add #'blacken-buffer :around #'my-blacken-buffer)
+
+
 ;(global-smartscan-mode 1)
 ;; http://emacs.stackexchange.com/questions/352/how-to-override-major-mode-bindings
 (bind-keys* ("C-c w" . whitespace-mode))
