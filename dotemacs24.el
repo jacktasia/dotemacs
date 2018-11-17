@@ -348,13 +348,18 @@
         company-pseudo-tooltip-frontend
         company-echo-metadata-frontend))
 
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "<return>") #'company-complete-selection))
+
 (setq helm-ag-base-command "ag --mmap --nocolor --nogroup --ignore-case --ignore=*terraform.tfstate.backup*")
 
 
 (setq fci-rule-column 88)
 (setq fci-rule-color "#888800")
 (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
-(global-fci-mode 1)
+;(global-fci-mode 1)
+
+(bind-keys* ("C-c u" . global-fci-mode))
 
 (golden-ratio-mode 1)
 ;; fix
