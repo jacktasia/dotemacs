@@ -299,6 +299,7 @@
 ;;   (set-face-attribute 'default nil :font "Terminus (TTF)"))
 
 (setq python-shell-interpreter "python3")
+(setq flycheck-python-pycompile-executable "python3")
 ;;
 ;; packages to install
 ;;
