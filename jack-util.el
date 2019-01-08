@@ -72,6 +72,10 @@
       (jack-insert-code-next-line (format "console.log(\'value of `%s`\', %s);" cur-symbol cur-symbol))))))
 
 
+(defun jack-search-all-buffers ()
+  (interactive)
+  (multi-occur-in-matching-buffers "." (read-from-minibuffer "Search all buffers for: ")))
+
 (defun jack-special-delete ()
   (interactive)
   (let ((start-point (point)))

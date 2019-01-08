@@ -137,7 +137,7 @@
 ;(global-set-key (kbd "C-c 1") 'linum-mode)      ;; toggle linum mode
 
 (global-set-key (kbd "C-c x") 'jack-kill-all-buffers)
-(global-set-key (kbd "C-c 2") 'next-buffer)
+;(global-set-key (kbd "C-c 2") 'next-buffer)
 ;(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "C-c r") 'vr/replace) ;; search & replace (file or region)
 (global-set-key (kbd "C-c q") 'vr/query-replace)
@@ -213,7 +213,7 @@
                                (modify-frame-parameters nil `((alpha . 100)))))
 
 (global-set-key (kbd "C-c 5") 'my/eval-buffer)
-(global-set-key (kbd "C-c 6") 'emacs-uptime)
+(global-set-key (kbd "C-c 6") 'jack-search-all-buffers)
 
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "C-c e") 'er/mark-symbol)
@@ -393,13 +393,15 @@
 
 
 
-(defhydra hydra-font-size (global-map "C-c 2")
-  "font-size"
-  ("2" (lambda () (interactive) (set-default-font "Iosevka-12")) "12")
-  ("4" (lambda () (interactive) (set-default-font "Iosevka-14")) "14")
-  ("6" (lambda () (interactive) (set-default-font "Iosevka-16")) "16")
-  ("8" (lambda () (interactive) (set-default-font "Iosevka-18")) "18")
-  ("0" (lambda () (interactive) (set-default-font "Iosevka-20")) "20"))
+(defhydra hydra-emacs-utils ()
+  "emacs-util"
+  ("1" emacs-uptime "emacs uptime" :color blue)
+  ("2" (lambda () (interactive) (set-default-font "Iosevka-12")) "font to 12" :color blue)
+  ("4" (lambda () (interactive) (set-default-font "Iosevka-14")) "font to 14" :color blue)
+  ("6" (lambda () (interactive) (set-default-font "Iosevka-16")) "font to 16" :color blue)
+  ("8" (lambda () (interactive) (set-default-font "Iosevka-18")) "font to 18" :color blue)
+  ("0" (lambda () (interactive) (set-default-font "Iosevka-20")) "font to 20" :color blue))
+(global-set-key (kbd "C-c 2") 'hydra-emacs-utils/body)
 
 ;(global-set-key (kbd "C-t") emamux:keymap)
 (defhydra hydra-tmux-memory
