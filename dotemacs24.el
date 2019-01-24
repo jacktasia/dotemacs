@@ -73,13 +73,13 @@
 (require 'uniquify)
 (require 'org)
 
-(unless (string-equal system-type "darwin")
-  (jack-emacs-maximize)) ;; only works for linux right now (requires wmctrl)
+;; (unless (string-equal system-type "darwin")
+;;   (jack-emacs-maximize)) ;; only works for linux right now (requires wmctrl)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SETTINGS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar *refresh-package-list* t) ;; by default refresh package list
+(defvar *refresh-package-list* nil) ;; by default refresh package list
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 1) LOGICAL DEFAULTS
@@ -395,6 +395,7 @@
 
 (defhydra hydra-emacs-utils ()
   "emacs-util"
+  ("t" counsel-projectile-find-file "cmd-t" :color blue)
   ("1" emacs-uptime "emacs uptime" :color blue)
   ("2" (lambda () (interactive) (set-default-font "Iosevka-12")) "font to 12" :color blue)
   ("4" (lambda () (interactive) (set-default-font "Iosevka-14")) "font to 14" :color blue)
@@ -404,20 +405,20 @@
 (global-set-key (kbd "C-c 2") 'hydra-emacs-utils/body)
 
 ;(global-set-key (kbd "C-t") emamux:keymap)
-(defhydra hydra-tmux-memory
-  (global-map "C-t")
-  "tmux muscle memeory bindings"
-  ("e" eval-expression "eval expression"  :exit t)
-  ("d" jack-debug-symbol-at-point "debug"  :exit t)
-  ("\"" split-window-below "split below"  :exit t)
-  ("'" split-window-below "split below"  :exit t)
-  ("%" split-window-right "split window right"  :exit t)
-  ("5" split-window-right "split window right"  :exit t)
-  ("q" switch-window "switch window"  :exit t)
-  ("o" other-window "other window"  :exit t)
-  ("w" ivy-switch-buffer "list buffers"  :exit t)
-  ("C-t" switch-to-prev-buffer "switch to previous buffer"  :exit t)
-  ("z" delete-other-windows "zoom"  :exit t))
+;; (defhydra hydra-tmux-memory
+;;   (global-map "C-t")
+;;   "tmux muscle memeory bindings"
+;;   ("e" eval-expression "eval expression"  :exit t)
+;;   ("d" jack-debug-symbol-at-point "debug"  :exit t)
+;;   ("\"" split-window-below "split below"  :exit t)
+;;   ("'" split-window-below "split below"  :exit t)
+;;   ("%" split-window-right "split window right"  :exit t)
+;;   ("5" split-window-right "split window right"  :exit t)
+;;   ("q" switch-window "switch window"  :exit t)
+;;   ("o" other-window "other window"  :exit t)
+;;   ("w" ivy-switch-buffer "list buffers"  :exit t)
+;;   ("C-t" switch-to-prev-buffer "switch to previous buffer"  :exit t)
+;;   ("z" delete-other-windows "zoom"  :exit t))
 
 (defhydra hydra-diff
   (global-map "C-c d")
@@ -490,7 +491,8 @@
 
 (use-package counsel-projectile
   :bind (("s-t" . counsel-projectile-find-file)
-         ("s-o" . counsel-projectile-find-file))
+         ("s-o" . counsel-projectile-find-file)
+         ("C-t" . counsel-projectile-find-file))
   :ensure)
 
 (global-set-key (kbd "s-T") 'jack-counsel-projectile-find-file-clear-cache)
@@ -692,7 +694,7 @@
 (setq avy-all-windows nil)
 (setq avy-keys (number-sequence ?a ?z))
 
-(nyan-mode)
+; (nyan-mode)
 (projectile-mode)
 ;; (flyspell-lazy-mode 1)
 ;; (flyspell-mode 1)

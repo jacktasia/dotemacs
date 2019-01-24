@@ -634,16 +634,17 @@ Non-interactive arguments are Begin End Regexp"
 (defun pmdm-load-files ()
   "Load the files found in file `pmdm-file-name'."
   (interactive)
-  (let ((opened-files (delq nil (mapcar 'buffer-file-name (buffer-list))))
-        (files (pmdm--read-files-list))
+  (let* ((opened-files (delq nil (mapcar 'buffer-file-name (buffer-list))))
+        (raw-files (pmdm--read-files-list))
+        (limit-files (-slice raw-files 0 30))
+        (files (--filter (file-exists-p it) limit-files))
         (count 0))
     (dolist (file files)
-      (unless (member file opened-files)
+      (when (and (not (member file opened-files)) (file-exists-p file))
         (find-file-noselect file)
         (setq count (1+ count))))
     (message (if (zerop count)
                  "No files opened"
                (format "%d file%s opened" count (if (> count 1) "s" ""))))))
-
 
 ;(provide 'jack-util)
