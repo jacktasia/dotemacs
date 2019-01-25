@@ -97,6 +97,7 @@
 (setq clean-buffer-list-delay-general 7)
 (show-paren-mode t)
 (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.sh\\'" . shell-script-mode))
 (setq org-log-done t)              ;; show done time when marking a todo done
 (defalias 'yes-or-no-p 'y-or-n-p)  ;; don't require full "yes" for confirms
 (tool-bar-mode -1)                 ;; get rid of tool bar
