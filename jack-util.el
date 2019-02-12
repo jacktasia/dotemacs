@@ -179,6 +179,25 @@ With argument ARG, do this that many times."
     (delete-horizontal-space)
     (insert-char (string-to-char " ") (max below-col above-col))))
 
+(defun jack-is-next-char-space? ()
+  "If the next character is a space then t else nil."
+  (string= (char-to-string (char-after (point))) " "))
+
+(defun jack-match-above-alignment ()
+  "Insert enough spaces to match the whitespace above for the next column."
+  (interactive)
+  (let* ((cur-col (current-column))
+         (to-match (save-excursion
+                     (previous-line)
+                     (when (not (jack-is-next-char-space?))
+                       (while (not (jack-is-next-char-space?))
+                         (forward-char 1)))
+                     (while (jack-is-next-char-space?)
+                       (forward-char 1))
+                     (current-column)))
+         (delta (- to-match cur-col)))
+    (insert-char (string-to-char " ") delta)))
+
 ; http://stackoverflow.com/a/3417473/24998 adding confirmation
 (defun jack-kill-other-buffers ()
     "Kill all other buffers."

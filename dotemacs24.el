@@ -142,7 +142,8 @@
 ;(global-set-key (kbd "C-c r") 'replace-string) ;; search & replace (file or region)
 (global-set-key (kbd "C-c r") 'vr/replace) ;; search & replace (file or region)
 (global-set-key (kbd "C-c q") 'vr/query-replace)
-(global-set-key (kbd "C-c m") 'count-matches)  ;; count instaces of prompted string
+;(global-set-key (kbd "C-c m") 'count-matches)  ;; count instaces of prompted string
+(global-set-key (kbd "C-c m") 'jack-match-above-alignment)
 (global-set-key (kbd "C-c l") 'goto-line)      ;; goes to prompted line number
 ;(global-set-key (kbd "C-c i") 'ispell-region)  ;; spell check region
 
@@ -365,7 +366,6 @@
 (bind-keys* ("<M-return>" . helm-make-projectile))
 
 (indent-guide-global-mode)
-(golden-ratio-mode 1)
 ;; fix
 (global-unset-key (kbd "s-x"))
 ;(global-unset-key (kbd "C-x r"))
@@ -465,7 +465,7 @@
          ("M-g i" . dumb-jump-go-prompt)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'git-grep dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
+  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
 (use-package smartparens
@@ -609,6 +609,8 @@
 ;(bind-keys* ("C-`" . pop-to-mark-command))
 (bind-keys* ("C-`" . pop-to-mark-command))
 (bind-keys* ("M-`" . (lambda()(interactive)(push-mark))))
+
+;; TODO: use a hydra for these
 (bind-keys* ("C-M-," . jack-new-scratch))
 (bind-keys* ("M-," . jack-select-scratch))
 (bind-keys* ("C-c v" . avy-goto-word-0))
@@ -661,6 +663,7 @@
 (global-set-key (kbd "M-g d") 'osx-dictionary-search-word-at-point)
 ;(global-set-key (kbd "M-g f") 'jack-counsel-git-grep-at-point)
 
+(setq avy-background t)
 (setq avy-case-fold-search nil)
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
@@ -1028,8 +1031,12 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(when (and (string-equal system-type "darwin") (member "Iosevka" (font-family-list)))
-  (set-default-font "Iosevka-18"))
+(when (member "Iosevka" (font-family-list))
+  (set-frame-font "Iosevka-20"))
+
+(golden-ratio-mode 1)
+(golden-ratio-toggle-widescreen)
+
 
 (when (string-equal system-type "darwin")
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
