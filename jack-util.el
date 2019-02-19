@@ -81,6 +81,13 @@
   (call-interactively 'er/mark-symbol)
   (call-interactively 'backward-delete-char))
 
+;; (kill-new "random string") to add an arb string to the kill-ring
+(defun jack-clipboard-symbol-underpoint ()
+  (interactive)
+  (with-no-warnings
+    (call-interactively 'er/mark-symbol)
+    (kill-ring-save (region-beginning) (region-end) t)))
+
 (defun jack-special-delete ()
   (interactive)
   (let ((start-point (point)))
