@@ -673,7 +673,7 @@
 (defface jack-avy-lead-face-0
   '((t (:foreground "white" :background "red"))) "color override 0")
 
-(defface jack-avy-lead-face-1-b
+(defface jack-avy-lead-face-1b
   '((t (:foreground "white" :background "OrangeRed3"))) "color override 1")
 
 (defface jack-avy-lead-face-2
@@ -682,7 +682,7 @@
 (defface jack-avy-lead-face-3
   '((t (:foreground "white" :background "blue"))) "color override 3")
 
-(setq avy-lead-faces '(jack-avy-lead-face-0 jack-avy-lead-face-1b jack-avy-lead-face-2 jack-avy-lead-face-3 jack-avy-lead-face-0 jack-avy-lead-face-1 jack-avy-lead-face-2 jack-avy-lead-face-3))
+(setq avy-lead-faces '(jack-avy-lead-face-0 jack-avy-lead-face-1b jack-avy-lead-face-2 jack-avy-lead-face-3 jack-avy-lead-face-0 jack-avy-lead-face-1b jack-avy-lead-face-2 jack-avy-lead-face-3))
 
 (setq avy-all-windows nil)
 ; (setq avy-keys (number-sequence ?a ?z))
