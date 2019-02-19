@@ -76,6 +76,11 @@
   (interactive)
   (multi-occur-in-matching-buffers "." (read-from-minibuffer "Search all buffers for: ")))
 
+(defun jack-kill-symbol-underpoint ()
+  (interactive)
+  (call-interactively 'er/mark-symbol)
+  (call-interactively 'backward-delete-char))
+
 (defun jack-special-delete ()
   (interactive)
   (let ((start-point (point)))

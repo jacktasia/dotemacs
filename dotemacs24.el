@@ -60,7 +60,7 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (iregister origami indent-guide prettier-js helm-make company-tabnine blacken golden-ratio scala-mode dockerfile-mode dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
+    (binclock haskell-mode iregister origami indent-guide prettier-js helm-make company-tabnine blacken golden-ratio scala-mode dockerfile-mode dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
  '(paradox-github-token t))
 
 
@@ -221,6 +221,7 @@
 (global-set-key (kbd "C-c e") 'er/mark-symbol)
 ;(global-set-key (kbd "C-c 4") 'er/expand-region)
 
+
 (global-set-key (kbd "M-k") 'jack-delete-line-no-kill)
 (global-set-key (kbd "C-c k") 'jack-kill-other-buffers)
 
@@ -326,7 +327,7 @@
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
          git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode
          vagrant-tramp emamux gh-md google-translate ivy-rich dockerfile-mode golden-ratio blacken
-         fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister)))
+         fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister binclock haskell-mode)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -391,6 +392,11 @@
   ("m" origami-mode "turn on mode" :color blue))
 (global-set-key (kbd "C-c 1") 'hydra-origami/body) ;; so we always see the menu
 ;; see: https://github.com/abo-abo/hydra/wiki/Binding-Styles
+
+(defhydra hydra-remove-stuff ()
+  "remove-stuff"
+  ("w" jack-kill-symbol-underpoint "remove word under point" :color blue))
+(global-set-key (kbd "M-c ") 'hydra-remove-stuff/body)
 
 
 (defhydra hydra-iregister ()
@@ -620,8 +626,8 @@
 (key-chord-mode 1)
 ;; (key-chord-define-global "qw" 'undo)
 ;; (key-chord-define-global "gh" 'er/mark-symbol)
-;(key-chord-define-global "fj" 'avy-goto-char)
-(key-chord-define-global "fj" 'avy-goto-word-0)
+(key-chord-define-global "fj" 'avy-goto-char)
+;(key-chord-define-global "fj" 'avy-goto-subword-0)
 ;; (key-chord-define-global "gh" 'avy-goto-line)
 ;; (key-chord-define-global "dk" 'avy-goto-char-in-line)
 
@@ -663,7 +669,26 @@
 (global-set-key (kbd "M-g d") 'osx-dictionary-search-word-at-point)
 ;(global-set-key (kbd "M-g f") 'jack-counsel-git-grep-at-point)
 
-(setq avy-background t)
+
+(defface jack-avy-lead-face-0
+  '((t (:foreground "white" :background "red"))) "color override 0")
+
+(defface jack-avy-lead-face-1-b
+  '((t (:foreground "white" :background "OrangeRed3"))) "color override 1")
+
+(defface jack-avy-lead-face-2
+  '((t (:foreground "white" :background "green"))) "color override 2")
+
+(defface jack-avy-lead-face-3
+  '((t (:foreground "white" :background "blue"))) "color override 3")
+
+(setq avy-lead-faces '(jack-avy-lead-face-0 jack-avy-lead-face-1b jack-avy-lead-face-2 jack-avy-lead-face-3 jack-avy-lead-face-0 jack-avy-lead-face-1 jack-avy-lead-face-2 jack-avy-lead-face-3))
+
+(setq avy-all-windows nil)
+; (setq avy-keys (number-sequence ?a ?z))
+(setq avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?o ?q ?e ?r ?t ?z ?x ?c ?b))
+
+(setq avy-background nil) ; t
 (setq avy-case-fold-search nil)
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
@@ -676,6 +701,7 @@
 (global-set-key (kbd "C-\\") 'avy-goto-char)
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
+;(global-set-key (kbd "C-,") 'avy-goto-subword-0)
 (global-set-key (kbd "C-,") 'avy-goto-char)
 (bind-keys* ("C-'" . avy-goto-char))
 
@@ -702,10 +728,6 @@
 
 (global-set-key (kbd "C-<backspace>") 'jack-special-delete)
 (global-set-key (kbd "M-<backspace>") 'jack-special-delete)
-
-
-(setq avy-all-windows nil)
-(setq avy-keys (number-sequence ?a ?z))
 
 ; (nyan-mode)
 (projectile-mode)
@@ -908,6 +930,9 @@
   (setq gofmt-command "gofmt")
   (setq gofmt-command "~/go/bin/gofmt"))
 
+(setq gofmt-command "/usr/local/go/bin/gofmt")
+
+
 
 ;; make helm selections easier to see
 ; (set-face-attribute 'helm-selection nil :background "yellow" :foreground "black")
@@ -1032,7 +1057,7 @@
 (put 'downcase-region 'disabled nil)
 
 (when (member "Iosevka" (font-family-list))
-  (set-frame-font "Iosevka-20"))
+  (set-frame-font "Iosevka-16"))
 
 (golden-ratio-mode 1)
 (golden-ratio-toggle-widescreen)
