@@ -395,8 +395,9 @@
 
 (defhydra hydra-remove-stuff ()
   "remove-stuff"
-  ("e" jack-clipboard-symbol-underpoint "select word under point and select" :color blue)
-  ("w" jack-kill-symbol-underpoint "remove word under point" :color blue))
+  ("e" jack-copy-symbol-underpoint "select word under point and copy" :color blue)
+  ("r" jack-delete-symbol-underpoint "remove word under point" :color blue)
+  ("w" jack-cut-symbol-underpoint "remove word under point and copy" :color blue))
 (global-set-key (kbd "M-c ") 'hydra-remove-stuff/body)
 
 (defhydra hydra-iregister ()

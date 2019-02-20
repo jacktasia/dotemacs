@@ -76,17 +76,31 @@
   (interactive)
   (multi-occur-in-matching-buffers "." (read-from-minibuffer "Search all buffers for: ")))
 
-(defun jack-kill-symbol-underpoint ()
+(defun jack-delete-symbol-underpoint ()
   (interactive)
-  (call-interactively 'er/mark-symbol)
-  (call-interactively 'backward-delete-char))
+  (jack--remove-symbol-underpoint nil))
+
+(defun jack-cut-symbol-underpoint ()
+  (interactive)
+  (jack--remove-symbol-underpoint t))
+
+(defun jack--remove-symbol-underpoint (do-copy)
+  (with-no-warnings
+    (call-interactively 'er/mark-symbol)
+    (when do-copy
+      (kill-ring-save (region-beginning) (region-end) t))
+    (call-interactively 'backward-delete-char)
+    (when (and (jack-is-prev-char-space?)
+               (jack-is-next-char-space?))
+      (call-interactively 'delete-char))))
 
 ;; (kill-new "random string") to add an arb string to the kill-ring
-(defun jack-clipboard-symbol-underpoint ()
+(defun jack-copy-symbol-underpoint ()
   (interactive)
   (with-no-warnings
     (call-interactively 'er/mark-symbol)
     (kill-ring-save (region-beginning) (region-end) t)))
+
 
 (defun jack-special-delete ()
   (interactive)
@@ -194,6 +208,10 @@ With argument ARG, do this that many times."
 (defun jack-is-next-char-space? ()
   "If the next character is a space then t else nil."
   (string= (char-to-string (char-after (point))) " "))
+
+(defun jack-is-prev-char-space? ()
+  "If the previous character is a space then t else nil."
+  (string= (char-to-string (char-before (point))) " "))
 
 (defun jack-match-above-alignment ()
   "Insert enough spaces to match the whitespace above for the next column."
