@@ -109,6 +109,14 @@
     (when (= (point) start-point)
       (jack-backward-delete-word 1))))
 
+(defun jack-special-forward-delete ()
+  (interactive)
+  (let ((start-point (point)))
+    (jack-hungry-forward-delete)
+    (when (= (point) start-point)
+      (jack-forward-delete-word 1))))
+
+
 (defun jack-special-next ()
   "Try going to next symbol or avy-got-char."
   (interactive)
@@ -135,6 +143,7 @@
       (call-interactively 'avy-goto-char))))
 
 (defun jack-hungry-delete ()
+  "Keep deleting backward as long as it sees whitespace."
   (interactive)
   (let ((cur (char-to-string
               (char-before (point)))))
@@ -143,13 +152,29 @@
       (delete-char -1)
       (jack-hungry-delete))))
 
+(defun jack-hungry-forward-delete ()
+  "Keep deleting forward as long as it sees whitespace."
+  (interactive)
+  (let ((cur (char-to-string
+              (char-after (point)))))
+    (when (or (string-equal " " cur)
+              (string-equal "\t" cur))
+      (delete-char 1)
+      (jack-hungry-forward-delete))))
+
 ;; http://stackoverflow.com/a/6133921/24998
 ;; don't want to add delete word to the kill-ring
 (defun jack-backward-delete-word (arg)
-  "Delete characters backward until encountering the beginning of a word.
+  "Delete characters backward until encountering the end of a word.
 With argument ARG, do this that many times."
   (interactive "p")
   (delete-region (point) (progn (backward-word arg) (point))))
+
+(defun jack-forward-delete-word (arg)
+  "Delete characters forward until encountering the beginning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
 
 (defun jack-start-fullscreen ()
   (interactive)
