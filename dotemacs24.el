@@ -692,6 +692,9 @@
 
 (setq avy-background nil) ; t
 (setq avy-case-fold-search nil)
+(advice-add #'avy-goto-char :after #'jack-avy-to-char-post)
+;; (advice-remove #'avy-goto-char  #'jack-avy-to-char-post)
+
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
 ;(global-set-key (kbd "M-g c") 'avy-goto-char)
@@ -704,11 +707,15 @@
 (global-set-key (kbd "C-;") 'avy-goto-char)
 (global-set-key (kbd "C-.") 'avy-goto-char)
 ;(global-set-key (kbd "C-,") 'avy-goto-subword-0)
-(global-set-key (kbd "C-,") 'avy-goto-char)
+;(global-set-key (kbd "C-,") ''avy-goto-char)
 (bind-keys* ("C-'" . avy-goto-char))
+(bind-keys* ("C-," . avy-goto-char))
 
 (bind-keys* ("M-r" . counsel-yank-pop))
-(global-set-key (kbd "M-SPC") 'avy-goto-char)
+;(global-set-key (kbd "M-SPC") 'avy-goto-char)
+
+
+(string= (char-to-string (c-int-to-char 10)) "\n")
 
 ;(global-set-key (kbd "C-\'") 'er/expand-region)
 
