@@ -473,7 +473,8 @@
          ("M-g i" . dumb-jump-go-prompt)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
+  ;:config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
+  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'rg dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
 (use-package smartparens
@@ -607,7 +608,6 @@
 (bind-keys* ("M-p" . jack-special-prev))
 ;(bind-keys* ("M-n" . highlight-symbol-next))
 (bind-keys* ("M-n" . jack-special-next))
-(bind-keys* ("C-z" . avy-goto-char))
 (bind-keys* ("C-S-P" . scroll-down-line))
 (bind-keys* ("C-S-N" . scroll-up-line))
 ;(bind-keys* ("C-x p" . helm-projectile-switch-project))
@@ -628,7 +628,7 @@
 (key-chord-mode 1)
 ;; (key-chord-define-global "qw" 'undo)
 ;; (key-chord-define-global "gh" 'er/mark-symbol)
-(key-chord-define-global "fj" 'avy-goto-char)
+(key-chord-define-global "fj" 'jack-avy-goto-char)
 ;(key-chord-define-global "fj" 'avy-goto-subword-0)
 ;; (key-chord-define-global "gh" 'avy-goto-line)
 ;; (key-chord-define-global "dk" 'avy-goto-char-in-line)
@@ -692,7 +692,9 @@
 
 (setq avy-background nil) ; t
 (setq avy-case-fold-search nil)
-(advice-add #'avy-goto-char :after #'jack-avy-to-char-post)
+
+;; (advice-add #'avy-goto-char :after-while #'jack-avy-to-char-post)
+; (setq debug-on-error t)
 ;; (advice-remove #'avy-goto-char  #'jack-avy-to-char-post)
 
 (global-set-key (kbd "M-g h") 'highlight-symbol-at-point)
@@ -701,21 +703,29 @@
 (global-set-key (kbd "M-g c") 'avy-goto-char-in-line)
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
 (global-set-key (kbd "M-g t") 'avy-goto-char-timer)
-(global-set-key (kbd "C-0") 'avy-goto-char)
+;(bind-keys* ("C-z" . avy-goto-char))
+;(global-set-key (kbd "C-0") 'avy-goto-char)
 ;(global-set-key (kbd "C-\\") 'avy-goto-char)
-(global-set-key (kbd "C-\\") 'avy-goto-char)
-(global-set-key (kbd "C-;") 'avy-goto-char)
-(global-set-key (kbd "C-.") 'avy-goto-char)
+;(global-set-key (kbd "C-\\") 'avy-goto-char)
+;(global-set-key (kbd "C-;") 'avy-goto-char)
+;(global-set-key (kbd "C-.") 'avy-goto-char)
 ;(global-set-key (kbd "C-,") 'avy-goto-subword-0)
 ;(global-set-key (kbd "C-,") ''avy-goto-char)
-(bind-keys* ("C-'" . avy-goto-char))
-(bind-keys* ("C-," . avy-goto-char))
+;(global-set-key (kbd "s-s") 'avy-goto-subword-0)
+;(define-key global-map (kbd "C-c s") 'avy-goto-subword-1)
+;(define-key global-map (kbd "C-z") 'avy-goto-subword-1)
+;(define-key global-map (kbd "C-c s") 'avy-goto-char-timer)
+;(define-key global-map (kbd "C-=") 'avy-goto-char-timer)
+;(define-key global-map (kbd "C-c a") 'ace-jump-mode-pop-mark)
+;; (bind-keys* ("C-," . (lambda () (message "%s" "test"))))
+;; (global-set-key (kbd "C-.") (lambda () (message "%s" "test")))
+(bind-keys* ("C-," . jack-avy-goto-char))
 
 (bind-keys* ("M-r" . counsel-yank-pop))
 ;(global-set-key (kbd "M-SPC") 'avy-goto-char)
 
 
-(string= (char-to-string (c-int-to-char 10)) "\n")
+;(string= (char-to-string (c-int-to-char 10)) "\n")
 
 ;(global-set-key (kbd "C-\'") 'er/expand-region)
 
@@ -834,18 +844,13 @@
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
-(setq ace-jump-mode-scope 'window)
-(setq ace-jump-mode-move-keys
-      (loop for i from ?a to ?z collect i))
+;; (setq ace-jump-mode-scope 'window)
+;; (setq ace-jump-mode-move-keys
+;;       (loop for i from ?a to ?z collect i))
 ;; (define-key global-map (kbd "C-c s") 'ace-jump-char-mode)
 
 
-;; (global-set-key (kbd "s-s") 'avy-goto-subword-0)
-;; (define-key global-map (kbd "C-c s") 'avy-goto-subword-1)
-;; (define-key global-map (kbd "C-z") 'avy-goto-subword-1)
-(define-key global-map (kbd "C-c s") 'avy-goto-char-timer)
-(define-key global-map (kbd "C-=") 'avy-goto-char-timer)
-;(define-key global-map (kbd "C-c a") 'ace-jump-mode-pop-mark)
+
 
 
 (define-key flyspell-mode-map (kbd "C-c \$") 'jack-save-word)
@@ -1066,7 +1071,7 @@
 (put 'downcase-region 'disabled nil)
 
 (when (member "Iosevka" (font-family-list))
-  (set-frame-font "Iosevka-16"))
+  (set-frame-font "Iosevka-20"))
 
 (golden-ratio-mode 1)
 (golden-ratio-toggle-widescreen)

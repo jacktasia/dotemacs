@@ -235,14 +235,11 @@ With argument ARG, do this that many times."
   (string= (char-to-string (char-after (point))) " "))
 
 (defun jack-is-next-n-char-boundary? (&optional n)
-  "If the next N characters over is a space then t else nil."
+  "If the next N characters over is a boundary then t else nil."
   (let* ((point-offset (+ (point) (or n 0)))
          (use-char (char-after point-offset)))
     ;(message "~~~~trying to use char: %s" use-char)
     (member use-char (mapcar (lambda (x) (c-int-to-char x)) '(32 10 40 41 93 91 95 34 47)))))
-
-
-;(string-to-char "/")
 
 (defun jack-is-prev-char-space? ()
   "If the previous character is a space then t else nil."
@@ -653,10 +650,17 @@ and `defcustom' forms reset their default values."
   (font-lock-fontify-buffer))
 
 
-(defun jack-avy-to-char-post (char &optional arg) ;; needs to match the signature of the `avy-goto-char`
+(defun jack-avy-to-char-post () ;; needs to match the signature of the `avy-goto-char`
+;(defun jack-avy-to-char-post () ;; needs to match the signature of the `avy-goto-char`
   (interactive)
   (when (jack-is-next-n-char-boundary? 1)
     (forward-char 1)))
+
+(defun jack-avy-goto-char ()
+  (interactive)
+  (call-interactively 'avy-goto-char)
+  (jack-avy-to-char-post))
+
 
 
 ;;
