@@ -57,10 +57,10 @@
  '(chess-default-display (quote (chess-ics1 chess-plain)))
  '(custom-safe-themes
    (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("2296db63b1de14e65390d0ded8e2b5df4b9e4186f3251af56807026542a58201" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(package-selected-packages
    (quote
-    (binclock haskell-mode iregister origami indent-guide prettier-js helm-make company-tabnine blacken golden-ratio scala-mode dockerfile-mode dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
+    (aio doom-themes all-the-icons-ivy kaolin-themes deadgrep treemacs seoul256-theme typescript-mode helpful buffer-expose imenu-list flymd binclock haskell-mode iregister origami indent-guide prettier-js helm-make company-tabnine blacken golden-ratio scala-mode dockerfile-mode dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
  '(paradox-github-token t))
 
 
@@ -72,6 +72,7 @@
 (require 'midnight)
 (require 'uniquify)
 (require 'org)
+(require 'color)
 
 ;; (unless (string-equal system-type "darwin")
 ;;   (jack-emacs-maximize)) ;; only works for linux right now (requires wmctrl)
@@ -98,6 +99,7 @@
 (show-paren-mode t)
 (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.sh\\'" . shell-script-mode))
+(toggle-truncate-lines -1)         ;; do not truncate lines in org mode
 (setq org-log-done t)              ;; show done time when marking a todo done
 (defalias 'yes-or-no-p 'y-or-n-p)  ;; don't require full "yes" for confirms
 (tool-bar-mode -1)                 ;; get rid of tool bar
@@ -261,9 +263,7 @@
 
 
 
-;; force the fringe to match the current theme's bg color
-(let ((cur-bg-color (face-attribute 'default :background)))
-  (set-face-attribute 'fringe nil :background cur-bg-color))
+
 
 
 
@@ -327,7 +327,8 @@
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
          git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode
          vagrant-tramp emamux gh-md google-translate ivy-rich dockerfile-mode golden-ratio blacken
-         fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister binclock haskell-mode)))
+         fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister
+         binclock haskell-mode flymd imenu-list typescript-mode deadgrep)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -335,6 +336,11 @@
 ;; POST PACKAGE INSTALL
 ;;
 ;; (setq helm-ag-use-agignore t)
+
+(defun my-flymd-browser-function (url)
+   (let ((browse-url-browser-function 'browse-url-firefox))
+     (browse-url url)))
+ (setq flymd-browser-open-function 'my-flymd-browser-function)
 
 (add-to-list 'company-backends #'company-tabnine)
 
@@ -362,7 +368,7 @@
 (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
 ;(global-fci-mode 1)
 
-(bind-keys* ("C-c u" . global-fci-mode))
+;(bind-keys* ("C-c u" . global-fci-mode))
 
 (bind-keys* ("<M-return>" . helm-make-projectile))
 
@@ -473,8 +479,8 @@
          ("M-g i" . dumb-jump-go-prompt)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  ;:config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
-  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'rg dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
+  :config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
+  ;:config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'git-grep-plus-ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
 (use-package smartparens
@@ -510,6 +516,8 @@
   :bind (("s-t" . counsel-projectile-find-file)
          ("s-o" . counsel-projectile-find-file)
          ("C-M-t" . jack-counsel-projectile-find-file-clear-cache)
+         ("C-t" . counsel-projectile-find-file)
+         :map dired-mode-map
          ("C-t" . counsel-projectile-find-file))
   :ensure)
 
@@ -545,7 +553,7 @@
 ;;(bind-keys* ("C-c `" . spotify-playpause))
 ;;(bind-keys* ("C-c v" . volume))
 (ivy-mode 1)
-(ivy-rich-mode 1)
+(ivy-rich-mode t)
 
 (setq ivy-rich-switch-buffer-align-virtual-buffer t)
 (setq ivy-count-format "(%d/%d) ")
@@ -667,6 +675,7 @@
 ;(define-key global-map (kbd "C-c s") 'avy-goto-char)
 
 (global-set-key (kbd "M-g f") 'jack-helm-projectile-ag-at-point)
+(global-set-key (kbd "M-g r") 'jack-smart-deadgrep)
 ;(global-set-key (kbd "M-g f") 'helm-git-grep-at-point)
 (global-set-key (kbd "M-g d") 'osx-dictionary-search-word-at-point)
 ;(global-set-key (kbd "M-g f") 'jack-counsel-git-grep-at-point)
@@ -721,6 +730,7 @@
 ;; (global-set-key (kbd "C-.") (lambda () (message "%s" "test")))
 (bind-keys* ("C-," . jack-avy-goto-char))
 
+(bind-keys* ("C-'" . imenu-list-smart-toggle))
 (bind-keys* ("M-r" . counsel-yank-pop))
 ;(global-set-key (kbd "M-SPC") 'avy-goto-char)
 
@@ -856,14 +866,11 @@
 (define-key flyspell-mode-map (kbd "C-c \$") 'jack-save-word)
 (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic)
 
-(global-set-key (kbd "M-<down>") (quote scroll-up-line)) ;; scroll by one line --
-(global-set-key (kbd "M-<up>") (quote scroll-down-line))
-(global-set-key (kbd "M-n") '(lambda()(interactive)(scroll-up-line)(next-line)))
-(global-set-key (kbd "M-p") '(lambda()(interactive)(scroll-down-line)(previous-line)))
+;(global-set-key (kbd "M-<down>") (quote scroll-up-line)) ;; scroll by one line --
+;(global-set-key (kbd "M-<up>") (quote scroll-down-line))
 
-
-
-
+(bind-keys* ("M-<down>" . scroll-up-line))
+(bind-keys* ("M-<up>" . scroll-down-line))
 
 ;(define-key global-map (kbd "C-s") 'isearch-forward)
 (bind-keys* ("<C-return>" . set-rectangular-region-anchor))
@@ -1041,7 +1048,7 @@
 ;;; end common lisp stuff
 
 ; make default font size slightly bigger...
-(set-face-attribute 'default nil :height 140)
+;f(set-face-attribute 'default nil :height 140)
 
 (global-diff-hl-mode 1)
 
@@ -1063,6 +1070,20 @@
 (jack-load-theme 'zerodark-theme)
 (zerodark-setup-modeline-format)
 
+(use-package kaolin-themes
+  :ensure
+  :config
+  ;(load-theme 'kaolin-valley-dark t)
+  (load-theme 'kaolin-bubblegum t)
+  (kaolin-treemacs-theme))
+
+;; force the fringe to match the current theme's bg color
+(let ((cur-bg-color (face-attribute 'default :background)))
+  (set-face-attribute 'fringe nil :background cur-bg-color)
+  (setq auto-dim-other-buffers-face (color-lighten-name cur-bg-color 25)))
+
+;; nova-theme?
+
 (server-start)
 (pmdm-load-files)
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
@@ -1070,8 +1091,12 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(when (member "Iosevka" (font-family-list))
-  (set-frame-font "Iosevka-20"))
+; (s-join "\n" (font-family-list))
+;; (when (member "Iosevka" (font-family-list))
+;;   (set-frame-font "Iosevka-20"))
+
+(when (member "Noto Mono" (font-family-list))
+  (set-frame-font "Noto Mono-22"))
 
 (golden-ratio-mode 1)
 (golden-ratio-toggle-widescreen)

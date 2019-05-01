@@ -216,6 +216,7 @@ With argument ARG, do this that many times."
     (delete-horizontal-space)
     (insert-char (string-to-char " ") above-col)))
 
+
 (defun jack-match-above-indentation ()
   (interactive)
   (let ((above-col (save-excursion
@@ -311,6 +312,7 @@ and `defcustom' forms reset their default values."
 (defun jack-run-ert-tests ()
   (interactive)
   (my/eval-buffer)
+  ;(eval-buffer)
   (ert-run-tests-interactively t))
 
 ; based off of http://stackoverflow.com/a/10364547/24998
@@ -706,6 +708,19 @@ Non-interactive arguments are Begin End Regexp"
     (when (> tab-count space-count) (message "%s" "Indention type: tabs") (setq indent-tabs-mode t))))
 
 
+(defun jack-smart-deadgrep ()
+  (interactive)
+  (cond
+   ((string-equal "java-mode" major-mode)
+      (setq-default deadgrep--file-type (cons 'glob "*.java"))
+      (call-interactively 'deadgrep))
+
+   ((string-equal "python-mode" major-mode)
+      (setq-default deadgrep--file-type (cons 'glob "*.py"))
+      (call-interactively 'deadgrep))
+   (t
+    (setq-default deadgrep--file-type 'all)
+    (call-interactively 'deadgrep))))
 
 ;; https://bitbucket.org/inigoserna/pmdm.el/src/ab67371889fb5e70d227f863377f8d1f567ec580?at=default
 ;;
