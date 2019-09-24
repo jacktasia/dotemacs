@@ -37,7 +37,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Code:
-
+;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(setq gnutls-algorithm-priority nil)
 (defconst *start-time* (current-time)) ;; record start time to time .emacs load time
 
 (defvar emacsdir
@@ -49,19 +50,20 @@
 
 (load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(chess-default-display (quote (chess-ics1 chess-plain)))
- '(custom-safe-themes
-   (quote
-    ("2296db63b1de14e65390d0ded8e2b5df4b9e4186f3251af56807026542a58201" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(package-selected-packages
-   (quote
-    (aio doom-themes all-the-icons-ivy kaolin-themes deadgrep treemacs seoul256-theme typescript-mode helpful buffer-expose imenu-list flymd binclock haskell-mode iregister origami indent-guide prettier-js helm-make company-tabnine blacken golden-ratio scala-mode dockerfile-mode dictionary ivy-rich weechat paradox google-translate boon ace-isearch flyspell-correct-ivy restart-emacs gh-md dumb-diff emamux define-word diffview vagrant-tramp puppet-mode vdiff terraform-mode visible-mark cider alert add-node-modules-path smartparens gruvbox-theme importmagic hy-mode osx-dictionary slime hydra undo-tree chess svg-clock mosey web-beautify spaceline delight counsel-projectile counsel swiper diff-hl volume spotify grizzl helm-themes visual-regexp helm-swoop json-mode web-mode easy-kill auto-dim-other-buffers helm-ag which-key free-keys goto-last-change magit persistent-scratch ace-mc key-chord crux google-this hlinum beacon smooth-scrolling clojure-mode dumb-jump yaml-mode smartscan use-package expand-region default-text-scale emmet-mode nyan-mode request flyspell-lazy helm-projectile helm scss-mode js2-mode dtrt-indent ido-vertical-mode multi-term fic-mode smart-mode-line ht ws-butler highlight-symbol ag groovy-mode exec-path-from-shell smex anzu switch-window flx-ido ido-sort-mtime flycheck fringe-helper projectile multiple-cursors go-mode php-mode rainbow-delimiters ace-jump-buffer ace-jump-mode company-jedi company-tern company-anaconda company dracula-theme rainbow-mode)))
- '(paradox-github-token t))
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(chess-default-display (quote (chess-ics1 chess-plain)))
+;;  '(custom-safe-themes
+;;    (quote
+;;     ("2296db63b1de14e65390d0ded8e2b5df4b9e4186f3251af56807026542a58201" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+;;  '(debug-on-error t)
+;;  '(global-fci-mode nil)
+;;  '(package-selected-packages
+;;    (quote
+;;  '(paradox-github-token t))
 
 
 ;; user-emacs-directory
@@ -151,6 +153,7 @@
 
 
 (global-set-key (kbd "C-x i") 'infer-indentation-style)   ;; infer spaces/tabs
+
 
 ;;
 ;; make good use of arrow keys
@@ -254,7 +257,7 @@
 ;; THEME - auto-install
 ;;
 
-(jack-require-or-install 'rainbow-mode)
+;(jack-require-or-install 'rainbow-mode)
 
 ;; Loading themes at the very end of the file instead. Seems to work better
 ; (jack-load-theme 'dracula-theme) ;; material-theme darktooth-theme monokai-theme ample-theme zenburn-theme misterioso-theme
@@ -289,6 +292,7 @@
  '(vhl/default-face ((t (:inherit default :background "yellow2")))))
 
 (scroll-bar-mode -1)
+(toggle-scroll-bar -1)
 
 
 
@@ -328,7 +332,7 @@
          git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode
          vagrant-tramp emamux gh-md google-translate ivy-rich dockerfile-mode golden-ratio blacken
          fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister
-         binclock haskell-mode flymd imenu-list typescript-mode deadgrep)))
+         binclock haskell-mode flymd imenu-list typescript-mode deadgrep iflipb format-all ace-window powerthesaurus ts)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -337,6 +341,20 @@
 ;;
 ;; (setq helm-ag-use-agignore t)
 
+;; format-all is poorly setup for overrides so the quick thing is just edit the code directly
+;; (define-format-all-formatter shfmt
+;;   (:executable "shfmt")
+;;   (:install (macos "brew install shfmt"))
+;;   (:modes sh-mode)
+;;   (:format
+;;    (format-all--buffer-easy
+;;     executable
+;;     "-i" "2" "-ci" "-ln" (cl-case (and (boundp 'sh-shell) (symbol-value 'sh-shell))
+;;             (bash "bash") (mksh "mksh") (t "posix")))))
+
+(global-set-key (kbd "M-h") 'iflipb-next-buffer)
+(global-set-key (kbd "M-H") 'iflipb-previous-buffer)
+
 (defun my-flymd-browser-function (url)
    (let ((browse-url-browser-function 'browse-url-firefox))
      (browse-url url)))
@@ -344,7 +362,6 @@
 
 (add-to-list 'company-backends #'company-tabnine)
 
-(setq company-idle-delay 0)
 
 ;; Number the candidates (use M-1, M-2 etc to select completions).
 (setq company-show-numbers t)
@@ -450,6 +467,23 @@
   ("1" dumb-diff-set-region-as-buffer1 "inject into diff buf 1"  :exit t)
   ("2" dumb-diff-set-region-as-buffer2 "inject into diff buf 2"  :exit t))
 
+
+(load-file "/home/jack/code/dumb-java/dumb-java.el")
+(defhydra hydra-dumb-java
+  (global-map "C-z")
+  "dumb java"
+  ("d" ej-javadoc-proj "javadoc"  :exit t)
+  ;;("i" ej-run-imports-fixer "imports-fix"  :exit t)
+  ;;("c" ej-compile-proj "compile-proj"  :exit t)
+  ("c" ej-compile-via-server "compile"  :exit t)
+  ("j" ej-jar-via-server "jar"  :exit t)
+  ("h" ej-info-via-server "info"  :exit t)
+  ("i" ej-fix-imports-via-server "imports-fix"  :exit t)
+  ("a" ej-import-and-compile "import and compile proj"  :exit t)
+  ;("c" ej-clean-proj "compile-clean"  :exit t)
+  ("b" ej-clean-and-compile-proj "clean and compile"  :exit t)
+
+  )
 
 (use-package move-text
   :bind (("C-x <up>" . move-text-line-up)
@@ -571,7 +605,8 @@
 (projectile-global-mode +1)
 (setq projectile-enable-caching t)
 
-(diminish 'flycheck-mode)
+; (diminish 'flycheck-mode "HOME")
+(diminish 'flycheck-mode "WORK")
 (diminish 'company-mode)
 (diminish 'projectile-mode)
 (diminish 'auto-dim-other-buffers-mode)
@@ -628,6 +663,7 @@
 
 ;; TODO: use a hydra for these
 (bind-keys* ("C-M-," . jack-new-scratch))
+;;(bind-keys* ("M-," . jack-select-scratch))
 (bind-keys* ("M-," . jack-select-scratch))
 (bind-keys* ("C-c v" . avy-goto-word-0))
 
@@ -641,7 +677,7 @@
 ;; (key-chord-define-global "gh" 'avy-goto-line)
 ;; (key-chord-define-global "dk" 'avy-goto-char-in-line)
 
-(auto-dim-other-buffers-mode t)
+; (auto-dim-other-buffers-mode t) ; (auto-dim-other-buffers-mode nil)
 
 (hlinum-activate)
 
@@ -729,6 +765,9 @@
 ;; (bind-keys* ("C-," . (lambda () (message "%s" "test"))))
 ;; (global-set-key (kbd "C-.") (lambda () (message "%s" "test")))
 (bind-keys* ("C-," . jack-avy-goto-char))
+(bind-keys* ("C-q" . recenter-top-bottom))
+(bind-keys* ("C-l" . jack-avy-goto-char))
+(bind-keys* ("M-," . jack-avy-goto-char))
 
 (bind-keys* ("C-'" . imenu-list-smart-toggle))
 (bind-keys* ("M-r" . counsel-yank-pop))
@@ -801,7 +840,7 @@
 (add-to-list 'company-backends 'company-tern)
 (setq company-tern-property-marker "")
 (setq company-tern-meta-as-single-line t)
-(setq company-idle-delay 0.1)
+(setq company-idle-delay 1.1)
 
 ;; ido config
 (ido-mode 1)
@@ -849,8 +888,9 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;;old M-x.
 ;(global-set-key (kbd "C-x o") 'switch-window)
-(global-set-key (kbd "C-x o") 'other-window)
-(global-set-key (kbd "M-o") 'switch-window)
+;(global-set-key (kbd "C-x o") 'other-window)
+(global-set-key (kbd "C-x o") 'ace-window)
+(global-set-key (kbd "M-o") 'ace-window)
 (global-set-key (kbd "C-c .") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c ,") 'mc/edit-lines)
 
@@ -935,6 +975,10 @@
     (prettify-symbols-mode)
     (setq indent-tabs-mode nil)
     (setq python-indent 4)
+    (setq tab-width 4)))
+
+(add-hook 'go-mode-hook
+  (lambda ()
     (setq tab-width 4)))
 
 ;(global-prettify-symbols-mode nil)
@@ -1074,8 +1118,14 @@
   :ensure
   :config
   ;(load-theme 'kaolin-valley-dark t)
-  (load-theme 'kaolin-bubblegum t)
+;  (load-theme 'kaolin-galaxy t) ;; home
+  (load-theme 'kaolin-bubblegum t) ;; work
   (kaolin-treemacs-theme))
+
+;; to detect if in `home` mode
+; (setq global-mode-string (append global-mode-string "HOME"))
+
+;;
 
 ;; force the fringe to match the current theme's bg color
 (let ((cur-bg-color (face-attribute 'default :background)))
@@ -1084,7 +1134,7 @@
 
 ;; nova-theme?
 
-(server-start)
+;(server-start)
 (pmdm-load-files)
 (message ".emacs loaded in %s seconds" (mapconcat 'int-to-string (rest (time-since *start-time*)) "."))
 (put 'erase-buffer 'disabled nil)
@@ -1096,7 +1146,7 @@
 ;;   (set-frame-font "Iosevka-20"))
 
 (when (member "Noto Mono" (font-family-list))
-  (set-frame-font "Noto Mono-22"))
+  (set-frame-font "Noto Mono-12"))
 
 (golden-ratio-mode 1)
 (golden-ratio-toggle-widescreen)
@@ -1111,3 +1161,14 @@
   (if (file-exists-p custom-file-path)
       (load-file custom-file-path)
     (message "No %s file found in %s" custom-file-name emacsdir)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(package-selected-packages
+   (quote
+    (ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))))

@@ -1,4 +1,5 @@
 (require 'time-stamp)
+(require 'ts)
 
 (defun vlad-to-snake-case ()
   (interactive)
@@ -12,6 +13,35 @@
     (replace-regexp "[,]\n" ";\n" nil beginning end)
     (replace-regexp "[`'\"]" "" nil beginning end)
     (to-snake-case)))
+
+(defun jack-enforce-seconds (ts)
+  (cond
+   ((< ts 7000000000)
+    `("seconds" ,ts))
+   ((< ts 7000000000000)
+    `("milli" ,(/ ts 1000)))
+   ((< ts 7000000000000000)
+    `("micro" ,(/ ts 1000000)))
+   ((t
+     ts))))
+
+(defun jack-human-ts ()
+  (interactive)
+  (let* ((raw-ts (thing-at-point 'number))
+         (parsed-ts (jack-enforce-seconds raw-ts))
+         (unit-ts (nth 0 parsed-ts))
+         (real-ts (nth 1 parsed-ts)))
+    (message "%s [%s] is %s" raw-ts unit-ts (ts-format (make-ts :unix real-ts)))))
+
+(defun jack-work-mode ()
+  (interactive)
+  (diminish 'flycheck-mode "WORK")
+  (load-theme 'kaolin-bubblegum t))
+
+(defun jack-home-mode ()
+  (interactive)
+  (diminish 'flycheck-mode "HOME")
+  (load-theme 'kaolin-galaxy t))
 
 (defun jack-run-python3-buffer ()
   (interactive)
