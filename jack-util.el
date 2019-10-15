@@ -1,5 +1,5 @@
 (require 'time-stamp)
-(require 'ts)
+;(require 'ts)
 
 (defun vlad-to-snake-case ()
   (interactive)
@@ -32,6 +32,29 @@
          (unit-ts (nth 0 parsed-ts))
          (real-ts (nth 1 parsed-ts)))
     (message "%s [%s] is %s" raw-ts unit-ts (ts-format (make-ts :unix real-ts)))))
+
+(defun jack-ensure-google-java-format ()
+  (interactive)
+  (let* ((jf-bin-dir (file-truename "~/bin"))
+         (script (format "java -jar %s/google-java-format.jar \"$@\"" jf-bin-dir))
+         (jf-script-local-file (format "%s/google-java-format.sh" jf-bin-dir))
+         (jf-emacs-local-file (format "%s/google-java-format.el" jf-bin-dir))
+         (jf-jar-local-file (format "%s/google-java-format.jar" jf-bin-dir))
+         (jf-emacs-dl-url "https://raw.githubusercontent.com/google/google-java-format/4fa9d4967170109b1f8b238c12bb42ee9d26ba88/core/src/main/scripts/google-java-format.el")
+        (jf-jar-dl-url "https://github.com/google/google-java-format/releases/download/google-java-format-1.7/google-java-format-1.7-all-deps.jar"))
+
+  (unless (f-exists? jf-emacs-local-file)
+    (url-copy-file jf-emacs-dl-url jf-emacs-local-file))
+
+  (unless (f-exists? jf-script-local-file)
+    (write-region script nil jf-script-local-file))
+
+  (unless (f-exists? jf-jar-local-file)
+    (url-copy-file jf-jar-dl-url jf-jar-local-file))
+
+  (load jf-emacs-local-file)
+  (require 'google-java-format)
+  (setq google-java-format-executable (format "%s/google-java-format.sh" jf-bin-dir))))
 
 (defun jack-work-mode ()
   (interactive)

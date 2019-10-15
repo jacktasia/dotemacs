@@ -48,7 +48,8 @@
        (shell-command-to-string
        "ls -al ~/.emacs | awk '{print $NF}'"))))
 
-(load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
+;(load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
+(load-file "/home/jack/code/dotemacs/jack-util.el")
 
 ;; (custom-set-variables
 ;;  ;; custom-set-variables was added by Custom.
@@ -351,6 +352,8 @@
 ;;     executable
 ;;     "-i" "2" "-ci" "-ln" (cl-case (and (boundp 'sh-shell) (symbol-value 'sh-shell))
 ;;             (bash "bash") (mksh "mksh") (t "posix")))))
+
+(jack-ensure-google-java-format)
 
 (global-set-key (kbd "M-h") 'iflipb-next-buffer)
 (global-set-key (kbd "M-H") 'iflipb-previous-buffer)
@@ -767,7 +770,7 @@
 (bind-keys* ("C-," . jack-avy-goto-char))
 (bind-keys* ("C-q" . recenter-top-bottom))
 (bind-keys* ("C-l" . jack-avy-goto-char))
-(bind-keys* ("M-," . jack-avy-goto-char))
+;(bind-keys* ("M-," . jack-avy-goto-char))
 
 (bind-keys* ("C-'" . imenu-list-smart-toggle))
 (bind-keys* ("M-r" . counsel-yank-pop))
@@ -981,6 +984,12 @@
   (lambda ()
     (setq tab-width 4)))
 
+(add-hook 'java-mode-hook
+  (lambda ()
+    (setq c-basic-offset 2)
+    (setq tab-width 2)))
+
+;; (setq-default tab-width 2)
 ;(global-prettify-symbols-mode nil)
 
 (add-hook 'hy-mode-hook 'rainbow-delimiters-mode)
@@ -1171,4 +1180,4 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))))
+    (ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))))
