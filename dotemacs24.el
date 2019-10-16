@@ -51,22 +51,6 @@
 ;(load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
 (load-file "/home/jack/code/dotemacs/jack-util.el")
 
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(chess-default-display (quote (chess-ics1 chess-plain)))
-;;  '(custom-safe-themes
-;;    (quote
-;;     ("2296db63b1de14e65390d0ded8e2b5df4b9e4186f3251af56807026542a58201" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "10e231624707d46f7b2059cc9280c332f7c7a530ebc17dba7e506df34c5332c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
-;;  '(debug-on-error t)
-;;  '(global-fci-mode nil)
-;;  '(package-selected-packages
-;;    (quote
-;;  '(paradox-github-token t))
-
-
 ;; user-emacs-directory
 ;(message "%s is the value of emacsdir" emacsdir)
 
@@ -331,9 +315,9 @@
          visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
          git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode
-         vagrant-tramp emamux gh-md google-translate ivy-rich dockerfile-mode golden-ratio blacken
+         vagrant-tramp emamux gh-md google-translate ivy-rich dockerfile-mode blacken
          fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister
-         binclock haskell-mode flymd imenu-list typescript-mode deadgrep iflipb format-all ace-window powerthesaurus ts)))
+         binclock haskell-mode flymd imenu-list typescript-mode deadgrep iflipb format-all ace-window powerthesaurus ts zoom)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -354,6 +338,13 @@
 ;;             (bash "bash") (mksh "mksh") (t "posix")))))
 
 (jack-ensure-google-java-format)
+
+(defun size-callback ()
+  (cond ((> (frame-pixel-width) 2400) '(100 . 1.0))
+        (t                            '(0.5 . 0.5))))
+
+(custom-set-variables
+ '(zoom-size 'size-callback))
 
 (global-set-key (kbd "M-h") 'iflipb-next-buffer)
 (global-set-key (kbd "M-H") 'iflipb-previous-buffer)
@@ -620,7 +611,6 @@
 (diminish 'anzu-mode)
 (diminish 'eldoc-mode)
 (diminish 'ivy-mode)
-(diminish 'golden-ratio-mode)
 
 (helm-adaptive-mode)
 
@@ -667,7 +657,13 @@
 ;; TODO: use a hydra for these
 (bind-keys* ("C-M-," . jack-new-scratch))
 ;;(bind-keys* ("M-," . jack-select-scratch))
-(bind-keys* ("M-," . jack-select-scratch))
+
+
+(bind-keys* ("C-." . jack-select-scratch))
+(bind-keys* ("C-," . scroll-up-line))
+(bind-keys* ("M-," . scroll-down-line))
+
+
 (bind-keys* ("C-c v" . avy-goto-word-0))
 
 (persistent-scratch-setup-default)
@@ -767,7 +763,6 @@
 ;(define-key global-map (kbd "C-c a") 'ace-jump-mode-pop-mark)
 ;; (bind-keys* ("C-," . (lambda () (message "%s" "test"))))
 ;; (global-set-key (kbd "C-.") (lambda () (message "%s" "test")))
-(bind-keys* ("C-," . jack-avy-goto-char))
 (bind-keys* ("C-q" . recenter-top-bottom))
 (bind-keys* ("C-l" . jack-avy-goto-char))
 ;(bind-keys* ("M-," . jack-avy-goto-char))
@@ -1126,9 +1121,10 @@
 (use-package kaolin-themes
   :ensure
   :config
-  ;(load-theme 'kaolin-valley-dark t)
+  ;(load-theme 'kaolin-valley-dark t) ; workold
+  (load-theme 'kaolin-light t) ; current work
 ;  (load-theme 'kaolin-galaxy t) ;; home
-  (load-theme 'kaolin-bubblegum t) ;; work
+  ;(load-theme 'kaolin-bubblegum t) ;; work old
   (kaolin-treemacs-theme))
 
 ;; to detect if in `home` mode
@@ -1157,9 +1153,6 @@
 (when (member "Noto Mono" (font-family-list))
   (set-frame-font "Noto Mono-12"))
 
-(golden-ratio-mode 1)
-(golden-ratio-toggle-widescreen)
-
 
 (when (string-equal system-type "darwin")
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -1180,4 +1173,4 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))))
+    (zoom ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))))
