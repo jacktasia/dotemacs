@@ -37,19 +37,30 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Code:
+
+(setq jack-is-linux (eq system-type 'gnu/linux))
+(setq jack-is-windows (eq system-type 'windows-nt))
+(setq jack-is-mac (eq system-type 'darwin))
+(setq jack-is-nix (or jack-is-linux jack-is-mac))
+
 ;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq gnutls-algorithm-priority nil)
+(when jack-is-windows
+  (add-to-list 'exec-path "C:/Program Files/Git/bin"))
 (defconst *start-time* (current-time)) ;; record start time to time .emacs load time
 
-(defvar emacsdir
-  (file-name-directory
-    (replace-regexp-in-string
-       (regexp-quote "\n") ""
-       (shell-command-to-string
-       "ls -al ~/.emacs | awk '{print $NF}'"))))
+;; (defvar emacsdir
+;;   (file-name-directory
+;;     (replace-regexp-in-string
+;;        (regexp-quote "\n") ""
+;;        (shell-command-to-string
+;;        "ls -al ~/.emacs | awk '{print $NF}'"))))
 
-;(load-file (concat (file-name-as-directory emacsdir) "jack-util.el"))
-(load-file "/home/jack/code/dotemacs/jack-util.el")
+(defvar emacsdir
+  (file-name-directory (file-truename (or load-file-name buffer-file-name))))
+
+(load-file (concat emacsdir "jack-util.el"))
+;(load-file "/Users/jack/code/dotemacs/jack-util.el")
 
 ;; user-emacs-directory
 ;(message "%s is the value of emacsdir" emacsdir)
@@ -312,10 +323,10 @@
          smooth-scrolling beacon hlinum google-this crux key-chord ace-mc
          persistent-scratch goto-last-change free-keys which-key helm-ag
          auto-dim-other-buffers easy-kill web-mode json-mode helm-swoop
-         visual-regexp helm-themes grizzl spotify volume osx-dictionary hy-mode
+         visual-regexp helm-themes grizzl volume osx-dictionary hy-mode
          swiper delight spaceline web-beautify py-autopep8 undo-tree hydra slime gruvbox-theme zerodark-theme
          git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode
-         vagrant-tramp emamux gh-md google-translate ivy-rich dockerfile-mode blacken
+         emamux gh-md google-translate ivy-rich dockerfile-mode blacken
          fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister
          binclock haskell-mode flymd imenu-list typescript-mode deadgrep iflipb format-all ace-window powerthesaurus ts zoom
          dired-quick-sort)))
@@ -338,9 +349,9 @@
 ;;     "-i" "2" "-ci" "-ln" (cl-case (and (boundp 'sh-shell) (symbol-value 'sh-shell))
 ;;             (bash "bash") (mksh "mksh") (t "posix")))))
 
-(jack-ensure-google-java-format)
-
-(dired-quick-sort-setup)
+(when jack-is-nix
+  (dired-quick-sort-setup)
+  (jack-ensure-google-java-format))
 
 (defun size-callback ()
   (cond ((> (frame-pixel-width) 2400) '(100 . 0.7))
@@ -476,22 +487,21 @@
   ("2" dumb-diff-set-region-as-buffer2 "inject into diff buf 2"  :exit t))
 
 
-(load-file "/home/jack/code/sjt/sjt.el")
-(defhydra hydra-sjt
-  (global-map "C-z")
-  "sjt"
-  ("d" sjt-javadoc-proj "javadoc"  :exit t)
-  ;;("i" sjt-run-imports-fixer "imports-fix"  :exit t)
-  ;;("c" sjt-compile-proj "compile-proj"  :exit t)
-  ("c" sjt-compile-via-server "compile"  :exit t)
-  ("j" sjt-jar-via-server "jar"  :exit t)
-  ("h" sjt-info-via-server "info"  :exit t)
-  ("i" sjt-fix-imports-via-server "imports-fix"  :exit t)
-  ("a" sjt-import-and-compile "import and compile proj"  :exit t)
-  ;("c" sjt-clean-proj "compile-clean"  :exit t)
-  ("b" sjt-clean-and-compile-proj "clean and compile"  :exit t)
-
-  )
+(when jack-is-nix
+  (load-file "/home/jack/code/sjt/sjt.el")
+  (defhydra hydra-sjt
+    (global-map "C-z")
+    "sjt"
+    ("d" sjt-javadoc-proj "javadoc"  :exit t)
+    ;;("i" sjt-run-imports-fixer "imports-fix"  :exit t)
+    ;;("c" sjt-compile-proj "compile-proj"  :exit t)
+    ("c" sjt-compile-via-server "compile"  :exit t)
+    ("j" sjt-jar-via-server "jar"  :exit t)
+    ("h" sjt-info-via-server "info"  :exit t)
+    ("i" sjt-fix-imports-via-server "imports-fix"  :exit t)
+    ("a" sjt-import-and-compile "import and compile proj"  :exit t)
+                                        ;("c" sjt-clean-proj "compile-clean"  :exit t)
+    ("b" sjt-clean-and-compile-proj "clean and compile"  :exit t)))
 
 (use-package move-text
   :bind (("C-x <up>" . move-text-line-up)
