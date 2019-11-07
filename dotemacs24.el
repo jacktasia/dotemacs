@@ -316,7 +316,7 @@
          multiple-cursors fringe-helper flycheck f
          ido-sort-mtime flx-ido switch-window anzu smex exec-path-from-shell
          groovy-mode ag highlight-symbol ws-butler ht smart-mode-line
-         fic-mode multi-term
+         fic-mode multi-term dumb-diff
          ido-vertical-mode dtrt-indent js2-mode scss-mode helm helm-projectile
          flyspell-correct-ivy request nyan-mode avy emmet-mode default-text-scale
          expand-region yaml-mode clojure-mode
@@ -349,6 +349,7 @@
 ;;     "-i" "2" "-ci" "-ln" (cl-case (and (boundp 'sh-shell) (symbol-value 'sh-shell))
 ;;             (bash "bash") (mksh "mksh") (t "posix")))))
 
+(zoom-mode)
 (when jack-is-nix
   (dired-quick-sort-setup)
   (jack-ensure-google-java-format))
@@ -368,7 +369,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (bazel-mode dired-quick-sort zoom ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer)))
+    (dumb-diff bazel-mode dired-quick-sort zoom ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer)))
  '(zoom-size (quote size-callback)))
 
 (global-set-key (kbd "M-h") 'iflipb-next-buffer)
@@ -1146,7 +1147,8 @@
   :ensure
   :config
   ;(load-theme 'kaolin-valley-dark t) ; workold
-  (load-theme 'kaolin-light t) ; current work
+  ; (load-theme 'kaolin-light t) ; current work
+  (load-theme 'kaolin-valley-dark t) ; current work
 ;  (load-theme 'kaolin-galaxy t) ;; home
   ;(load-theme 'kaolin-bubblegum t) ;; work old
   (kaolin-treemacs-theme))

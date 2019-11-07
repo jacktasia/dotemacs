@@ -59,7 +59,7 @@
 (defun jack-work-mode ()
   (interactive)
   (diminish 'flycheck-mode "WORK")
-  (load-theme 'kaolin-light t))
+  (load-theme 'kaolin-aurora t))
   ;(load-theme 'kaolin-bubblegum t))
 
 (defun jack-home-mode ()
