@@ -37,7 +37,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Code:
-
+(setq bidi-inhibit-bpa t)
 (setq jack-is-linux (eq system-type 'gnu/linux))
 (setq jack-is-windows (eq system-type 'windows-nt))
 (setq jack-is-mac (eq system-type 'darwin))
@@ -328,8 +328,8 @@
          git-link smartparens move-text add-node-modules-path visible-mark cider terraform-mode puppet-mode
          emamux gh-md google-translate ivy-rich dockerfile-mode blacken
          fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister
-         binclock haskell-mode flymd imenu-list typescript-mode deadgrep iflipb format-all ace-window powerthesaurus ts zoom
-         dired-quick-sort)))
+         binclock haskell-mode flymd imenu-list typescript-mode deadgrep iflipb format-all ace-window
+         powerthesaurus ts zoom dired-quick-sort nord-theme yascroll ctrlf shfmt)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -355,7 +355,7 @@
   (jack-ensure-google-java-format))
 
 (defun size-callback ()
-  (cond ((> (frame-pixel-width) 2400) '(100 . 0.7))
+  (cond ((> (frame-pixel-width) 1800) '(100 . 0.7))
         (t                            '(0.5 . 0.5))))
 
 ;; TODO: move this up higher
@@ -365,12 +365,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+   '("6bc387a588201caf31151205e4e468f382ecc0b888bac98b2b525006f7cb3307" "dbade2e946597b9cda3e61978b5fcc14fa3afa2d3c4391d477bdaeff8f5638c5" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(package-selected-packages
-   (quote
-    (dumb-diff bazel-mode dired-quick-sort zoom ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer)))
- '(zoom-size (quote size-callback)))
+   '(shfmt vterm all-the-icons-ivy-rich janet-mode organic-green-theme ctrlf zzz-to-char yascroll nord-theme find-file-in-project cyberpunk-theme noccur dumb-diff bazel-mode dired-quick-sort zoom ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))
+ '(zoom-size 'size-callback))
 
 (global-set-key (kbd "M-h") 'iflipb-next-buffer)
 (global-set-key (kbd "M-H") 'iflipb-previous-buffer)
@@ -399,7 +397,7 @@
 
 (setq helm-ag-base-command "ag --mmap --nocolor --nogroup --ignore-case --ignore=*terraform.tfstate.backup*")
 
-
+(global-yascroll-bar-mode 1)
 (setq fci-rule-column 88)
 (setq fci-rule-color "#888800")
 (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
@@ -504,6 +502,19 @@
                                         ;("c" sjt-clean-proj "compile-clean"  :exit t)
     ("b" sjt-clean-and-compile-proj "clean and compile"  :exit t)))
 
+(when jack-is-nix
+  (load-file "/home/jack/code/sbg/sbg.el")
+  (load-file "/home/jack/code/sbg/gist-token.el")
+  (sbg-init))
+
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init (all-the-icons-ivy-rich-mode 1))
+
+(use-package ivy-rich
+  :ensure t
+  :init (ivy-rich-mode 1))
+
 (use-package move-text
   :bind (("C-x <up>" . move-text-line-up)
          ("C-x <down>" . move-text-line-down))
@@ -536,6 +547,8 @@
   ;:config (setq dumb-jump-selector 'ivy dumb-jump-force-searcher 'git-grep-plus-ag dumb-jump-aggressive nil dumb-jump-debug nil dumb-jump-use-visible-window nil) ;; (setq dumb-jump-selector 'helm)
   :ensure)
 
+(setq dumb-jump-force-searcher nil)
+
 (use-package smartparens
   :bind (("M-g a" . sp-beginning-of-sexp))
   :bind (("M-g e" . sp-end-of-sexp))
@@ -565,13 +578,11 @@
          ("<f2> u" . counsel-unicode-char))
   :ensure)
 
-(use-package counsel-projectile
-  :bind (("s-t" . counsel-projectile-find-file)
-         ("s-o" . counsel-projectile-find-file)
-         ("C-M-t" . jack-counsel-projectile-find-file-clear-cache)
-         ("C-t" . counsel-projectile-find-file)
+(use-package projectile
+  :bind (("C-t" . projectile-find-file-in-known-projects)
          :map dired-mode-map
-         ("C-t" . counsel-projectile-find-file))
+         ("C-t" . projectile-find-file-in-known-projects))
+  :config (setq projectile-completion-system 'ivy)
   :ensure)
 
 (global-set-key (kbd "s-T") 'jack-counsel-projectile-find-file-clear-cache)
@@ -579,22 +590,21 @@
 (global-set-key (kbd "s-<left>") 'move-beginning-of-line)
 (global-set-key (kbd "s-<right>") 'move-end-of-line)
 
+
 ;; (use-package writeroom-mode
 ;;   :config (jack-start-fullscreen)
 ;;   :ensure)
 
-(require 'spaceline-config)
-
-(spaceline-emacs-theme)
-
-(spaceline-toggle-minor-modes-off)
-(spaceline-toggle-major-mode-off)
-(spaceline-toggle-buffer-modified-on)
-(spaceline-toggle-buffer-size-off)
-(spaceline-toggle-version-control-on)
-(spaceline-toggle-buffer-encoding-abbrev-off)
-(spaceline-toggle-projectile-root-on)
-(spaceline-toggle-anzu-on)
+;; (require 'spaceline-config)
+;; (spaceline-emacs-theme)
+;; (spaceline-toggle-minor-modes-off)
+;; (spaceline-toggle-major-mode-off)
+;; (spaceline-toggle-buffer-modified-on)
+;; (spaceline-toggle-buffer-size-off)
+;; (spaceline-toggle-version-control-on)
+;; (spaceline-toggle-buffer-encoding-abbrev-off)
+;; (spaceline-toggle-projectile-root-on)
+;; (spaceline-toggle-anzu-on)
 
 
 (bind-keys* ("C-c f" . jack-reformat-block))
@@ -619,10 +629,11 @@
 
 
 
-(global-set-key (kbd "C-s") 'swiper)
+;(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-s") 'ctrlf-forward-literal)
 
 (projectile-global-mode +1)
-(setq projectile-enable-caching t)
+(setq projectile-enable-caching nil)
 
 ; (diminish 'flycheck-mode "HOME")
 (diminish 'flycheck-mode "WORK")
@@ -691,7 +702,7 @@
 
 (bind-keys* ("C-c v" . avy-goto-word-0))
 
-(persistent-scratch-setup-default)
+;; (persistent-scratch-setup-default)
 
 (key-chord-mode 1)
 ;; (key-chord-define-global "qw" 'undo)
@@ -1018,7 +1029,7 @@
 (add-hook 'before-save-hook #'gofmt-before-save)
 (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
 
-(add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
+;(add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
 
 (if (string-equal system-type "darwin")
   (setq gofmt-command "gofmt")
@@ -1140,18 +1151,31 @@
 (defun display-startup-echo-area-message ()
   (message "Emacs!"))
 
+;(load-theme 'zerodark-theme t)
+;(load-theme 'nord t)
 (jack-load-theme 'zerodark-theme)
-(zerodark-setup-modeline-format)
+;;(zerodark-setup-modeline-format)
 
-(use-package kaolin-themes
-  :ensure
-  :config
-  ;(load-theme 'kaolin-valley-dark t) ; workold
-  ; (load-theme 'kaolin-light t) ; current work
-  (load-theme 'kaolin-valley-dark t) ; current work
-;  (load-theme 'kaolin-galaxy t) ;; home
-  ;(load-theme 'kaolin-bubblegum t) ;; work old
-  (kaolin-treemacs-theme))
+;; (use-package kaolin-themes
+;;   :ensure
+;;   :config
+;;   ;(load-theme 'kaolin-valley-dark t) ; workold
+;;   ; (load-theme 'kaolin-light t) ; current work
+;; ;  (load-theme 'kaolin-valley-dark t) ; current work
+;; ;  (load-theme 'kaolin-galaxy t) ;; home
+;;   ;(load-theme 'kaolin-bubblegum t) ;; work old
+;;  ; (kaolin-treemacs-theme))
+;; )
+
+;(load-theme 'cyberpunk)
+
+
+;; (load-theme 'tao-yin t)
+
+;; so the hl-line doesn't ALWAYS do shit:
+;; (set-face-attribute 'hl-line nil :inherit nil :background nil)
+;; (set-face-attribute 'hl-line nil :inherit nil :foreground nil)
+
 
 ;; to detect if in `home` mode
 ; (setq global-mode-string (append global-mode-string "HOME"))
@@ -1176,8 +1200,14 @@
 ;; (when (member "Iosevka" (font-family-list))
 ;;   (set-frame-font "Iosevka-20"))
 
-(when (member "Noto Mono" (font-family-list))
-  (set-frame-font "Noto Mono-12"))
+;; (when (member "Noto Mono" (font-family-list))
+;;   (set-frame-font "Noto Mono-14"))
+
+(setq shfmt-command "shfmt")
+(setq shfmt-arguments '("-i" "2" "-ci"))
+
+(when (member "JetBrains Mono" (font-family-list))
+  (set-frame-font "JetBrains Mono-14"))
 
 
 (when (string-equal system-type "darwin")
