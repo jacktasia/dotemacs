@@ -329,7 +329,7 @@
          emamux gh-md google-translate ivy-rich dockerfile-mode blacken
          fill-column-indicator company-tabnine helm-make prettier-js indent-guide origami iregister
          binclock haskell-mode flymd imenu-list typescript-mode deadgrep iflipb format-all ace-window
-         powerthesaurus ts zoom dired-quick-sort nord-theme yascroll ctrlf shfmt)))
+         powerthesaurus ts zoom dired-quick-sort nord-theme yascroll ctrlf shfmt fancy-dabbrev)))
   ;; install the packages
   (jack-require-or-install-all pkgs-to-install))
 
@@ -349,6 +349,8 @@
 ;;     "-i" "2" "-ci" "-ln" (cl-case (and (boundp 'sh-shell) (symbol-value 'sh-shell))
 ;;             (bash "bash") (mksh "mksh") (t "posix")))))
 
+(global-fancy-dabbrev-mode)
+(global-set-key (kbd "<tab>") 'fancy-dabbrev-expand-or-indent)
 (zoom-mode)
 (when jack-is-nix
   (dired-quick-sort-setup)
@@ -367,7 +369,7 @@
  '(custom-safe-themes
    '("6bc387a588201caf31151205e4e468f382ecc0b888bac98b2b525006f7cb3307" "dbade2e946597b9cda3e61978b5fcc14fa3afa2d3c4391d477bdaeff8f5638c5" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(package-selected-packages
-   '(shfmt vterm all-the-icons-ivy-rich janet-mode organic-green-theme ctrlf zzz-to-char yascroll nord-theme find-file-in-project cyberpunk-theme noccur dumb-diff bazel-mode dired-quick-sort zoom ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))
+   '(fancy-dabbrev shfmt vterm all-the-icons-ivy-rich janet-mode organic-green-theme ctrlf zzz-to-char yascroll nord-theme find-file-in-project cyberpunk-theme noccur dumb-diff bazel-mode dired-quick-sort zoom ellocate ts ace-window powerthesaurus mw-thesaurus protobuf-mode sort-words matlab-mode kaolin-themes counsel-projectile counsel diff-hl magit dumb-jump format-all iflipb deadgrep typescript-mode imenu-list flymd haskell-mode binclock iregister origami indent-guide prettier-js helm-make company-tabnine fill-column-indicator blacken golden-ratio dockerfile-mode ivy-rich google-translate gh-md emamux vagrant-tramp puppet-mode terraform-mode cider visible-mark add-node-modules-path move-text smartparens git-link zerodark-theme gruvbox-theme slime hydra undo-tree py-autopep8 web-beautify spaceline delight yaml-mode ws-butler which-key web-mode volume visual-regexp use-package switch-window swiper spotify smooth-scrolling smex smart-mode-line scss-mode request rainbow-delimiters php-mode persistent-scratch osx-dictionary nyan-mode multi-term key-chord json-mode js2-mode ido-vertical-mode ido-sort-mtime hy-mode ht hlinum highlight-symbol helm-themes helm-swoop helm-projectile helm-ag groovy-mode grizzl goto-last-change google-this go-mode fringe-helper free-keys flyspell-correct-ivy flycheck flx-ido fic-mode expand-region exec-path-from-shell emmet-mode easy-kill dtrt-indent diminish default-text-scale crux company-tern company-jedi company-anaconda clojure-mode beacon auto-dim-other-buffers anzu ag ace-mc ace-jump-buffer))
  '(zoom-size 'size-callback))
 
 (global-set-key (kbd "M-h") 'iflipb-next-buffer)
@@ -578,13 +580,15 @@
          ("<f2> u" . counsel-unicode-char))
   :ensure)
 
+(setq projectile-enable-caching nil)
 (use-package projectile
-  :bind (("C-t" . projectile-find-file-in-known-projects)
-         :map dired-mode-map
-         ("C-t" . projectile-find-file-in-known-projects))
+  ;; :bind (("C-t" . projectile-find-file-in-known-projects)
+  ;;        :map dired-mode-map
+  ;;        ("C-t" . projectile-find-file-in-known-projects))
   :config (setq projectile-completion-system 'ivy)
   :ensure)
 
+(global-set-key (kbd "C-t") 'project-find-file)
 (global-set-key (kbd "s-T") 'jack-counsel-projectile-find-file-clear-cache)
 (global-set-key (kbd "s-r") 'revert-buffer)
 (global-set-key (kbd "s-<left>") 'move-beginning-of-line)
@@ -633,7 +637,7 @@
 (global-set-key (kbd "C-s") 'ctrlf-forward-literal)
 
 (projectile-global-mode +1)
-(setq projectile-enable-caching nil)
+;(setq projectile-enable-caching nil)
 
 ; (diminish 'flycheck-mode "HOME")
 (diminish 'flycheck-mode "WORK")
@@ -1028,6 +1032,11 @@
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'before-save-hook #'gofmt-before-save)
 (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
+
+(defun shfmt-before-save ()
+  (when (eq major-mode 'sh-mode)
+    (call-interactively 'shfmt-buffer)))
+(add-hook 'before-save-hook #'shfmt-before-save)
 
 ;(add-hook 'kill-emacs-hook 'pmdm-write-opened-files)
 
