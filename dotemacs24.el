@@ -1024,6 +1024,13 @@
     (setq c-basic-offset 2)
     (setq tab-width 2)))
 
+(add-hook 'sh-mode-hook
+  (lambda ()
+    (setq sh-indentation 2)
+    (setq sh-basic-offset 2)
+    (setq c-basic-offset 2)
+    (setq tab-width 2)))
+
 ;; (setq-default tab-width 2)
 ;(global-prettify-symbols-mode nil)
 
